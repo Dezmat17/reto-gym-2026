@@ -26,7 +26,7 @@
 - Mati: 0
 - Litox: 0
 - Fran: 0
- 
+
 ### Semana 3
 - Unyi: 0
 - Luca: 0
@@ -43,12 +43,7 @@
 
 ---
 
-## 🔥 Rachas del mes
-- Ninguna por ahora
-
----
-
-## 🎟️ Comodines
+## 🎟️ Comodines del mes
 - Unyi: 2
 - Luca: 2
 - Mati: 2
