@@ -37,7 +37,7 @@ y envía **foto al grupo de WhatsApp** esos días.
 
 ### ❌ ¿Cuándo NO se cumple la semana?
 - Si se entrena menos de 3 veces
-- Si no hay fotos que lo respalden (esto se puede perdonar)
+- Si no hay fotos que lo respalden 
 
 ---
 
