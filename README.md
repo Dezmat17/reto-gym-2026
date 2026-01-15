@@ -14,8 +14,8 @@
 
  Objetivo: Entrenar duro y pesado para no ser un gordo fofo.
  
- Premio para el GANADOR: NO PAGA EL ASADO
+ Premio para el ganador: NO PAGA EL ASADO
 
  Premio consuelo para el resto: PAGA LA MITAD DEL ASADO
  
- Castigo para el ULTIMO: PAGA EL TOTAL RESTANTE DEL ASADO
+ Castigo para el último: PAGA EL TOTAL RESTANTE DEL ASADO
