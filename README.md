@@ -3,9 +3,9 @@
 ##  Ranking Anual
 | Nombre | Días Totales | Racha Máx | Comodines |
 |------|-------------|-----------|-----------|
-| Matías | 0 | 0 | 2 |
-| Luca | 0 | 0 | 2 |
 | Unyi | 0 | 0 | 2 |
+| Luca | 0 | 0 | 2 |
+| Mati | 0 | 0 | 2 |
 | Litox | 0 | 0 | 2 |
 | Fran | 0 | 0 | 2 |
 
