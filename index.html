@@ -133,42 +133,41 @@
   text-align: center;
 }
 
-/* CONTENEDOR FLEX */
+/* CONTENEDOR */
 .meses {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* 👈 clave absoluta */
+  justify-content: center;
   gap: 18px;
   max-width: 720px;
   margin: 0 auto;
 }
 
-/* BOTÓN BASE */
+/* TARJETA BASE */
 .mes {
-  width: 140px;
-  padding: 16px 10px;
+  width: 160px;
+  padding: 18px 10px;
   border-radius: 14px;
   text-decoration: none;
-  font-weight: bold;
-  color: white;
+  font-weight: 600;
+  color: #1f2933;
+  background: #ffffff;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  border: 1px solid #e5e7eb;
+  transition: all 0.25s ease;
 }
 
-/* INTERCALADO DE COLORES */
-.mes:nth-child(odd) {
-  background: #2563eb; /* azul */
-}
-
+/* VARIANTE SUAVE (intercalada) */
 .mes:nth-child(even) {
-  background: #16a34a; /* verde */
+  background: #f9fafb;
 }
 
-/* HOVER */
+/* HOVER SOBRIO */
 .mes:hover {
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+  border-color: #9ca3af;
 }
 
     /* Splash de entrada */
