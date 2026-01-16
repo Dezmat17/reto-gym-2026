@@ -48,6 +48,12 @@
 - Litox: 0
 - Fran: 0
 
+### Semana 6
+- Unyi: 0
+- Luca: 0
+- Mati: 0
+- Litox: 0
+- Fran: 0
 ---
 
 ## 🎟️ Comodines del mes
