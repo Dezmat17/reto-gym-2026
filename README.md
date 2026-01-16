@@ -71,7 +71,7 @@ El ranking anual se define por:
 ## 🥩🍨 Premios y Castigos
 
 ### 🥇 Ganador Total del Reto
-- **No paga el asado** 🍨🍰
+- **No paga el asado** 🍖🍗
 
 ---
 
@@ -93,7 +93,7 @@ El ranking anual se define por:
   en esa semana, con foto en el grupo.
 - Puede haber empate.
 - El ganador del desafio extra obtiene 1/4 de Helado de Luccianos,
-  pagado por el resto de participantes.
+  pagado por el resto de participantes.🍨🍦
 
 📌 Regla especial:
 - Si el ganador del Premio Gluteos de Acero coincide con el
