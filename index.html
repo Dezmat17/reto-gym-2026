@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Reto Anual Gym 2026</title>
+  <title>Reto Masibros 2026</title>
 
   <style>
     /* ===== BASE ===== */
@@ -13,6 +13,44 @@
       color: #e5e7eb;
       line-height: 1.6;
       transition: background 0.3s, color 0.3s;
+    }
+
+    /* ===== MENÚ ===== */
+    nav {
+      background-color: #1f2933;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #fbbf24;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #fbbf2470;
+    }
+
+    #toggleDark {
+      margin-left: auto;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #fbbf24;
+      color: #1f2933;
+      font-weight: bold;
     }
 
     /* ===== BOTONES ===== */
@@ -30,22 +68,7 @@
     }
 
     .boton-cargar { background: #fbbf24; color: #1f2933; }
-    .boton-seguimiento { background: #1f2933; color: #fff; }
-
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-
-    /* Botón modo nocturno */
-    #toggleDark {
-      margin-left: 15px;
-      padding: 5px 10px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      background: #fbbf24;
-      color: #1f2933;
-      font-weight: bold;
-    }
 
     /* ===== SECCIONES ===== */
     section {
@@ -57,7 +80,14 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    h1, h2, h3 {
+    h1 {
+      text-align: center;
+      color: #fbbf24;
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    h2, h3 {
       text-align: center;
       color: #fbbf24;
     }
@@ -65,6 +95,8 @@
     ul {
       max-width: 600px;
       margin: auto;
+      padding-left: 0;
+      list-style: none;
     }
 
     table {
@@ -85,14 +117,6 @@
     th {
       background-color: #111827;
       color: #fbbf24;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #aaa;
-      font-size: 14px;
-      opacity: 0.6;
     }
 
     /* ===== SPLASH ===== */
@@ -154,22 +178,31 @@
     .participante:hover { transform: translateY(-6px); box-shadow: 0 18px 35px rgba(0,0,0,0.6); }
     @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
 
-    /* ===== MESES (colapsable) ===== */
-    #verMesesBtn {
-      display: block;
-      margin: 0 auto 10px auto;
-      padding: 8px 16px;
-      font-size: 14px;
-      font-weight: bold;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      background: #fbbf24;
-      color: #1f2933;
-      transition: all 0.3s ease;
+    /* ===== PREMIOS ===== */
+    .premios { 
+      background-color: #1f2933; 
+      padding: 25px; 
+      border-radius: 12px; 
+      text-align: center; 
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
-    #verMesesBtn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
+    .premios ul li {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    /* ===== REGLAS FADE ===== */
+    .reglas-fade {
+      text-align: center;
+      opacity: 0.7;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    /* ===== MESES ===== */
     .meses { display: none; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
     .mes {
       width: 160px;
@@ -186,79 +219,31 @@
     }
     .mes:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,0.5); }
 
-    /* ===== PREMIOS ===== */
-    .premios { 
-      background-color: #1f2933; 
-      padding: 25px; 
-      border-radius: 12px; 
-      text-align: center; 
-      margin: 20px auto;
-      max-width: 600px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-    }
-
-    .premios ul li {
-      font-size: 20px;
-      margin: 12px 0;
-    }
-
-    /* ===== REGLAS FADE ===== */
-    .reglas-fade {
-      text-align: center;
-      opacity: 0.7;
-      margin-top: 25px;
-      font-size: 14px;
-    }
-
-    /* ===== MODO CLARO ===== */
-    body.light-mode {
-      background: #f4f4f4;
-      color: #1f2933;
-    }
-    body.light-mode section {
-      background: #fff;
-      color: #1f2933;
-    }
-    body.light-mode h1, body.light-mode h2, body.light-mode h3 {
-      color: #1f2933;
-    }
-    body.light-mode th {
-      background: #e5e7eb;
-      color: #1f2933;
-    }
-    body.light-mode .mes {
-      background: #fff;
-      color: #1f2933;
-      border-color: #ccc;
-    }
-    body.light-mode .mes:hover { box-shadow: 0 10px 22px rgba(0,0,0,0.15); }
-    body.light-mode .premios ul li { color: #1f2933; }
-
   </style>
 </head>
 
 <body class="dark-mode">
 
 <div class="splash">
-  <h1>🏋️ Reto Anual Gym 2026</h1>
+  <h1>🏋️ Reto Masibros 2026</h1>
   <p>Constancia · Disciplina · Hábitos</p>
 </div>
 
 <!-- ===== MENÚ ===== -->
 <nav>
   <a href="#inicio">Inicio</a>
-  <a href="#premios">Premios</a>
   <a href="#ranking">Ranking</a>
   <a href="#mensual">Meses</a>
-  <a href="#reglas">Reglas</a>
   <button id="toggleDark">☀️ Modo diurno</button>
 </nav>
 
 <!-- ===== INICIO ===== -->
 <section id="inicio">
-  <h1>🏋️ Reto Anual Gym 2026</h1>
+  <h1>🏋️ Reto Masibros 2026</h1>
   <p style="text-align:center; font-size:18px;">📅 <strong>Del 1 de febrero al 1 de diciembre</strong></p>
-  <p style="text-align:center;">Un desafío enfocado en la <strong>constancia saludable</strong>, priorizando descansos y evitando presión diaria.</p>
+  <p style="text-align:center;">
+    Un desafío enfocado en la <strong>constancia saludable</strong>, priorizando descansos y evitando presión diaria.
+  </p>
   <div style="text-align:center; margin-top:20px;">
     <a href="cargar.html" class="boton boton-cargar">👉 Cargar entrenamiento</a>
   </div>
@@ -268,10 +253,10 @@
 <section class="premios" id="premios">
   <h2>🏆 Premios del Reto</h2>
   <ul>
-    <li>💪 <strong>Master Chad:</strong> Le invitan el asado.<br><small>Condición: quien más días asistió durante el año</small></li>
-    <li>💻 <strong>Mucho LAG:</strong> Pagar la mitad del asado.<br><small>Condición: asistencia intermedia, ni ganador ni último</small></li>
-    <li>🦖 <strong>Trolazus Minimus:</strong> Pagar el resto del asado.<br><small>Condición: quien menos días asistió durante el año</small></li>
-    <li>🏅 <strong>AFK MASTER:</strong> Premio extra: ¼ kg de helado Lucciano’s<br><small>Condición: mayor cantidad de semanas cumplidas; si coincide con Master Chad, pasa al siguiente participante</small></li>
+    <li>💪 <strong>Master Chad:</strong> Le invitan el Asado</li>
+    <li>💻 <strong>Mucho LAG:</strong> Pagar la mitad del asado</li>
+    <li>🦖 <strong>Trolazus Minimus:</strong> Pagar el resto del asado</li>
+    <li>🏅 <strong>AFK MASTER:</strong> ¼ de helado Lucciano’s pagado por todos</li>
   </ul>
 </section>
 
@@ -295,7 +280,7 @@
 <!-- ===== MENSUAL ===== -->
 <section id="mensual">
   <h2>📊 Seguimiento Mensual</h2>
-  <button id="verMesesBtn">Ver meses</button>
+  <button onclick="toggleMeses()" style="display:block; margin:auto; margin-bottom:15px; padding:8px 14px; font-weight:bold; border-radius:8px; cursor:pointer;">👀 Ver meses</button>
   <div class="meses">
     <a href="meses/febrero.html" class="mes">Febrero</a>
     <a href="meses/marzo.html" class="mes">Marzo</a>
@@ -329,7 +314,6 @@
   // ===== BOTÓN MODO NOCTURNO =====
   const toggle = document.getElementById("toggleDark");
   toggle.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
     if(document.body.classList.contains("dark-mode")){
       toggle.textContent = "☀️ Modo diurno";
@@ -339,17 +323,10 @@
   });
 
   // ===== BOTÓN VER MESES =====
-  const verMesesBtn = document.getElementById("verMesesBtn");
-  const mesesDiv = document.querySelector(".meses");
-  verMesesBtn.addEventListener("click", () => {
-    if(mesesDiv.style.display === "flex"){
-      mesesDiv.style.display = "none";
-      verMesesBtn.textContent = "Ver meses";
-    } else {
-      mesesDiv.style.display = "flex";
-      verMesesBtn.textContent = "Ocultar meses";
-    }
-  });
+  function toggleMeses(){
+    const meses = document.querySelector(".meses");
+    meses.style.display = meses.style.display === "flex" ? "none" : "flex";
+  }
 </script>
 
 </body>
