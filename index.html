@@ -2,27 +2,30 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Reto Gym 2026</title>
+  <title>Reto Anual Gym 2026</title>
 
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       background: #f4f4f4;
+      line-height: 1.6;
     }
 
     /* ===== MENÚ ===== */
     nav {
-      background: #2c3e50;
+      background: #1f2933;
       padding: 15px;
       position: sticky;
       top: 0;
+      text-align: center;
+      z-index: 100;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 15px;
+      margin: 0 12px;
       font-weight: bold;
     }
 
@@ -32,76 +35,158 @@
 
     /* ===== SECCIONES ===== */
     section {
-      padding: 60px 20px;
+      background: white;
+      margin: 20px;
+      padding: 30px;
+      border-radius: 8px;
+    }
+
+    h1, h2, h3 {
+      color: #1f2933;
       text-align: center;
     }
 
-    h1, h2 {
-      color: #2c3e50;
+    ul {
+      max-width: 600px;
+      margin: auto;
     }
 
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      background: #27ae60;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
+    table {
+      width: 100%;
+      max-width: 700px;
+      margin: auto;
+      border-collapse: collapse;
     }
 
-    button:hover {
-      background: #219150;
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
     }
 
-    #mensaje {
-      margin-top: 20px;
-      font-size: 20px;
+    th {
+      background: #e5e7eb;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #555;
+      font-size: 14px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ===== MENÚ DE NAVEGACIÓN ===== -->
+  <!-- ===== MENÚ ===== -->
   <nav>
     <a href="#inicio">Inicio</a>
-    <a href="#reto">El Reto</a>
+    <a href="#fechas">Fechas</a>
+    <a href="#participantes">Participantes</a>
     <a href="#reglas">Reglas</a>
-    <a href="#progreso">Progreso</a>
+    <a href="#ranking">Ranking</a>
+    <a href="#premios">Premios</a>
   </nav>
 
-  <!-- ===== SECCIONES ===== -->
+  <!-- ===== INICIO ===== -->
   <section id="inicio">
-    <h1>🏋️‍♂️ Reto Gym 2026</h1>
-    <p>Bienvenido al desafío. Constancia, disciplina y progreso.</p>
+    <h1>🏋️ Reto Anual Gym 2026</h1>
+    <p style="text-align:center;">
+      Un desafío enfocado en la <strong>constancia saludable</strong>,
+      el descanso y la construcción de un hábito real durante todo el año.
+    </p>
   </section>
 
-  <section id="reto">
-    <h2>🔥 ¿De qué trata el reto?</h2>
-    <p>Entrenar todos los días posibles durante 2026 y registrar el progreso.</p>
+  <!-- ===== FECHAS ===== -->
+  <section id="fechas">
+    <h2>📅 Fechas del reto</h2>
+    <ul>
+      <li><strong>Inicio:</strong> 1 de febrero</li>
+      <li><strong>Fin:</strong> 1 de diciembre</li>
+    </ul>
   </section>
 
+  <!-- ===== PARTICIPANTES ===== -->
+  <section id="participantes">
+    <h2>👥 Participantes</h2>
+    <ul>
+      <li>Unyi</li>
+      <li>Luca</li>
+      <li>Mati</li>
+      <li>Litox</li>
+      <li>Fran</li>
+    </ul>
+  </section>
+
+  <!-- ===== REGLAS ===== -->
   <section id="reglas">
-    <h2>📜 Reglas</h2>
-    <p>• Entrenamiento válido mínimo 30 minutos<br>
-       • Registrar cada día cumplido<br>
-       • Honestidad ante todo</p>
+    <h2>🔁 Sistema de Constancia Semanal</h2>
+
+    <h3>✅ Semana cumplida</h3>
+    <ul>
+      <li>Entrenar <strong>al menos 3 veces</strong> en la semana</li>
+      <li>Enviar <strong>foto al grupo de WhatsApp</strong></li>
+      <li>Los días no necesitan ser consecutivos</li>
+      <li>El descanso forma parte del entrenamiento</li>
+    </ul>
+
+    <h3>❌ Semana no cumplida</h3>
+    <ul>
+      <li>Menos de 3 entrenamientos</li>
+      <li>Sin fotos que lo respalden</li>
+    </ul>
+
+    <h3>🎟️ Comodines</h3>
+    <ul>
+      <li>2 comodines por mes por participante</li>
+      <li>No suman entrenamientos</li>
+      <li>Debe avisarse el mismo día en el grupo</li>
+    </ul>
   </section>
 
-  <section id="progreso">
-    <h2>📊 Progreso</h2>
-    <button onclick="mostrarMensaje()">Registrar día cumplido</button>
-    <p id="mensaje"></p>
+  <!-- ===== RANKING ===== -->
+  <section id="ranking">
+    <h2>📊 Ranking Anual</h2>
+
+    <table>
+      <tr>
+        <th>Nombre</th>
+        <th>Días Totales</th>
+        <th>Semanas Cumplidas</th>
+        <th>Comodines</th>
+      </tr>
+      <tr><td>Unyi</td><td>0</td><td>0</td><td>2</td></tr>
+      <tr><td>Luca</td><td>0</td><td>0</td><td>2</td></tr>
+      <tr><td>Mati</td><td>0</td><td>0</td><td>2</td></tr>
+      <tr><td>Litox</td><td>0</td><td>0</td><td>2</td></tr>
+      <tr><td>Fran</td><td>0</td><td>0</td><td>2</td></tr>
+    </table>
   </section>
 
-  <!-- ===== INTERACTIVIDAD ===== -->
-  <script>
-    function mostrarMensaje() {
-      document.getElementById("mensaje").innerText =
-        "✅ Día registrado. ¡Seguimos firmes!";
-    }
-  </script>
+  <!-- ===== PREMIOS ===== -->
+  <section id="premios">
+    <h2>🏆 Premios y Castigos</h2>
+
+    <ul>
+      <li><strong>🥇 Ganador total:</strong> no paga el asado</li>
+      <li><strong>🥈 Resto:</strong> pagan la mitad del asado</li>
+      <li><strong>💀 Último:</strong> paga el total restante</li>
+    </ul>
+
+    <h3>🏅 Premio Extra – Glúteos de Acero</h3>
+    <ul>
+      <li>Mayor cantidad de semanas cumplidas</li>
+      <li>Puede haber empate</li>
+      <li>Premio: <strong>¼ kg de helado Lucciano’s</strong> 🍨</li>
+      <li>Si coincide con el ganador total, pasa al siguiente</li>
+    </ul>
+  </section>
+
+  <footer>
+    📌 El administrador del reto es quien actualiza GitHub.<br>
+    El objetivo es sostener el hábito durante todo el año.
+  </footer>
 
 </body>
 </html>
