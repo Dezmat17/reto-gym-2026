@@ -3,63 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Reto Anual Gym 2026</title>
-
   <style>
-    /* ===== BASE ===== */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       background: #f4f4f4;
-      line-height: 1.6;
       color: #1f2933;
       transition: background 0.3s, color 0.3s;
     }
 
-    /* ===== PARTICIPANTES ===== */
-    .participantes-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 520px;
-      margin: 20px auto;
-    }
-
-    .participante {
-      padding: 22px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-      border-radius: 14px;
-      color: #1f2933;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: aparecer 0.6s ease forwards;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .participante:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
-    }
-
-    @keyframes aparecer {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .participante:nth-child(1) { animation-delay: 0.1s; }
-    .participante:nth-child(2) { animation-delay: 0.2s; }
-    .participante:nth-child(3) { animation-delay: 0.3s; }
-    .participante:nth-child(4) { animation-delay: 0.4s; }
-    .participante:nth-child(5) { animation-delay: 0.5s; }
-
-    .participante:last-child:nth-child(odd) {
-      grid-column: span 2;
-      max-width: 260px;
-      justify-self: center;
-    }
-
-    /* ===== MENÚ ===== */
     nav {
       background: #1f2933;
       padding: 15px;
@@ -76,11 +28,34 @@
       font-weight: bold;
     }
 
-    nav a:hover {
-      text-decoration: underline;
+    nav a:hover { text-decoration: underline; }
+
+    #toggleDark {
+      margin-left: 15px;
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #fbbf24;
+      color: #1f2933;
+      font-weight: bold;
     }
 
-    /* Botones grandes de acción */
+    section {
+      background: white;
+      margin: 20px;
+      padding: 30px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #1f2933;
+      transition: color 0.3s;
+    }
+
     .boton {
       display: inline-block;
       margin: 10px 8px;
@@ -96,48 +71,15 @@
 
     .boton-cargar { background: #fbbf24; color: #1f2933; }
     .boton-seguimiento { background: #1f2933; color: #fff; }
+    .boton-meses { background: #3b82f6; color: white; }
 
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-
-    /* Botón modo nocturno */
-    #toggleDark {
-      margin-left: 15px;
-      padding: 5px 10px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      background: #fbbf24;
-      color: #1f2933;
-      font-weight: bold;
-    }
-
-    /* ===== SECCIONES ===== */
-    section {
-      background: white;
-      margin: 20px;
-      padding: 30px;
-      border-radius: 8px;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    h1, h2, h3 {
-      color: #1f2933;
-      text-align: center;
-      transition: color 0.3s;
-    }
-
-    ul {
-      max-width: 600px;
-      margin: auto;
-    }
 
     table {
       width: 100%;
       max-width: 700px;
-      margin: auto;
+      margin: 20px auto;
       border-collapse: collapse;
-      transition: background 0.3s, color 0.3s;
     }
 
     th, td {
@@ -146,9 +88,7 @@
       text-align: center;
     }
 
-    th {
-      background: #e5e7eb;
-    }
+    th { background: #e5e7eb; }
 
     footer {
       text-align: center;
@@ -158,15 +98,13 @@
       transition: color 0.3s;
     }
 
-    #seguimiento { margin: 60px auto; text-align: center; }
-
     .meses {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 18px;
       max-width: 720px;
-      margin: 0 auto;
+      margin: 20px auto;
     }
 
     .mes {
@@ -219,152 +157,66 @@
       animation: fadeIn 1.8s ease;
     }
 
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.85); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 0.85; }
-    }
-
-    @keyframes splashOut {
-      0% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; visibility: hidden; }
-    }
+    @keyframes zoomIn { from {opacity:0; transform:scale(0.85);} to {opacity:1; transform:scale(1);} }
+    @keyframes fadeIn { from {opacity:0;} to {opacity:0.85;} }
+    @keyframes splashOut { 0% {opacity:1;} 80% {opacity:1;} 100% {opacity:0; visibility:hidden;} }
 
     /* ===== MODO NOCTURNO ===== */
-    body.dark-mode {
-      background-color: #111827;
-      color: #e5e7eb;
-    }
-
-    body.dark-mode section {
-      background-color: #1f2933;
-      color: #e5e7eb;
-    }
-
-    body.dark-mode nav { background-color: #111827; }
-    body.dark-mode nav a { color: #fbbf24; }
-
-    body.dark-mode .participante {
-      color: #fbbf24;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    }
-
-    body.dark-mode table {
-      background-color: #1f2933;
-      color: #e5e7eb;
-    }
-
-    body.dark-mode th { background-color: #111827; color: #fbbf24; }
-
-    body.dark-mode .mes {
-      background-color: #1f2933;
-      color: #fbbf24;
-      border-color: #333;
-    }
-
-    body.dark-mode .mes:nth-child(even) { background-color: #111827; }
-
-    body.dark-mode .splash {
-      background: linear-gradient(135deg, #111827, #1f2933);
-      color: #fbbf24;
-    }
-
-    body.dark-mode .splash h1 {
-      background: linear-gradient(90deg, #fbbf24, #f59e0b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    body.dark-mode h1,
-    body.dark-mode h2,
-    body.dark-mode h3 {
-      color: #fbbf24;
-    }
-
-    body.dark-mode section p,
-    body.dark-mode section li {
-      color: #e5e7eb;
-    }
+    body.dark-mode { background-color:#111827; color:#e5e7eb; }
+    body.dark-mode section { background-color:#1f2933; color:#e5e7eb; }
+    body.dark-mode nav { background-color:#111827; }
+    body.dark-mode nav a { color:#fbbf24; }
+    body.dark-mode table { background-color:#1f2933; color:#e5e7eb; }
+    body.dark-mode th { background-color:#111827; color:#fbbf24; }
+    body.dark-mode .mes { background-color:#1f2933; color:#fbbf24; border-color:#333; }
+    body.dark-mode .mes:nth-child(even) { background-color:#111827; }
+    body.dark-mode h1,h2 { color:#fbbf24; }
+    body.dark-mode section p, body.dark-mode section li { color:#e5e7eb; }
 
   </style>
 </head>
-
 <body>
+
 <div class="splash">
   <h1>🏋️ Reto Anual Gym 2026</h1>
   <p>Constancia · Disciplina · Hábitos</p>
 </div>
 
-<!-- ===== MENÚ ===== -->
+<!-- MENÚ -->
 <nav>
   <a href="#inicio">Inicio</a>
-  <a href="#reglas">Reglas</a>
-  <a href="#participantes">Participantes</a>
   <a href="#ranking">Ranking</a>
-  <a href="#mensual">Seguimiento</a>
-  <a href="#premios">Premios</a>
   <a href="#reglasPremios">Reglas & Premios</a>
   <button id="toggleDark">🌙 Modo nocturno</button>
 </nav>
 
-<!-- ===== INICIO ===== -->
+<!-- INICIO -->
 <section id="inicio">
   <h1>🏋️ Reto Anual Gym 2026</h1>
   <p style="text-align:center; font-size:18px;">📅 <strong>Del 1 de febrero al 1 de diciembre</strong></p>
-  <p style="text-align:center;">
-    Un desafío enfocado en la <strong>constancia saludable</strong>,
-    priorizando el descanso y evitando la presión de entrenar todos los días.
-  </p>
+  <p style="text-align:center;">Un desafío enfocado en la <strong>constancia saludable</strong>.</p>
+
   <div style="text-align:center; margin-top:20px;">
     <a href="cargar.html" class="boton boton-cargar">👉 Cargar entrenamiento</a>
-    <a href="seguimiento.html" class="boton boton-seguimiento">👉 Seguimiento general</a>
+    <button class="boton boton-meses" id="toggleMeses">📅 Ver meses</button>
+  </div>
+
+  <!-- MESES OPCIONALES -->
+  <div class="meses" id="mesesDetalle" style="display:none;">
+    <a href="meses/febrero.html" class="mes">Febrero</a>
+    <a href="meses/marzo.html" class="mes">Marzo</a>
+    <a href="meses/abril.html" class="mes">Abril</a>
+    <a href="meses/mayo.html" class="mes">Mayo</a>
+    <a href="meses/junio.html" class="mes">Junio</a>
+    <a href="meses/julio.html" class="mes">Julio</a>
+    <a href="meses/agosto.html" class="mes">Agosto</a>
+    <a href="meses/septiembre.html" class="mes">Septiembre</a>
+    <a href="meses/octubre.html" class="mes">Octubre</a>
+    <a href="meses/noviembre.html" class="mes">Noviembre</a>
   </div>
 </section>
 
-<!-- ===== REGLAS ===== -->
-<section id="reglas">
-  <h2>🔁 Sistema de Constancia Semanal</h2>
-
-  <h3>✅ Semana cumplida</h3>
-  <ul>
-    <li>Entrenar <strong>al menos 3 veces</strong> en la semana</li>
-    <li>Enviar <strong>foto al grupo de WhatsApp</strong></li>
-    <li>Los días no necesitan ser consecutivos</li>
-    <li>El descanso forma parte del entrenamiento</li>
-  </ul>
-
-  <h3>❌ Semana no cumplida</h3>
-  <ul>
-    <li>Menos de 3 entrenamientos</li>
-    <li>Sin fotos que lo respalden</li>
-  </ul>
-
-  <h3>🎟️ Comodines</h3>
-  <ul>
-    <li>2 comodines por mes por participante</li>
-    <li>No suman entrenamientos</li>
-    <li>Debe avisarse el mismo día en el grupo</li>
-  </ul>
-</section>
-
-<!-- ===== PARTICIPANTES ===== -->
-<section id="participantes">
-  <h2>👥 Participantes</h2>
-  <div class="participantes-grid">
-    <div class="participante">Unyi</div>
-    <div class="participante">Luca</div>
-    <div class="participante">Mati</div>
-    <div class="participante">Litox</div>
-    <div class="participante">Fran</div>
-  </div>
-</section>
-
-<!-- ===== RANKING ===== -->
+<!-- RANKING GENERAL -->
 <section id="ranking">
   <h2>📊 Ranking Anual</h2>
   <table>
@@ -382,33 +234,16 @@
   </table>
 </section>
 
-<!-- ===== MENSUAL ===== -->
-<section id="mensual">
-  <h2>📊 Seguimiento Mensual</h2>
-  <div class="meses">
-    <a href="meses/febrero.html" class="mes">Febrero</a>
-    <a href="meses/marzo.html" class="mes">Marzo</a>
-    <a href="meses/abril.html" class="mes">Abril</a>
-    <a href="meses/mayo.html" class="mes">Mayo</a>
-    <a href="meses/junio.html" class="mes">Junio</a>
-    <a href="meses/julio.html" class="mes">Julio</a>
-    <a href="meses/agosto.html" class="mes">Agosto</a>
-    <a href="meses/septiembre.html" class="mes">Septiembre</a>
-    <a href="meses/octubre.html" class="mes">Octubre</a>
-    <a href="meses/noviembre.html" class="mes">Noviembre</a>
-  </div>
-</section>
-
-<!-- ===== REGLAS & PREMIOS ===== -->
+<!-- REGLAS Y PREMIOS -->
 <section id="reglasPremios">
   <h2>📜 Reglas & Premios</h2>
   <ul>
-    <li>✅ Objetivo: mantener la constancia saludable todo el año</li>
+    <li>✅ Mantener constancia saludable todo el año</li>
     <li>🎯 Semana cumplida: al menos 3 entrenamientos con foto</li>
     <li>🥇 Ganador total: no paga el asado</li>
     <li>🥈 Resto: pagan la mitad del asado</li>
     <li>💀 Último: paga el total restante del asado</li>
-    <li>🏅 Premio Extra Glúteos de Acero: mayor cantidad de semanas cumplidas</li>
+    <li>🏅 Premio Extra – Glúteos de Acero: mayor cantidad de semanas cumplidas</li>
     <li>🍨 Si coincide con el ganador total, el premio pasa al siguiente participante</li>
   </ul>
 </section>
@@ -419,17 +254,27 @@
 </footer>
 
 <script>
-  // ===== BOTÓN MODO NOCTURNO =====
+  // Modo nocturno
   const toggle = document.getElementById("toggleDark");
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    if(document.body.classList.contains("dark-mode")){
-      toggle.textContent = "☀️ Modo diurno";
+    toggle.textContent = document.body.classList.contains("dark-mode") ? "☀️ Modo diurno" : "🌙 Modo nocturno";
+  });
+
+  // Mostrar/Ocultar meses
+  const btnMeses = document.getElementById("toggleMeses");
+  const meses = document.getElementById("mesesDetalle");
+  btnMeses.addEventListener("click", () => {
+    if (meses.style.display === "none") {
+      meses.style.display = "flex";
+      btnMeses.textContent = "📅 Ocultar meses";
     } else {
-      toggle.textContent = "🌙 Modo nocturno";
+      meses.style.display = "none";
+      btnMeses.textContent = "📅 Ver meses";
     }
   });
 </script>
 
 </body>
 </html>
+
