@@ -156,10 +156,14 @@ form.addEventListener("submit", e => {
     comodin: comodin.value
   };
 
-  fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  }).then(() => {
+fetch(API_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+})
+.then(() => {
     form.reset();
     cargarDatos();
   });
