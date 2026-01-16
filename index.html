@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Reto Gym 2026</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    button:hover {
+      background: #219150;
+    }
+    #mensaje {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏋️‍♂️ Reto Gym 2026</h1>
+  <p>¡Bienvenido/a! Entrena con constancia, registra tus días y seguí el desafío 👇</p>
+
+  <button onclick="saludar()">Contame un mensaje</button>
+  <p id="mensaje"></p>
+
+  <script>
+    function saludar() {
+      const fecha = new Date();
+      document.getElementById("mensaje").innerText =
+        "¡Vamos con todo! Hoy es " + fecha.toLocaleDateString();
+    }
+  </script>
+
+</body>
+</html>
