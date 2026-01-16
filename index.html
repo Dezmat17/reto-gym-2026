@@ -133,14 +133,14 @@
   text-align: center;
 }
 
-/* CONTENEDOR */
+/* CONTENEDOR FLEX */
 .meses {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* 👈 clave absoluta */
   gap: 18px;
   max-width: 720px;
-  margin: 0 auto; /* 👈 esto centra el bloque completo */
-  justify-items: center; /* 👈 centra cada recuadro */
+  margin: 0 auto;
 }
 
 /* BOTÓN BASE */
@@ -152,8 +152,17 @@
   font-weight: bold;
   color: white;
   text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* INTERCALADO DE COLORES */
+.mes:nth-child(odd) {
+  background: #2563eb; /* azul */
+}
+
+.mes:nth-child(even) {
+  background: #16a34a; /* verde */
 }
 
 /* HOVER */
@@ -161,18 +170,6 @@
   transform: translateY(-6px) scale(1.05);
   box-shadow: 0 14px 30px rgba(0,0,0,0.25);
 }
-
-/* COLORES POR MES */
-.feb { background: #2563eb; } /* azul */
-.mar { background: #16a34a; } /* verde */
-.abr { background: #7c3aed; } /* violeta */
-.may { background: #ea580c; } /* naranja */
-.jun { background: #0891b2; } /* cyan */
-.jul { background: #dc2626; } /* rojo */
-.ago { background: #ca8a04; } /* dorado */
-.sep { background: #4f46e5; }
-.oct { background: #9333ea; }
-.nov { background: #0f766e; }
 
     /* Splash de entrada */
 .splash {
@@ -324,19 +321,19 @@
    <!-- ===== MENSUAL ===== -->
 
   <section id="mensual">
-  <h2>📆 Seguimiento Mensual</h2>
+  <h2>📊 Seguimiento Mensual</h2>
 
   <div class="meses">
-    <a href="meses/febrero.html">Febrero</a>
-    <a href="meses/marzo.html">Marzo</a>
-    <a href="meses/abril.html">Abril</a>
-    <a href="meses/mayo.html">Mayo</a>
-    <a href="meses/junio.html">Junio</a>
-    <a href="meses/julio.html">Julio</a>
-    <a href="meses/agosto.html">Agosto</a>
-    <a href="meses/septiembre.html">Septiembre</a>
-    <a href="meses/octubre.html">Octubre</a>
-    <a href="meses/noviembre.html">Noviembre</a>
+    <a href="meses/febrero.html" class="mes">Febrero</a>
+    <a href="meses/marzo.html" class="mes">Marzo</a>
+    <a href="meses/abril.html" class="mes">Abril</a>
+    <a href="meses/mayo.html" class="mes">Mayo</a>
+    <a href="meses/junio.html" class="mes">Junio</a>
+    <a href="meses/julio.html" class="mes">Julio</a>
+    <a href="meses/agosto.html" class="mes">Agosto</a>
+    <a href="meses/septiembre.html" class="mes">Septiembre</a>
+    <a href="meses/octubre.html" class="mes">Octubre</a>
+    <a href="meses/noviembre.html" class="mes">Noviembre</a>
   </div>
 </section>
   <!-- ===== PREMIOS ===== -->
