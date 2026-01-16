@@ -155,7 +155,6 @@ form.addEventListener("submit", e => {
     foto: foto.value,
     comodin: comodin.value
   };
-
 fetch(API_URL, {
   method: "POST",
   headers: {
@@ -163,11 +162,12 @@ fetch(API_URL, {
   },
   body: JSON.stringify(data)
 })
+.then(res => res.text())
 .then(() => {
-    form.reset();
-    cargarDatos();
-  });
-});
+  form.reset();
+  cargarDatos();
+})
+.catch(err => console.error("Error:", err));
 
 function cargarDatos() {
   fetch(API_URL)
