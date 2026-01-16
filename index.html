@@ -75,6 +75,23 @@
       font-size: 14px;
     }
   </style>
+  .participantes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.participante {
+  background: #e5e7eb;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
 </head>
 
 <body>
@@ -109,16 +126,18 @@
   </section>
 
   <!-- ===== PARTICIPANTES ===== -->
-  <section id="participantes">
-    <h2>👥 Participantes</h2>
-    <ul>
-      <li>Unyi</li>
-      <li>Luca</li>
-      <li>Mati</li>
-      <li>Litox</li>
-      <li>Fran</li>
-    </ul>
-  </section>
+<section id="participantes">
+  <h2>👥 Participantes</h2>
+
+  <div class="participantes-grid">
+    <div class="participante">Unyi</div>
+    <div class="participante">Luca</div>
+    <div class="participante">Mati</div>
+    <div class="participante">Litox</div>
+    <div class="participante">Fran</div>
+  </div>
+</section>
+
 
   <!-- ===== REGLAS ===== -->
   <section id="reglas">
