@@ -87,6 +87,7 @@
     <a href="#reglas">Reglas</a>
     <a href="#ranking">Ranking</a>
     <a href="#premios">Premios</a>
+    <a href="#mensual">Seguimiento</a>
   </nav>
 
   <!-- ===== INICIO ===== -->
@@ -164,6 +165,38 @@
     </table>
   </section>
 
+  <section id="mensual">
+  <h2>📆 Seguimiento Mensual</h2>
+
+  <p style="text-align:center;">
+    Seleccioná un mes para ver el registro del reto.
+  </p>
+
+  <div style="text-align:center; margin-bottom:20px;">
+    <button onclick="cargarMes('febrero')">Febrero</button>
+    <button onclick="cargarMes('marzo')">Marzo</button>
+    <button onclick="cargarMes('abril')">Abril</button>
+    <button onclick="cargarMes('mayo')">Mayo</button>
+    <button onclick="cargarMes('junio')">Junio</button>
+    <button onclick="cargarMes('julio')">Julio</button>
+    <button onclick="cargarMes('agosto')">Agosto</button>
+    <button onclick="cargarMes('septiembre')">Septiembre</button>
+    <button onclick="cargarMes('octubre')">Octubre</button>
+    <button onclick="cargarMes('noviembre')">Noviembre</button>
+  </div>
+
+  <pre id="contenido-mes" style="
+    background:#f9f9f9;
+    padding:20px;
+    max-width:800px;
+    margin:auto;
+    white-space:pre-wrap;
+    border-radius:8px;
+  ">
+Seleccioná un mes para ver su contenido.
+  </pre>
+</section>
+
   <!-- ===== PREMIOS ===== -->
   <section id="premios">
     <h2>🏆 Premios y Castigos</h2>
@@ -188,5 +221,25 @@
     El objetivo es sostener el hábito durante todo el año.
   </footer>
 
+  <script>
+  function cargarMes(mes) {
+    fetch(mes + ".md")
+      .then(respuesta => {
+        if (!respuesta.ok) {
+          throw new Error("No se pudo cargar el archivo");
+        }
+        return respuesta.text();
+      })
+      .then(texto => {
+        document.getElementById("contenido-mes").innerText = texto;
+      })
+      .catch(error => {
+        document.getElementById("contenido-mes").innerText =
+          "❌ No se pudo cargar el contenido del mes.";
+      });
+  }
+</script>
+  
 </body>
+  
 </html>
