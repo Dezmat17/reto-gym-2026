@@ -100,8 +100,8 @@
     <option>Fran</option>
   </select>
 
-  <label>Día</label>
-  <input type="number" id="dia" min="1" max="31" required>
+  <label>Fecha de entrenamiento</label>
+ <input type="date" id="fecha" required>
 
   <label>¿Entrenó?</label>
   <select id="entreno">
@@ -128,7 +128,7 @@
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Día</th>
+      <th>Fecha</th>
       <th>Entrenó</th>
       <th>Foto</th>
       <th>Comodín</th>
@@ -150,7 +150,7 @@ form.addEventListener("submit", e => {
   const data = {
     mes: MES,
     nombre: nombre.value,
-    dia: dia.value,
+    fecha: fecha.value,
     entreno: entreno.value,
     foto: foto.value,
     comodin: comodin.value
