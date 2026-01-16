@@ -154,8 +154,23 @@
     .participante:hover { transform: translateY(-6px); box-shadow: 0 18px 35px rgba(0,0,0,0.6); }
     @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
 
-    /* ===== MESES ===== */
-    .meses { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
+    /* ===== MESES (colapsable) ===== */
+    #verMesesBtn {
+      display: block;
+      margin: 0 auto 10px auto;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: #fbbf24;
+      color: #1f2933;
+      transition: all 0.3s ease;
+    }
+    #verMesesBtn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+    .meses { display: none; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
     .mes {
       width: 160px;
       padding: 18px 10px;
@@ -183,8 +198,8 @@
     }
 
     .premios ul li {
-      font-size: 18px;
-      margin: 8px 0;
+      font-size: 20px;
+      margin: 12px 0;
     }
 
     /* ===== REGLAS FADE ===== */
@@ -194,6 +209,30 @@
       margin-top: 25px;
       font-size: 14px;
     }
+
+    /* ===== MODO CLARO ===== */
+    body.light-mode {
+      background: #f4f4f4;
+      color: #1f2933;
+    }
+    body.light-mode section {
+      background: #fff;
+      color: #1f2933;
+    }
+    body.light-mode h1, body.light-mode h2, body.light-mode h3 {
+      color: #1f2933;
+    }
+    body.light-mode th {
+      background: #e5e7eb;
+      color: #1f2933;
+    }
+    body.light-mode .mes {
+      background: #fff;
+      color: #1f2933;
+      border-color: #ccc;
+    }
+    body.light-mode .mes:hover { box-shadow: 0 10px 22px rgba(0,0,0,0.15); }
+    body.light-mode .premios ul li { color: #1f2933; }
 
   </style>
 </head>
@@ -208,8 +247,10 @@
 <!-- ===== MENÚ ===== -->
 <nav>
   <a href="#inicio">Inicio</a>
+  <a href="#premios">Premios</a>
   <a href="#ranking">Ranking</a>
   <a href="#mensual">Meses</a>
+  <a href="#reglas">Reglas</a>
   <button id="toggleDark">☀️ Modo diurno</button>
 </nav>
 
@@ -217,9 +258,7 @@
 <section id="inicio">
   <h1>🏋️ Reto Anual Gym 2026</h1>
   <p style="text-align:center; font-size:18px;">📅 <strong>Del 1 de febrero al 1 de diciembre</strong></p>
-  <p style="text-align:center;">
-    Un desafío enfocado en la <strong>constancia saludable</strong>, priorizando descansos y evitando presión diaria.
-  </p>
+  <p style="text-align:center;">Un desafío enfocado en la <strong>constancia saludable</strong>, priorizando descansos y evitando presión diaria.</p>
   <div style="text-align:center; margin-top:20px;">
     <a href="cargar.html" class="boton boton-cargar">👉 Cargar entrenamiento</a>
   </div>
@@ -229,10 +268,10 @@
 <section class="premios" id="premios">
   <h2>🏆 Premios del Reto</h2>
   <ul>
-    <li>💪 <strong>Master Chad:</strong> el que más días entrenó</li>
-    <li>⚡ <strong>Mucho LAG:</strong> los que participaron pero no ganaron ni quedaron últimos</li>
-    <li>🌀 <strong>Trolazus Minimus:</strong> el que quedó último</li>
-    <li>🏅 <strong>AFK MASTER:</strong> mayor cantidad de semanas cumplidas (si coincide con Master Chad, pasa al siguiente)</li>
+    <li>💪 <strong>Master Chad:</strong> Le invitan el asado.<br><small>Condición: quien más días asistió durante el año</small></li>
+    <li>💻 <strong>Mucho LAG:</strong> Pagar la mitad del asado.<br><small>Condición: asistencia intermedia, ni ganador ni último</small></li>
+    <li>🦖 <strong>Trolazus Minimus:</strong> Pagar el resto del asado.<br><small>Condición: quien menos días asistió durante el año</small></li>
+    <li>🏅 <strong>AFK MASTER:</strong> Premio extra: ¼ kg de helado Lucciano’s<br><small>Condición: mayor cantidad de semanas cumplidas; si coincide con Master Chad, pasa al siguiente participante</small></li>
   </ul>
 </section>
 
@@ -256,6 +295,7 @@
 <!-- ===== MENSUAL ===== -->
 <section id="mensual">
   <h2>📊 Seguimiento Mensual</h2>
+  <button id="verMesesBtn">Ver meses</button>
   <div class="meses">
     <a href="meses/febrero.html" class="mes">Febrero</a>
     <a href="meses/marzo.html" class="mes">Marzo</a>
@@ -289,11 +329,25 @@
   // ===== BOTÓN MODO NOCTURNO =====
   const toggle = document.getElementById("toggleDark");
   toggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
     if(document.body.classList.contains("dark-mode")){
       toggle.textContent = "☀️ Modo diurno";
     } else {
       toggle.textContent = "🌙 Modo nocturno";
+    }
+  });
+
+  // ===== BOTÓN VER MESES =====
+  const verMesesBtn = document.getElementById("verMesesBtn");
+  const mesesDiv = document.querySelector(".meses");
+  verMesesBtn.addEventListener("click", () => {
+    if(mesesDiv.style.display === "flex"){
+      mesesDiv.style.display = "none";
+      verMesesBtn.textContent = "Ver meses";
+    } else {
+      mesesDiv.style.display = "flex";
+      verMesesBtn.textContent = "Ocultar meses";
     }
   });
 </script>
