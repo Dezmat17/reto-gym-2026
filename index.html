@@ -1,63 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Reto Anual Gym 2026</title>
+
   <style>
+    /* ===== BASE ===== */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background: #f4f4f4;
-      color: #1f2933;
+      background: #111827;
+      color: #e5e7eb;
+      line-height: 1.6;
       transition: background 0.3s, color 0.3s;
     }
 
-    nav {
-      background: #1f2933;
-      padding: 15px;
-      position: sticky;
-      top: 0;
-      text-align: center;
-      z-index: 100;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 12px;
-      font-weight: bold;
-    }
-
-    nav a:hover { text-decoration: underline; }
-
-    #toggleDark {
-      margin-left: 15px;
-      padding: 5px 10px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      background: #fbbf24;
-      color: #1f2933;
-      font-weight: bold;
-    }
-
-    section {
-      background: white;
-      margin: 20px;
-      padding: 30px;
-      border-radius: 8px;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    h1, h2 {
-      text-align: center;
-      transition: color 0.3s;
-    }
-
-    /* Subtítulos negros en modo claro, amarillo solo en modo nocturno */
-    h2 { color: #1f2933; }
-
+    /* ===== BOTONES ===== */
     .boton {
       display: inline-block;
       margin: 10px 8px;
@@ -72,74 +30,77 @@
     }
 
     .boton-cargar { background: #fbbf24; color: #1f2933; }
-    .boton-meses { background: #3b82f6; color: white; }
+    .boton-seguimiento { background: #1f2933; color: #fff; }
 
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
+    /* Botón modo nocturno */
+    #toggleDark {
+      margin-left: 15px;
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #fbbf24;
+      color: #1f2933;
+      font-weight: bold;
+    }
+
+    /* ===== SECCIONES ===== */
+    section {
+      background-color: #1f2933;
+      color: #e5e7eb;
+      margin: 20px;
+      padding: 30px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      color: #fbbf24;
+    }
+
+    ul {
+      max-width: 600px;
+      margin: auto;
+    }
 
     table {
       width: 100%;
       max-width: 700px;
-      margin: 20px auto;
+      margin: auto;
       border-collapse: collapse;
+      background-color: #1f2933;
+      color: #e5e7eb;
     }
 
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #555;
       padding: 10px;
       text-align: center;
     }
 
-    th { background: #e5e7eb; }
+    th {
+      background-color: #111827;
+      color: #fbbf24;
+    }
 
-    /* PREMIOS llamativos */
-    .premio {
+    footer {
       text-align: center;
-      font-size: 20px;
-      margin: 12px 0;
-      padding: 12px 20px;
-      background: #fbbf24;
-      color: #1f2933;
-      border-radius: 12px;
-      font-weight: bold;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      padding: 20px;
+      color: #aaa;
+      font-size: 14px;
+      opacity: 0.6;
     }
 
-    .meses {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px;
-      max-width: 720px;
-      margin: 20px auto;
-    }
-
-    .mes {
-      width: 160px;
-      padding: 18px 10px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 600;
-      color: #1f2933;
-      background: #ffffff;
-      text-align: center;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-      border: 1px solid #e5e7eb;
-      transition: all 0.25s ease;
-    }
-
-    .mes:nth-child(even) { background: #f9fafb; }
-    .mes:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 22px rgba(0,0,0,0.15);
-      border-color: #9ca3af;
-    }
-
-    /* SPLASH */
+    /* ===== SPLASH ===== */
     .splash {
       position: fixed;
       inset: 0;
-      background: linear-gradient(135deg, #1f2933, #111827);
-      color: white;
+      background: linear-gradient(135deg, #111827, #1f2933);
+      color: #fbbf24;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -151,7 +112,7 @@
     .splash h1 {
       font-size: 40px;
       margin-bottom: 10px;
-      background: linear-gradient(90deg, #FFA500, #FF8C00);
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: zoomIn 1.5s ease;
@@ -163,70 +124,119 @@
       animation: fadeIn 1.8s ease;
     }
 
-    @keyframes zoomIn { from {opacity:0; transform:scale(0.85);} to {opacity:1; transform:scale(1);} }
-    @keyframes fadeIn { from {opacity:0;} to {opacity:0.85;} }
-    @keyframes splashOut { 0% {opacity:1;} 80% {opacity:1;} 100% {opacity:0; visibility:hidden;} }
+    @keyframes zoomIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 0.85; } }
+    @keyframes splashOut { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-    /* Modo nocturno */
-    body.dark-mode { background-color:#111827; color:#e5e7eb; }
-    body.dark-mode section { background-color:#1f2933; color:#e5e7eb; }
-    body.dark-mode nav { background-color:#111827; }
-    body.dark-mode nav a { color:#fbbf24; }
-    body.dark-mode table { background-color:#1f2933; color:#e5e7eb; }
-    body.dark-mode th { background-color:#111827; color:#fbbf24; }
-    body.dark-mode .mes { background-color:#1f2933; color:#fbbf24; border-color:#333; }
-    body.dark-mode .mes:nth-child(even) { background-color:#111827; }
-    body.dark-mode h1,h2 { color:#fbbf24; }
+    /* ===== PARTICIPANTES ===== */
+    .participantes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 520px;
+      margin: 20px auto;
+    }
+
+    .participante {
+      padding: 22px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      border-radius: 14px;
+      color: #fbbf24;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: aparecer 0.6s ease forwards;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .participante:hover { transform: translateY(-6px); box-shadow: 0 18px 35px rgba(0,0,0,0.6); }
+    @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== MESES ===== */
+    .meses { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
+    .mes {
+      width: 160px;
+      padding: 18px 10px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      color: #fbbf24;
+      background-color: #1f2933;
+      text-align: center;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+      border: 1px solid #333;
+      transition: all 0.25s ease;
+    }
+    .mes:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,0.5); }
+
+    /* ===== PREMIOS ===== */
+    .premios { 
+      background-color: #1f2933; 
+      padding: 25px; 
+      border-radius: 12px; 
+      text-align: center; 
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+
+    .premios ul li {
+      font-size: 18px;
+      margin: 8px 0;
+    }
+
+    /* ===== REGLAS FADE ===== */
+    .reglas-fade {
+      text-align: center;
+      opacity: 0.7;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
   </style>
 </head>
-<body>
+
+<body class="dark-mode">
 
 <div class="splash">
   <h1>🏋️ Reto Anual Gym 2026</h1>
   <p>Constancia · Disciplina · Hábitos</p>
 </div>
 
-<!-- MENÚ -->
+<!-- ===== MENÚ ===== -->
 <nav>
   <a href="#inicio">Inicio</a>
   <a href="#ranking">Ranking</a>
-  <a href="#reglas">Reglas</a>
-  <button id="toggleDark">🌙 Modo nocturno</button>
+  <a href="#mensual">Meses</a>
+  <button id="toggleDark">☀️ Modo diurno</button>
 </nav>
 
-<!-- INICIO -->
+<!-- ===== INICIO ===== -->
 <section id="inicio">
   <h1>🏋️ Reto Anual Gym 2026</h1>
   <p style="text-align:center; font-size:18px;">📅 <strong>Del 1 de febrero al 1 de diciembre</strong></p>
-  <p style="text-align:center;">Un desafío enfocado en la <strong>constancia saludable</strong>.</p>
-
+  <p style="text-align:center;">
+    Un desafío enfocado en la <strong>constancia saludable</strong>, priorizando descansos y evitando presión diaria.
+  </p>
   <div style="text-align:center; margin-top:20px;">
     <a href="cargar.html" class="boton boton-cargar">👉 Cargar entrenamiento</a>
-    <button class="boton boton-meses" id="toggleMeses">📅 Ver meses</button>
-  </div>
-
-  <!-- PREMIOS destacadísimos -->
-  <div class="premio">🥇 Ganador: NO PAGA EL ASADO</div>
-  <div class="premio">🥈 Resto: PAGA LA MITAD DEL ASADO</div>
-  <div class="premio">💀 Último: PAGA EL RESTANTE DEL ASADO</div>
-  <div class="premio">🏅 Premio Extra – Glúteos de Acero: 1/4 de helado Lucciano's 🍨</div>
-
-  <!-- MESES OPCIONALES -->
-  <div class="meses" id="mesesDetalle" style="display:none;">
-    <a href="meses/febrero.html" class="mes">Febrero</a>
-    <a href="meses/marzo.html" class="mes">Marzo</a>
-    <a href="meses/abril.html" class="mes">Abril</a>
-    <a href="meses/mayo.html" class="mes">Mayo</a>
-    <a href="meses/junio.html" class="mes">Junio</a>
-    <a href="meses/julio.html" class="mes">Julio</a>
-    <a href="meses/agosto.html" class="mes">Agosto</a>
-    <a href="meses/septiembre.html" class="mes">Septiembre</a>
-    <a href="meses/octubre.html" class="mes">Octubre</a>
-    <a href="meses/noviembre.html" class="mes">Noviembre</a>
   </div>
 </section>
 
-<!-- RANKING GENERAL -->
+<!-- ===== PREMIOS ===== -->
+<section class="premios" id="premios">
+  <h2>🏆 Premios del Reto</h2>
+  <ul>
+    <li>💪 <strong>Master Chad:</strong> el que más días entrenó</li>
+    <li>⚡ <strong>Mucho LAG:</strong> los que participaron pero no ganaron ni quedaron últimos</li>
+    <li>🌀 <strong>Trolazus Minimus:</strong> el que quedó último</li>
+    <li>🏅 <strong>AFK MASTER:</strong> mayor cantidad de semanas cumplidas (si coincide con Master Chad, pasa al siguiente)</li>
+  </ul>
+</section>
+
+<!-- ===== RANKING ===== -->
 <section id="ranking">
   <h2>📊 Ranking Anual</h2>
   <table>
@@ -243,36 +253,47 @@
   </table>
 </section>
 
-<!-- REGLAS AL FINAL -->
-<section id="reglas">
-  <h2>📜 Reglas Generales</h2>
-  <ul style="max-width:600px; margin:auto; font-size:16px;">
-    <li>✅ Mantener constancia saludable durante todo el año</li>
-    <li>🎯 Semana cumplida: al menos 3 entrenamientos con foto</li>
-    <li>🏅 Premio Extra Glúteos de Acero: mayor cantidad de semanas cumplidas. Si coincide con el ganador total, pasa al siguiente participante</li>
-  </ul>
+<!-- ===== MENSUAL ===== -->
+<section id="mensual">
+  <h2>📊 Seguimiento Mensual</h2>
+  <div class="meses">
+    <a href="meses/febrero.html" class="mes">Febrero</a>
+    <a href="meses/marzo.html" class="mes">Marzo</a>
+    <a href="meses/abril.html" class="mes">Abril</a>
+    <a href="meses/mayo.html" class="mes">Mayo</a>
+    <a href="meses/junio.html" class="mes">Junio</a>
+    <a href="meses/julio.html" class="mes">Julio</a>
+    <a href="meses/agosto.html" class="mes">Agosto</a>
+    <a href="meses/septiembre.html" class="mes">Septiembre</a>
+    <a href="meses/octubre.html" class="mes">Octubre</a>
+    <a href="meses/noviembre.html" class="mes">Noviembre</a>
+  </div>
 </section>
 
-<footer>
-  📌 El administrador del reto actualiza GitHub. El objetivo es sostener el hábito durante todo el año.
-</footer>
+<!-- ===== REGLAS ===== -->
+<section id="reglas">
+  <h2>📜 Reglas Generales</h2>
+  <ul>
+    <li>🏆 El ganador: el que más días haya asistido durante el año</li>
+    <li>📸 Dejar registro de asistencia en WhatsApp</li>
+    <li>🎯 Semana cumplida: al menos 3 entrenamientos con foto</li>
+    <li>🏅 Premio Extra AFK MASTER: mayor cantidad de semanas cumplidas (si coincide con el ganador, pasa al siguiente)</li>
+    <li>✅ Mantener constancia durante todo el año con descansos adecuados</li>
+  </ul>
+  <div class="reglas-fade">📌 El administrador del reto actualiza GitHub. El objetivo es sostener el hábito durante todo el año.</div>
+</section>
+
+<footer></footer>
 
 <script>
+  // ===== BOTÓN MODO NOCTURNO =====
   const toggle = document.getElementById("toggleDark");
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    toggle.textContent = document.body.classList.contains("dark-mode") ? "☀️ Modo diurno" : "🌙 Modo nocturno";
-  });
-
-  const btnMeses = document.getElementById("toggleMeses");
-  const meses = document.getElementById("mesesDetalle");
-  btnMeses.addEventListener("click", () => {
-    if (meses.style.display === "none") {
-      meses.style.display = "flex";
-      btnMeses.textContent = "📅 Ocultar meses";
+    if(document.body.classList.contains("dark-mode")){
+      toggle.textContent = "☀️ Modo diurno";
     } else {
-      meses.style.display = "none";
-      btnMeses.textContent = "📅 Ver meses";
+      toggle.textContent = "🌙 Modo nocturno";
     }
   });
 </script>
