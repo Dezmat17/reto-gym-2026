@@ -3,16 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>Reto Gym 2026</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      text-align: center;
-      padding: 20px;
+      margin: 0;
+      background: #f4f4f4;
     }
-    h1 {
+
+    /* ===== MENÚ ===== */
+    nav {
+      background: #2c3e50;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== SECCIONES ===== */
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1, h2 {
       color: #2c3e50;
     }
+
     button {
       padding: 15px 30px;
       font-size: 18px;
@@ -22,29 +49,57 @@
       cursor: pointer;
       border-radius: 6px;
     }
+
     button:hover {
       background: #219150;
     }
+
     #mensaje {
       margin-top: 20px;
       font-size: 20px;
-      color: #333;
     }
   </style>
 </head>
+
 <body>
 
-  <h1>🏋️‍♂️ Reto Gym 2026</h1>
-  <p>¡Bienvenido/a! Entrena con constancia, registra tus días y seguí el desafío 👇</p>
+  <!-- ===== MENÚ DE NAVEGACIÓN ===== -->
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#reto">El Reto</a>
+    <a href="#reglas">Reglas</a>
+    <a href="#progreso">Progreso</a>
+  </nav>
 
-  <button onclick="saludar()">Contame un mensaje</button>
-  <p id="mensaje"></p>
+  <!-- ===== SECCIONES ===== -->
+  <section id="inicio">
+    <h1>🏋️‍♂️ Reto Gym 2026</h1>
+    <p>Bienvenido al desafío. Constancia, disciplina y progreso.</p>
+  </section>
 
+  <section id="reto">
+    <h2>🔥 ¿De qué trata el reto?</h2>
+    <p>Entrenar todos los días posibles durante 2026 y registrar el progreso.</p>
+  </section>
+
+  <section id="reglas">
+    <h2>📜 Reglas</h2>
+    <p>• Entrenamiento válido mínimo 30 minutos<br>
+       • Registrar cada día cumplido<br>
+       • Honestidad ante todo</p>
+  </section>
+
+  <section id="progreso">
+    <h2>📊 Progreso</h2>
+    <button onclick="mostrarMensaje()">Registrar día cumplido</button>
+    <p id="mensaje"></p>
+  </section>
+
+  <!-- ===== INTERACTIVIDAD ===== -->
   <script>
-    function saludar() {
-      const fecha = new Date();
+    function mostrarMensaje() {
       document.getElementById("mensaje").innerText =
-        "¡Vamos con todo! Hoy es " + fecha.toLocaleDateString();
+        "✅ Día registrado. ¡Seguimos firmes!";
     }
   </script>
 
