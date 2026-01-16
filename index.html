@@ -1,178 +1,270 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>🏋️ Reto Masibros 2026</title>
-<style>
-  /* ===== BASE ===== */
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #111827;
-    color: #e5e7eb;
-    line-height: 1.6;
-    transition: background 0.3s, color 0.3s;
-  }
+  <meta charset="UTF-8">
+  <title>🏋️ Reto Masibros 2026</title>
 
-  /* ===== MENÚ SUPERIOR ===== */
-  nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    background-color: #1f2933;
-    padding: 12px 10px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    flex-wrap: wrap;
-  }
+  <style>
+    /* ===== BASE ===== */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #111827;
+      color: #e5e7eb;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
 
-  nav a {
-    color: #fbbf24;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    transition: color 0.3s;
-  }
-  nav a:hover { text-decoration: underline; }
+    /* ===== SPLASH ===== */
+    .splash {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #111827, #1f2933);
+      color: #fbbf24;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: splashOut 3s ease forwards;
+    }
 
-  #toggleDark {
-    margin-left: auto;
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px;
-    background: #fbbf24;
-    color: #1f2933;
-    font-weight: bold;
-    transition: all 0.3s ease;
-  }
-  #toggleDark:hover { transform: translateY(-2px); }
+    .splash h1 {
+      font-size: 50px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: zoomIn 1.5s ease;
+      text-align: center;
+    }
 
-  /* ===== TITULO ===== */
-  h1.page-title {
-    font-size: 48px;
-    text-align: center;
-    margin: 20px 0 10px 0;
-    color: #fbbf24;
-  }
+    .splash p {
+      font-size: 20px;
+      opacity: 0.85;
+      animation: fadeIn 1.8s ease;
+      text-align: center;
+    }
 
-  /* ===== BOTONES ===== */
-  .boton {
-    display: inline-block;
-    margin: 10px 8px;
-    padding: 14px 28px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-  }
-  .boton-cargar { background: #fbbf24; color: #1f2933; }
-  .boton-seguimiento { background: #1f2933; color: #fff; }
-  .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+    @keyframes zoomIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 0.85; } }
+    @keyframes splashOut { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-  /* ===== SECCIONES ===== */
-  section {
-    background-color: #1f2933;
-    color: #e5e7eb;
-    margin: 20px auto;
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 900px;
-    transition: background 0.3s, color 0.3s;
-  }
+    /* ===== MENÚ ===== */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #1f2933;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-wrap: wrap;
+    }
 
-  h2, h3 { text-align: center; color: #fbbf24; }
-  table { width: 100%; border-collapse: collapse; background-color: #1f2933; color: #e5e7eb; margin: 0 auto; }
-  th, td { border: 1px solid #555; padding: 10px; text-align: center; }
-  th { background-color: #111827; color: #fbbf24; }
+    nav .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      flex: 1;
+    }
 
-  /* ===== PREMIOS ===== */
-  .premios {
-    text-align: center;
-    margin: 20px auto;
-    padding: 25px;
-    border-radius: 12px;
-    max-width: 650px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  }
-  .premios li {
-    font-size: 20px;
-    margin: 10px 0;
-    list-style: none;
-  }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 6px 12px;
+      transition: color 0.3s, background 0.3s;
+      border-radius: 6px;
+    }
 
-  /* ===== REGLAS FADE ===== */
-  .reglas-fade {
-    text-align: center;
-    opacity: 0.7;
-    margin-top: 20px;
-    font-size: 16px;
-  }
+    nav a:hover { background-color: #fbbf24; color: #1f2933; }
 
-  /* ===== PARTICIPANTES ===== */
-  .participantes-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    max-width: 520px;
-    margin: 20px auto;
-  }
-  .participante {
-    padding: 22px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    border-radius: 14px;
-    color: #fbbf24;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: aparecer 0.6s ease forwards;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .participante:hover { transform: translateY(-6px); box-shadow: 0 18px 35px rgba(0,0,0,0.6); }
-  @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
+    #toggleDark {
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background: #fbbf24;
+      color: #1f2933;
+      font-weight: bold;
+      margin-left: 15px;
+      margin-top: 5px;
+    }
 
-  /* ===== MESES ===== */
-  .meses { display: none; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
-  .mes { width: 160px; padding: 18px 10px; border-radius: 14px; font-weight: 600; color: #fbbf24; background-color: #1f2933; text-align: center; box-shadow: 0 6px 14px rgba(0,0,0,0.3); border: 1px solid #333; transition: all 0.25s ease; text-decoration: none;}
-  .mes:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,0.5); }
+    /* ===== BOTONES ===== */
+    .boton {
+      display: inline-block;
+      margin: 10px 8px;
+      padding: 14px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
 
-  /* ===== SPLASH ===== */
-  .splash {
-    position: fixed; inset: 0;
-    background: linear-gradient(135deg, #111827, #1f2933);
-    color: #fbbf24;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    z-index: 9999;
-    animation: splashOut 3s ease forwards;
-  }
-  .splash h1 { font-size: 48px; margin-bottom: 10px; background: linear-gradient(90deg,#fbbf24,#f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: zoomIn 1.5s ease;}
-  .splash p { font-size: 18px; opacity: 0.85; animation: fadeIn 1.8s ease;}
-  @keyframes zoomIn { from { opacity:0; transform:scale(0.85);} to { opacity:1; transform:scale(1);} }
-  @keyframes fadeIn { from { opacity:0;} to { opacity:0.85; } }
-  @keyframes splashOut { 0%{opacity:1;} 80%{opacity:1;} 100%{opacity:0; visibility:hidden;} }
+    .boton-cargar { background: #fbbf24; color: #1f2933; }
+    .boton-seguimiento { background: #1f2933; color: #fff; border: 2px solid #fbbf24; }
 
-  /* ===== MODO CLARO ===== */
-  body.light-mode { background: #f4f4f4; color:#1f2933; }
-  body.light-mode section { background: #fff; color:#1f2933; }
-  body.light-mode h2, body.light-mode h3 { color: #1f2933; }
-  body.light-mode table { background:#fff; color:#1f2933; }
-  body.light-mode th { background:#e5e7eb; color:#1f2933; }
-  body.light-mode .premios li { color:#1f2933; }
-  body.light-mode .mes { background:#fff; color:#1f2933; border-color:#ccc; }
-  body.light-mode nav { background:#e5e7eb; }
-  body.light-mode nav a { color:#1f2933; }
-  body.light-mode #toggleDark { background:#1f2933; color:#fbbf24; }
-</style>
+    .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
+    /* ===== SECCIONES ===== */
+    section {
+      background-color: #1f2933;
+      color: #e5e7eb;
+      margin: 20px;
+      padding: 30px;
+      border-radius: 12px;
+      transition: background 0.3s, color 0.3s;
+      animation: aparecer 0.6s ease forwards;
+    }
+
+    h1, h2, h3 { text-align: center; color: #fbbf24; margin-bottom: 15px; }
+    ul { max-width: 700px; margin: auto; padding-left: 0; list-style: none; }
+    ul li { margin: 8px 0; }
+
+    /* ===== TABLAS ===== */
+    table {
+      width: 100%;
+      max-width: 700px;
+      margin: auto;
+      border-collapse: collapse;
+      background-color: #1f2933;
+      color: #e5e7eb;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #555;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #111827;
+      color: #fbbf24;
+    }
+
+    /* ===== PREMIOS ===== */
+    .premios {
+      max-width: 650px;
+      margin: 20px auto;
+      background-color: #1f2933;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      animation: aparecer 0.8s ease forwards;
+    }
+
+    .premios li {
+      font-size: 20px;
+      margin: 12px 0;
+    }
+
+    /* ===== REGLAS FADE ===== */
+    .reglas-fade {
+      text-align: center;
+      opacity: 0.7;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    /* ===== PARTICIPANTES ===== */
+    .participantes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 520px;
+      margin: 20px auto;
+    }
+
+    .participante {
+      padding: 22px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      border-radius: 14px;
+      color: #fbbf24;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: aparecer 0.6s ease forwards;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .participante:hover { transform: translateY(-6px); box-shadow: 0 18px 35px rgba(0,0,0,0.6); }
+
+    @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== MESES ===== */
+    .meses {
+      display: none; /* Oculto por defecto */
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      max-width: 720px;
+      margin: 20px auto 0 auto;
+    }
+
+    .mes {
+      width: 160px;
+      padding: 18px 10px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      color: #fbbf24;
+      background-color: #1f2933;
+      text-align: center;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+      border: 1px solid #333;
+      transition: all 0.25s ease;
+    }
+
+    .mes:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,0.5); }
+
+    .btn-ver-meses {
+      display: inline-block;
+      margin: 10px auto;
+      padding: 12px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      border: none;
+      background-color: #fbbf24;
+      color: #1f2933;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-ver-meses:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
+    footer { text-align: center; padding: 20px; color: #aaa; opacity: 0.6; }
+
+    /* ===== MODO CLARO ===== */
+    body.light-mode {
+      background-color: #f4f4f4;
+      color: #1f2933;
+    }
+
+    body.light-mode section { background-color: #fff; color: #1f2933; }
+    body.light-mode table { background-color: #fff; color: #1f2933; }
+    body.light-mode th { background-color: #e5e7eb; color: #1f2933; }
+    body.light-mode .premios { background-color: #fff; color: #1f2933; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    body.light-mode .mes { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
+    body.light-mode nav { background-color: #1f2933; }
+    body.light-mode nav a { color: #fbbf24; }
+    body.light-mode #toggleDark { background-color: #fbbf24; color: #1f2933; }
+  </style>
 </head>
+
 <body class="dark-mode">
 
 <div class="splash">
@@ -180,43 +272,40 @@
   <p>Constancia · Disciplina · Hábitos</p>
 </div>
 
-<!-- MENÚ -->
+<!-- ===== MENÚ ===== -->
 <nav>
-  <a href="#inicio">Inicio</a>
-  <a href="#cargar">Cargar entrenamiento</a>
-  <a href="#ranking">Ranking</a>
-  <a href="#mensual">Meses</a>
-  <a href="#premios">Premios</a>
-  <a href="#reglas">Reglas</a>
+  <div class="nav-links">
+    <a href="#inicio">Inicio</a>
+    <a href="#cargar">Cargar entrenamiento</a>
+    <a href="#ranking">Ranking</a>
+    <a href="#premios">Premios</a>
+    <a href="#mensual">Meses</a>
+    <a href="#reglas">Reglas</a>
+  </div>
   <button id="toggleDark">☀️ Modo diurno</button>
 </nav>
 
-<!-- INICIO -->
+<!-- ===== INICIO ===== -->
 <section id="inicio">
-  <h1 class="page-title">🏋️ Reto Masibros 2026</h1>
+  <h1>🏋️ Reto Masibros 2026</h1>
   <p style="text-align:center; font-size:18px;">📅 <strong>Del 1 de febrero al 1 de diciembre</strong></p>
-  <p style="text-align:center;">Un desafío enfocado en la <strong>constancia saludable</strong>, priorizando descansos y evitando presión diaria.</p>
+  <p style="text-align:center;">
+    Un desafío enfocado en la <strong>constancia saludable</strong>, priorizando descansos y evitando presión diaria.
+  </p>
   <div style="text-align:center; margin-top:20px;">
-    <a href="#cargar" class="boton boton-cargar">👉 Cargar entrenamiento</a>
+    <a href="cargar.html" class="boton boton-cargar">👉 Cargar entrenamiento</a>
   </div>
 </section>
 
-<!-- PREMIOS -->
-<section class="premios" id="premios">
-  <h2>🏆 Premios del Reto</h2>
-  <ul>
-    <li>💪 <strong>Master Chad:</strong> le invitan el asado. Condición: más días entrenados</li>
-    <li>💻 <strong>Mucho LAG:</strong> paga la mitad del asado. Condición: asistencia intermedia</li>
-    <li>🦖 <strong>Trolazus Minimus:</strong> paga el resto del asado. Condición: menos días asistidos</li>
-    <li>🏅 <strong>AFK MASTER:</strong> 1/4 de helado Lucciano’s pagado por todos. Condición: mayor cantidad de semanas cumplidas (si coincide con Master Chad, pasa al siguiente)</li>
-  </ul>
-</section>
-
-<!-- RANKING -->
+<!-- ===== RANKING ===== -->
 <section id="ranking">
   <h2>📊 Ranking Anual</h2>
   <table>
-    <tr><th>Nombre</th><th>Días Totales</th><th>Semanas Cumplidas</th></tr>
+    <tr>
+      <th>Nombre</th>
+      <th>Días Totales</th>
+      <th>Semanas Cumplidas</th>
+    </tr>
     <tr><td>Unyi</td><td>0</td><td>0</td></tr>
     <tr><td>Luca</td><td>0</td><td>0</td></tr>
     <tr><td>Mati</td><td>0</td><td>0</td></tr>
@@ -225,11 +314,24 @@
   </table>
 </section>
 
-<!-- MESES -->
+<!-- ===== PREMIOS ===== -->
+<section class="premios" id="premios">
+  <h2>🏆 Premios del Reto</h2>
+  <ul>
+    <li>💪 <strong>Master Chad:</strong> Le invitan el asado. Condición: quien más días asistió durante el año.</li>
+    <li>⚡ <strong>Mucho LAG:</strong> Pagar la mitad del asado. Condición: asistencia intermedia, ni ganador ni último.</li>
+    <li>🦖 <strong>Trolazus Minimus:</strong> Pagar el resto del asado. Condición: quien menos días asistió durante el año.</li>
+    <li>🏅 <strong>AFK MASTER:</strong> 1/4 kg de helado Lucciano’s pagado por todos. Condición: mayor cantidad de semanas cumplidas; si coincide con Master Chad, pasa al siguiente.</li>
+  </ul>
+</section>
+
+<!-- ===== MENSUAL ===== -->
 <section id="mensual">
   <h2>📊 Seguimiento Mensual</h2>
-  <button id="toggleMeses" class="boton boton-seguimiento">📅 Ver meses</button>
-  <div class="meses">
+  <div style="text-align:center;">
+    <button class="btn-ver-meses" id="toggleMeses">👀 Ver meses</button>
+  </div>
+  <div class="meses" id="mesesLinks">
     <a href="meses/febrero.html" class="mes">Febrero</a>
     <a href="meses/marzo.html" class="mes">Marzo</a>
     <a href="meses/abril.html" class="mes">Abril</a>
@@ -243,11 +345,11 @@
   </div>
 </section>
 
-<!-- REGLAS -->
+<!-- ===== REGLAS ===== -->
 <section id="reglas">
   <h2>📜 Reglas Generales</h2>
   <ul>
-    <li>🏆 Ganador: el que más días haya asistido durante el año</li>
+    <li>🏆 El ganador: el que más días haya asistido durante el año</li>
     <li>📸 Dejar registro de asistencia en WhatsApp</li>
     <li>🎯 Semana cumplida: al menos 3 entrenamientos con foto</li>
     <li>🏅 Premio Extra AFK MASTER: mayor cantidad de semanas cumplidas (si coincide con el ganador, pasa al siguiente)</li>
@@ -259,20 +361,29 @@
 <footer></footer>
 
 <script>
-  // BOTÓN MODO CLARO/NOCTURNO
+  // ===== BOTÓN MODO NOCTURNO / DIURNO =====
   const toggle = document.getElementById("toggleDark");
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
-    if(document.body.classList.contains("dark-mode")) toggle.textContent = "☀️ Modo diurno";
-    else toggle.textContent = "🌙 Modo nocturno";
+    if(document.body.classList.contains("dark-mode")){
+      toggle.textContent = "☀️ Modo diurno";
+    } else {
+      toggle.textContent = "🌙 Modo nocturno";
+    }
   });
 
-  // BOTÓN MOSTRAR/Ocultar MESES
-  const toggleMeses = document.getElementById("toggleMeses");
-  const meses = document.querySelector(".meses");
-  toggleMeses.addEventListener("click", () => {
-    meses.style.display = meses.style.display === "flex" ? "none" : "flex";
+  // ===== BOTÓN VER MESES =====
+  const btnMeses = document.getElementById("toggleMeses");
+  const mesesDiv = document.getElementById("mesesLinks");
+  btnMeses.addEventListener("click", () => {
+    if(mesesDiv.style.display === "flex"){
+      mesesDiv.style.display = "none";
+      btnMeses.textContent = "👀 Ver meses";
+    } else {
+      mesesDiv.style.display = "flex";
+      btnMeses.textContent = "🙈 Ocultar meses";
+    }
   });
 </script>
 
