@@ -20,11 +20,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #1f2933;
+      background: rgba(31, 41, 51, 0.95); /* semitransparente */
       padding: 12px 20px;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: background 0.3s, box-shadow 0.3s, padding 0.3s;
+      backdrop-filter: blur(6px);
     }
 
     .menu-items {
@@ -36,13 +39,12 @@
     }
 
     nav a {
-      color: #fbbf24; /* amarillo nocturno */
+      color: #fbbf24; /* nocturno por defecto */
       text-decoration: none;
       font-weight: bold;
       font-size: 16px;
       transition: color 0.3s;
     }
-
     nav a:hover { text-decoration: underline; }
 
     /* Botón de modo integrado al menú */
@@ -66,8 +68,18 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    h1 { text-align: center; font-size: 48px; margin-bottom: 10px; transition: color 0.3s; }
-    h2, h3 { text-align: center; color: #fbbf24; transition: color 0.3s; }
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #fbbf24;
+      transition: color 0.3s;
+    }
 
     ul { max-width: 600px; margin: auto; }
 
@@ -97,9 +109,9 @@
       transition: all 0.3s ease;
       text-decoration: none;
     }
-
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
 
+    /* Botones específicos */
     .boton-cargar {}
     .boton-seguimiento {}
 
@@ -160,7 +172,7 @@
     /* ===== MODO DIURNO/NOCTURNO ===== */
     body.dark-mode { background-color: #111827; color: #e5e7eb; }
     body.dark-mode section { background-color: #1f2933; color: #e5e7eb; }
-    body.dark-mode nav { background-color: #1f2933; }
+    body.dark-mode nav { background-color: rgba(31, 41, 51, 0.95); }
     body.dark-mode nav a { color: #fbbf24; }
     body.dark-mode #toggleDark { background-color: #fbbf24; color: #111827; }
     body.dark-mode .boton-cargar { background: #fbbf24; color: #111827; }
@@ -169,22 +181,22 @@
 
     body.light-mode { background-color: #f4f4f4; color: #1f2933; }
     body.light-mode section { background-color: #fff; color: #1f2933; }
-    body.light-mode nav { background-color: #1f2933; }
-    body.light-mode nav a { color: #fff; } /* blanco menú diurno */
+    body.light-mode nav { background-color: #fff; }
+    body.light-mode nav a { color: #111827; }
     body.light-mode #toggleDark { background-color: #fff; color: #111827; }
     body.light-mode .boton-cargar { background: #111827; color: #fff; }
     body.light-mode .boton-seguimiento { background: #111827; color: #fff; }
     body.light-mode .premios { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
     body.light-mode h1, body.light-mode h2, body.light-mode h3 { color: #1f2933; }
 
-    /* ===== AJUSTES CELULAR ===== */
+    /* ===== AJUSTE PARA MÓVIL ===== */
     @media (max-width: 600px) {
+      nav a { font-size: 18px; }
+      #toggleDark { font-size: 16px; padding: 8px 14px; }
+      .boton { font-size: 18px; padding: 14px 26px; }
       h1 { font-size: 36px; }
       h2 { font-size: 28px; }
-      .boton { font-size: 18px; padding: 16px 28px; }
-      nav { padding: 16px 12px; }
-      .menu-items { gap: 12px; flex-wrap: wrap; }
-      table { font-size: 14px; }
+      .premios ul li { font-size: 22px; }
     }
   </style>
 </head>
@@ -193,7 +205,7 @@
 
 <div class="splash">
   <h1>🏋️ Reto Masibros 2026</h1>
-  <p>Constancia · Disciplina · Hábitos</p>
+  <p>Constancia · Asado · Disciplina</p>
 </div>
 
 <!-- ===== MENÚ ===== -->
@@ -273,13 +285,12 @@
 </section>
 
 <script>
-  // ===== ELEMENTOS =====
+  // ===== BOTÓN MODO DIURNO/NOCTURNO =====
   const toggle = document.getElementById("toggleDark");
   const btnCargar = document.querySelector(".boton-cargar");
   const btnMeses = document.querySelector(".boton-seguimiento");
-  const menuLinks = document.querySelectorAll("nav a");
+  const menuLinks = document.querySelectorAll('nav a');
 
-  // ===== MODO DIURNO/NOCTURNO =====
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
@@ -288,29 +299,37 @@
     } else {
       toggle.textContent = "🌙";
     }
-    actualizarColoresModo();
+    actualizarBotonesModo();
   });
 
-  function actualizarColoresModo() {
+  function actualizarBotonesModo() {
     if(document.body.classList.contains("dark-mode")) {
       btnCargar.style.background = "#fbbf24"; btnCargar.style.color = "#111827";
       btnMeses.style.background = "#fbbf24"; btnMeses.style.color = "#111827";
-      menuLinks.forEach(link => link.style.color = "#fbbf24");
-      toggle.style.background = "#fbbf24"; toggle.style.color = "#111827";
+      menuLinks.forEach(a => a.style.color = "#fbbf24");
     } else {
-      btnCargar.style.background = "#111827"; btnCargar.style.color = "#fff";
-      btnMeses.style.background = "#111827"; btnMeses.style.color = "#fff";
-      menuLinks.forEach(link => link.style.color = "#fff");
-      toggle.style.background = "#fff"; toggle.style.color = "#111827";
+      btnCargar.style.background = "#111827"; btnCargar.style.color = "#fbbf24";
+      btnMeses.style.background = "#111827"; btnMeses.style.color = "#fbbf24";
+      menuLinks.forEach(a => a.style.color = "#111827");
     }
   }
-  actualizarColoresModo();
+  actualizarBotonesModo();
 
   // ===== BOTÓN VER MESES =====
   const btnMesesToggle = document.getElementById("toggleMeses");
   const contMeses = document.getElementById("mesesContainer");
   btnMesesToggle.addEventListener("click", () => {
     contMeses.style.display = contMeses.style.display === "none" ? "flex" : "none";
+  });
+
+  // ===== EFECTO SCROLL MENU =====
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 20){
+      nav.style.padding = "8px 20px"; // se achica al bajar
+    } else {
+      nav.style.padding = "12px 20px";
+    }
   });
 
   // ===== CARGAR RANKING DESDE seguimiento.html =====
@@ -321,7 +340,7 @@
       const doc = parser.parseFromString(data, 'text/html');
       const filas = doc.querySelectorAll('tr');
       const tabla = document.getElementById('tablaRanking');
-      filas.forEach((fila, i) => { if(i>0){ tabla.appendChild(fila); } });
+      filas.forEach((fila, i) => { if(i>0) tabla.appendChild(fila); });
     });
 </script>
 
