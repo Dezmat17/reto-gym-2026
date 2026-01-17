@@ -36,7 +36,7 @@
     }
 
     nav a {
-      color: #fbbf24;
+      color: #fbbf24; /* amarillo nocturno */
       text-decoration: none;
       font-weight: bold;
       font-size: 16px;
@@ -66,18 +66,8 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 48px;
-      margin-bottom: 10px;
-      transition: color 0.3s;
-    }
-
-    h2, h3 {
-      text-align: center;
-      color: #fbbf24;
-      transition: color 0.3s;
-    }
+    h1 { text-align: center; font-size: 48px; margin-bottom: 10px; transition: color 0.3s; }
+    h2, h3 { text-align: center; color: #fbbf24; transition: color 0.3s; }
 
     ul { max-width: 600px; margin: auto; }
 
@@ -92,7 +82,6 @@
     }
 
     th, td { border: 1px solid #555; padding: 10px; text-align: center; }
-
     th { background-color: #111827; color: #fbbf24; }
 
     /* ===== BOTONES ===== */
@@ -111,7 +100,6 @@
 
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
 
-    /* Botones específicos */
     .boton-cargar {}
     .boton-seguimiento {}
 
@@ -182,12 +170,22 @@
     body.light-mode { background-color: #f4f4f4; color: #1f2933; }
     body.light-mode section { background-color: #fff; color: #1f2933; }
     body.light-mode nav { background-color: #1f2933; }
-    body.light-mode nav a { color: #fff; }
+    body.light-mode nav a { color: #fff; } /* blanco menú diurno */
     body.light-mode #toggleDark { background-color: #fff; color: #111827; }
-    body.light-mode .boton-cargar { background: #111827; color: #fbbf24; }
-    body.light-mode .boton-seguimiento { background: #111827; color: #fbbf24; }
+    body.light-mode .boton-cargar { background: #111827; color: #fff; }
+    body.light-mode .boton-seguimiento { background: #111827; color: #fff; }
     body.light-mode .premios { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
     body.light-mode h1, body.light-mode h2, body.light-mode h3 { color: #1f2933; }
+
+    /* ===== AJUSTES CELULAR ===== */
+    @media (max-width: 600px) {
+      h1 { font-size: 36px; }
+      h2 { font-size: 28px; }
+      .boton { font-size: 18px; padding: 16px 28px; }
+      nav { padding: 16px 12px; }
+      .menu-items { gap: 12px; flex-wrap: wrap; }
+      table { font-size: 14px; }
+    }
   </style>
 </head>
 
@@ -195,7 +193,7 @@
 
 <div class="splash">
   <h1>🏋️ Reto Masibros 2026</h1>
-  <p>Constancia · Disciplina · Asado</p>
+  <p>Constancia · Disciplina · Hábitos</p>
 </div>
 
 <!-- ===== MENÚ ===== -->
@@ -275,12 +273,13 @@
 </section>
 
 <script>
-  // ===== BOTÓN MODO DIURNO/NOCTURNO =====
+  // ===== ELEMENTOS =====
   const toggle = document.getElementById("toggleDark");
   const btnCargar = document.querySelector(".boton-cargar");
   const btnMeses = document.querySelector(".boton-seguimiento");
   const menuLinks = document.querySelectorAll("nav a");
 
+  // ===== MODO DIURNO/NOCTURNO =====
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
@@ -294,17 +293,15 @@
 
   function actualizarColoresModo() {
     if(document.body.classList.contains("dark-mode")) {
-      // botones
       btnCargar.style.background = "#fbbf24"; btnCargar.style.color = "#111827";
       btnMeses.style.background = "#fbbf24"; btnMeses.style.color = "#111827";
+      menuLinks.forEach(link => link.style.color = "#fbbf24");
       toggle.style.background = "#fbbf24"; toggle.style.color = "#111827";
-      // menú
-      menuLinks.forEach(link => link.style.color = "#fff");
     } else {
-      btnCargar.style.background = "#111827"; btnCargar.style.color = "#fbbf24";
-      btnMeses.style.background = "#111827"; btnMeses.style.color = "#fbbf24";
+      btnCargar.style.background = "#111827"; btnCargar.style.color = "#fff";
+      btnMeses.style.background = "#111827"; btnMeses.style.color = "#fff";
+      menuLinks.forEach(link => link.style.color = "#fff");
       toggle.style.background = "#fff"; toggle.style.color = "#111827";
-      menuLinks.forEach(link => link.style.color = "#111827");
     }
   }
   actualizarColoresModo();
@@ -324,9 +321,7 @@
       const doc = parser.parseFromString(data, 'text/html');
       const filas = doc.querySelectorAll('tr');
       const tabla = document.getElementById('tablaRanking');
-      filas.forEach((fila, i) => {
-        if(i>0) { tabla.appendChild(fila); }
-      });
+      filas.forEach((fila, i) => { if(i>0){ tabla.appendChild(fila); } });
     });
 </script>
 
