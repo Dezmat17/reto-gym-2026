@@ -95,7 +95,7 @@
 
     <form 
       method="POST"
-      action="https://script.google.com/macros/library/d/17jwfbWMj9dXJ2yIyPIyxCFgPSRq4VSketzjIoKi8soDtl65-38Zbmcyn/1">
+      action="https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec">
 
       <!-- NOMBRE -->
       <label for="nombre">Nombre</label>
@@ -142,7 +142,7 @@
 document.getElementById("formCarga").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  fetch("https://script.google.com/macros/library/d/17jwfbWMj9dXJ2yIyPIyxCFgPSRq4VSketzjIoKi8soDtl65-38Zbmcyn/1", {
+  fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
     method: "POST",
     body: JSON.stringify({
       nombre: document.getElementById("nombre").value,
