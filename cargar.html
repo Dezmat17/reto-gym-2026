@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Cargar entrenamiento</title>
-
   <style>
     body {
       margin: 0;
@@ -63,6 +62,7 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .boton:hover {
@@ -86,14 +86,12 @@
     }
   </style>
 </head>
-
 <body>
 
   <div class="card">
     <h1>Cargar entrenamiento</h1>
 
     <form id="formCarga">
-
       <label>Nombre</label>
       <select name="nombre" required>
         <option value="">Seleccionar</option>
@@ -114,9 +112,7 @@
         <option>NO</option>
       </select>
 
-      <button class="boton" type="submit">
-        Guardar entrenamiento
-      </button>
+      <button class="boton" type="submit">Guardar entrenamiento</button>
     </form>
 
     <div class="volver">
@@ -129,21 +125,40 @@
     const hoy = new Date().toISOString().split("T")[0];
     document.getElementById("fecha").max = hoy;
 
-    // Envío por fetch a Google Sheets
+    // Manejo del submit
     document.getElementById("formCarga").addEventListener("submit", function(e) {
       e.preventDefault();
-
       const form = e.target;
-      const datos = new FormData();
 
-      // Tomar valores
+      // Validación rápida
+      if (!form.nombre.value || !form.fecha.value || !form.foto.value) {
+        alert("Por favor completá todos los campos.");
+        return;
+      }
+
+      // Crear objeto FormData
+      const datos = new FormData();
       datos.append("nombre", form.nombre.value);
       datos.append("foto", form.foto.value);
 
-      // Enviar fecha completa como YYYY-MM-DD
-      datos.append("fecha", form.fecha.value);
+      // --- CONVERSIÓN SEGURA DE FECHA ---
+      // Crear objeto Date a partir del input
+      const inputFecha = new Date(form.fecha.value);
+      if (isNaN(inputFecha)) {
+        alert("Fecha inválida, por favor revisá el valor ingresado.");
+        return;
+      }
 
-      // Llamada fetch
+      // Convertir a formato YYYY-MM-DD
+      const year = inputFecha.getFullYear();
+      const month = String(inputFecha.getMonth() + 1).padStart(2, "0");
+      const day = String(inputFecha.getDate()).padStart(2, "0");
+      const fechaISO = `${year}-${month}-${day}`;
+
+      // Enviar fecha segura
+      datos.append("fecha", fechaISO);
+
+      // --- LLAMADA AL SCRIPT DE GOOGLE SHEETS ---
       fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
         method: "POST",
         body: datos
@@ -155,6 +170,7 @@
       .catch(() => {
         alert("❌ Error al cargar. Intentá de nuevo.");
       });
+
     });
   </script>
 
