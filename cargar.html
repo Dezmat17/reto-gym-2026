@@ -138,8 +138,10 @@
       datos.append("nombre", form.nombre.value);
       datos.append("foto", form.foto.value);
 
-      // --- Guardar la fecha como TEXTO directamente ---
-      datos.append("fecha", form.fecha.value); // "YYYY-MM-DD" se guarda tal cual
+      // --- Fecha como texto DD/MM/YYYY ---
+      const partes = form.fecha.value.split("-"); // ["YYYY","MM","DD"]
+      const fechaTexto = `${partes[2]}/${partes[1]}/${partes[0]}`; // "DD/MM/YYYY"
+      datos.append("fecha", fechaTexto);
 
       fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
         method: "POST",
