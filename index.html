@@ -44,6 +44,59 @@
 
     nav a:hover { text-decoration: underline; }
 
+    #toggleDark {
+      margin-left: auto;
+      padding: 10px 18px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    /* ===== SECCIONES ===== */
+    section {
+      background-color: #1f2933;
+      color: #e5e7eb;
+      margin: 20px;
+      padding: 30px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #fbbf24; /* nocturno por defecto */
+      transition: color 0.3s;
+    }
+
+    ul { max-width: 600px; margin: auto; }
+
+    table {
+      width: 100%;
+      max-width: 700px;
+      margin: auto;
+      border-collapse: collapse;
+      background-color: #1f2933;
+      color: #e5e7eb;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    th, td { border: 1px solid #555; padding: 10px; text-align: center; }
+
+    th {
+      background-color: #111827;
+      color: #fbbf24;
+    }
+
     /* ===== BOTONES ===== */
     .boton {
       display: inline-block;
@@ -60,22 +113,38 @@
 
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
 
-    /* ===== SECCIONES ===== */
-    section {
-      background-color: #1f2933;
-      color: #e5e7eb;
-      margin: 20px;
-      padding: 30px;
-      border-radius: 8px;
-      transition: background 0.3s, color 0.3s;
+    /* ===== BOTONES ESPECÍFICOS ===== */
+    .boton-cargar {}
+    .boton-seguimiento {}
+
+    /* ===== SPLASH ===== */
+    .splash {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #111827, #1f2933);
+      color: #fbbf24;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: splashOut 3s ease forwards;
     }
 
-    h1 { text-align: center; font-size: 48px; margin-bottom: 10px; transition: color 0.3s; }
-    h2, h3 { text-align: center; color: #fbbf24; transition: color 0.3s; }
-    ul { max-width: 600px; margin: auto; }
-    table { width: 100%; max-width: 700px; margin: auto; border-collapse: collapse; background-color: #1f2933; color: #e5e7eb; transition: background 0.3s, color 0.3s; }
-    th, td { border: 1px solid #555; padding: 10px; text-align: center; }
-    th { background-color: #111827; color: #fbbf24; }
+    .splash h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: zoomIn 1.5s ease;
+    }
+
+    .splash p { font-size: 18px; opacity: 0.85; animation: fadeIn 1.8s ease; }
+
+    @keyframes zoomIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 0.85; } }
+    @keyframes splashOut { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
     /* ===== MESES ===== */
     .meses { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
@@ -99,38 +168,43 @@
     .premios ul li { font-size: 20px; margin: 12px 0; list-style: none; }
     .premios .condicion { font-size: 14px; opacity: 0.7; display: block; margin-top: 4px; }
 
-    /* ===== REGLAS ===== */
+    /* ===== REGLAS FADE ===== */
     .reglas-fade { text-align: center; opacity: 0.7; margin-top: 25px; font-size: 14px; }
 
-    /* ===== BOTÓN MODO DEBAJO DE REGLAS ===== */
-    #botonModoReglas {
-      display: inline-block;
-      margin: 20px auto;
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: block;
-    }
-    #botonModoReglas:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-
     /* ===== MODO DIURNO/NOCTURNO ===== */
-    body.dark-mode { background-color: #111827; color: #e5e7eb; }
+    body.dark-mode {
+      background-color: #111827;
+      color: #e5e7eb;
+    }
     body.dark-mode section { background-color: #1f2933; color: #e5e7eb; }
     body.dark-mode nav { background-color: #1f2933; }
     body.dark-mode nav a { color: #fbbf24; }
+    body.dark-mode #toggleDark { background-color: #fbbf24; color: #111827; }
+    body.dark-mode .boton-cargar { background: #fff; color: #111827; }
+    body.dark-mode .boton-seguimiento { background: #fff; color: #111827; }
+    body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #fbbf24; }
 
-    body.light-mode { background-color: #f4f4f4; color: #1f2933; }
+    body.light-mode {
+      background-color: #f4f4f4;
+      color: #1f2933;
+    }
     body.light-mode section { background-color: #fff; color: #1f2933; }
     body.light-mode nav { background-color: #1f2933; }
     body.light-mode nav a { color: #1f2933; }
+    body.light-mode #toggleDark { background-color: #1f2933; color: #fbbf24; }
+    body.light-mode .boton-cargar { background: #111827; color: #fff; }
+    body.light-mode .boton-seguimiento { background: #111827; color: #fff; }
+    body.light-mode .premios { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
+    body.light-mode h1, body.light-mode h2, body.light-mode h3 { color: #1f2933; }
   </style>
 </head>
 
 <body class="dark-mode">
+
+<div class="splash">
+  <h1>🏋️ Reto Masibros 2026</h1>
+  <p>Constancia · Disciplina · Hábitos</p>
+</div>
 
 <!-- ===== MENÚ ===== -->
 <nav>
@@ -141,6 +215,7 @@
     <a href="#mensual">Meses</a>
     <a href="#reglas">Reglas</a>
   </div>
+  <button id="toggleDark">☀️ Modo diurno</button>
 </nav>
 
 <!-- ===== INICIO ===== -->
@@ -160,6 +235,7 @@
   <h2>📊 Ranking Anual</h2>
   <table id="tablaRanking">
     <tr><th>Nombre</th><th>Días Totales</th><th>Semanas Cumplidas</th></tr>
+    <!-- Datos se cargarán desde seguimiento.html -->
   </table>
 </section>
 
@@ -205,37 +281,32 @@
     <li>✅ Mantener constancia durante todo el año con descansos adecuados</li>
   </ul>
   <div class="reglas-fade">📌 El administrador del reto actualiza GitHub. El objetivo es sostener el hábito durante todo el año.</div>
-
-  <!-- ===== BOTÓN MODO DEBAJO DE REGLAS ===== -->
-  <button id="botonModoReglas">☀️ Modo diurno</button>
 </section>
 
 <script>
+  // ===== BOTÓN MODO DIURNO/NOCTURNO =====
+  const toggle = document.getElementById("toggleDark");
   const btnCargar = document.querySelector(".boton-cargar");
   const btnMeses = document.querySelector(".boton-seguimiento");
-  const botonModoReglas = document.getElementById("botonModoReglas");
 
-  // ===== MODO DIURNO/NOCTURNO =====
-  botonModoReglas.addEventListener("click", () => {
+  toggle.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
-    botonModoReglas.textContent = document.body.classList.contains("dark-mode")
-      ? "☀️ Modo diurno"
-      : "🌙 Modo nocturno";
+    if(document.body.classList.contains("dark-mode")){
+      toggle.textContent = "☀️ Modo diurno";
+    } else {
+      toggle.textContent = "🌙 Modo nocturno";
+    }
     actualizarBotonesModo();
   });
 
   function actualizarBotonesModo() {
     if(document.body.classList.contains("dark-mode")) {
-      // Modo nocturno → amarillo fondo, texto oscuro
-      btnCargar.style.background = "#fbbf24"; btnCargar.style.color = "#111827";
-      btnMeses.style.background = "#fbbf24"; btnMeses.style.color = "#111827";
-      botonModoReglas.style.background = "#fbbf24"; botonModoReglas.style.color = "#111827";
+      btnCargar.style.background = "#fff"; btnCargar.style.color = "#111827";
+      btnMeses.style.background = "#fff"; btnMeses.style.color = "#111827";
     } else {
-      // Modo diurno → fondo oscuro, texto claro
       btnCargar.style.background = "#111827"; btnCargar.style.color = "#fff";
       btnMeses.style.background = "#111827"; btnMeses.style.color = "#fff";
-      botonModoReglas.style.background = "#111827"; botonModoReglas.style.color = "#fff";
     }
   }
   actualizarBotonesModo();
@@ -255,7 +326,11 @@
       const doc = parser.parseFromString(data, 'text/html');
       const filas = doc.querySelectorAll('tr');
       const tabla = document.getElementById('tablaRanking');
-      filas.forEach((fila, i) => { if(i>0) tabla.appendChild(fila); });
+      filas.forEach((fila, i) => {
+        if(i>0) { // omitir header
+          tabla.appendChild(fila);
+        }
+      });
     });
 </script>
 
