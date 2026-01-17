@@ -140,12 +140,8 @@
       datos.append("nombre", form.nombre.value);
       datos.append("foto", form.foto.value);
 
-      // Convertir fecha en day/month/year para evitar errores
-      const fechaStr = form.fecha.value; // YYYY-MM-DD
-      const [year, month, day] = fechaStr.split("-");
-      datos.append("day", day);
-      datos.append("month", month);
-      datos.append("year", year);
+      // Enviar fecha completa como YYYY-MM-DD
+      datos.append("fecha", form.fecha.value);
 
       // Llamada fetch
       fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
@@ -154,7 +150,7 @@
       })
       .then(() => {
         alert("✅ Entrenamiento cargado correctamente");
-        window.location.href = "index.html"; // vuelve al menú
+        window.location.href = "index.html";
       })
       .catch(() => {
         alert("❌ Error al cargar. Intentá de nuevo.");
