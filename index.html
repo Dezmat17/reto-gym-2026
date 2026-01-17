@@ -30,8 +30,9 @@
     .menu-items {
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 18px;
-      flex: 1;
+      flex-wrap: wrap;
     }
 
     nav a {
@@ -44,10 +45,10 @@
 
     nav a:hover { text-decoration: underline; }
 
+    /* Botón de modo integrado al menú */
     #toggleDark {
-      margin-left: auto;
-      padding: 10px 18px;
-      font-size: 16px;
+      padding: 6px 12px;
+      font-size: 14px;
       cursor: pointer;
       border: none;
       border-radius: 6px;
@@ -74,7 +75,7 @@
 
     h2, h3 {
       text-align: center;
-      color: #fbbf24; /* nocturno por defecto */
+      color: #fbbf24;
       transition: color 0.3s;
     }
 
@@ -92,10 +93,7 @@
 
     th, td { border: 1px solid #555; padding: 10px; text-align: center; }
 
-    th {
-      background-color: #111827;
-      color: #fbbf24;
-    }
+    th { background-color: #111827; color: #fbbf24; }
 
     /* ===== BOTONES ===== */
     .boton {
@@ -113,7 +111,7 @@
 
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
 
-    /* ===== BOTONES ESPECÍFICOS ===== */
+    /* Botones específicos */
     .boton-cargar {}
     .boton-seguimiento {}
 
@@ -172,22 +170,16 @@
     .reglas-fade { text-align: center; opacity: 0.7; margin-top: 25px; font-size: 14px; }
 
     /* ===== MODO DIURNO/NOCTURNO ===== */
-    body.dark-mode {
-      background-color: #111827;
-      color: #e5e7eb;
-    }
+    body.dark-mode { background-color: #111827; color: #e5e7eb; }
     body.dark-mode section { background-color: #1f2933; color: #e5e7eb; }
     body.dark-mode nav { background-color: #1f2933; }
     body.dark-mode nav a { color: #fbbf24; }
     body.dark-mode #toggleDark { background-color: #fbbf24; color: #111827; }
-    body.dark-mode .boton-cargar { background: #fff; color: #111827; }
-    body.dark-mode .boton-seguimiento { background: #fff; color: #111827; }
+    body.dark-mode .boton-cargar { background: #fbbf24; color: #111827; } /* amarillo nocturno */
+    body.dark-mode .boton-seguimiento { background: #fbbf24; color: #111827; }
     body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #fbbf24; }
 
-    body.light-mode {
-      background-color: #f4f4f4;
-      color: #1f2933;
-    }
+    body.light-mode { background-color: #f4f4f4; color: #1f2933; }
     body.light-mode section { background-color: #fff; color: #1f2933; }
     body.light-mode nav { background-color: #1f2933; }
     body.light-mode nav a { color: #1f2933; }
@@ -214,8 +206,8 @@
     <a href="#premios">Premios</a>
     <a href="#mensual">Meses</a>
     <a href="#reglas">Reglas</a>
+    <button id="toggleDark">☀️</button>
   </div>
-  <button id="toggleDark">☀️ Modo diurno</button>
 </nav>
 
 <!-- ===== INICIO ===== -->
@@ -235,7 +227,6 @@
   <h2>📊 Ranking Anual</h2>
   <table id="tablaRanking">
     <tr><th>Nombre</th><th>Días Totales</th><th>Semanas Cumplidas</th></tr>
-    <!-- Datos se cargarán desde seguimiento.html -->
   </table>
 </section>
 
@@ -293,17 +284,17 @@
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
     if(document.body.classList.contains("dark-mode")){
-      toggle.textContent = "☀️ Modo diurno";
+      toggle.textContent = "☀️";
     } else {
-      toggle.textContent = "🌙 Modo nocturno";
+      toggle.textContent = "🌙";
     }
     actualizarBotonesModo();
   });
 
   function actualizarBotonesModo() {
     if(document.body.classList.contains("dark-mode")) {
-      btnCargar.style.background = "#fff"; btnCargar.style.color = "#111827";
-      btnMeses.style.background = "#fff"; btnMeses.style.color = "#111827";
+      btnCargar.style.background = "#fbbf24"; btnCargar.style.color = "#111827";
+      btnMeses.style.background = "#fbbf24"; btnMeses.style.color = "#111827";
     } else {
       btnCargar.style.background = "#111827"; btnCargar.style.color = "#fff";
       btnMeses.style.background = "#111827"; btnMeses.style.color = "#fff";
@@ -327,9 +318,7 @@
       const filas = doc.querySelectorAll('tr');
       const tabla = document.getElementById('tablaRanking');
       filas.forEach((fila, i) => {
-        if(i>0) { // omitir header
-          tabla.appendChild(fila);
-        }
+        if(i>0) { tabla.appendChild(fila); }
       });
     });
 </script>
