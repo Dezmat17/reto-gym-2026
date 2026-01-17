@@ -130,22 +130,19 @@
       e.preventDefault();
       const form = e.target;
 
-      // Validación rápida
       if (!form.nombre.value || !form.fecha.value || !form.foto.value) {
         alert("Por favor completá todos los campos.");
         return;
       }
 
-      // Crear objeto FormData
       const datos = new FormData();
       datos.append("nombre", form.nombre.value);
       datos.append("foto", form.foto.value);
 
-      // --- CONVERSIÓN SEGURA DE FECHA ---
-      // Crear objeto Date a partir del input
+      // --- Fecha segura ---
       const inputFecha = new Date(form.fecha.value);
       if (isNaN(inputFecha)) {
-        alert("Fecha inválida, por favor revisá el valor ingresado.");
+        alert("Fecha inválida, revisá el valor ingresado.");
         return;
       }
 
@@ -154,11 +151,8 @@
       const month = String(inputFecha.getMonth() + 1).padStart(2, "0");
       const day = String(inputFecha.getDate()).padStart(2, "0");
       const fechaISO = `${year}-${month}-${day}`;
-
-      // Enviar fecha segura
       datos.append("fecha", fechaISO);
 
-      // --- LLAMADA AL SCRIPT DE GOOGLE SHEETS ---
       fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
         method: "POST",
         body: datos
@@ -170,7 +164,6 @@
       .catch(() => {
         alert("❌ Error al cargar. Intentá de nuevo.");
       });
-
     });
   </script>
 
