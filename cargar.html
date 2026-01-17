@@ -42,11 +42,6 @@
       margin-top: 10px;
       text-align: center;
     }
-    .error {
-      color: #FF5555;
-      margin-top: 10px;
-      text-align: center;
-    }
     h2 {
       text-align: center;
     }
@@ -79,7 +74,7 @@
     <button type="submit">Cargar</button>
     <button type="button" onclick="window.location='index.html'">Volver al Menú</button>
 
-    <div id="mensaje"></div>
+    <div id="mensaje" class="success"></div>
   </form>
 
   <script>
@@ -92,38 +87,52 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      mensaje.textContent = ""; // limpiar mensajes previos
-      mensaje.className = "";
+      const nombre = document.getElementById('nombre').value;
+      const fechaEntrenamiento = document.getElementById('fecha').value;
+      const subioFoto = document.getElementById('foto').value;
 
-      const data = {
-        nombre: document.getElementById('nombre').value,
-        fechaEntrenamiento: document.getElementById('fecha').value,
-        subioFoto: document.getElementById('foto').value
-      };
+      const data = { nombre, fechaEntrenamiento, subioFoto };
+
+      const webAppURL = "https://script.google.com/macros/s/AKfycbwwvBIJvNrIhW3-v15365Z73miYU2wURoKLSH1AJnc8TdtfphVWKefDDJJ_uwwsRWI/exec"; // tu Web App
 
       try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwwvBIJvNrIhW3-v15365Z73miYU2wURoKLSH1AJnc8TdtfphVWKefDDJJ_uwwsRWI/exec", { 
+        // 1️⃣ Traer todos los registros actuales
+        const resGet = await fetch(webAppURL);
+        const registros = await resGet.json(); // array de {nombre, fechaEntrenamiento, subioFoto, fechaCarga}
+
+        // 2️⃣ Verificar duplicado
+        const existe = registros.some(r => 
+          r.nombre === nombre && 
+          new Date(r.fechaEntrenamiento).toDateString() === new Date(fechaEntrenamiento).toDateString()
+        );
+
+        if(existe){
+          mensaje.textContent = "⚠️ Este participante ya cargó entrenamiento en la fecha seleccionada.";
+          return;
+        }
+
+        // 3️⃣ Enviar si no hay duplicado
+        const resPost = await fetch(webAppURL, {
           method: "POST",
-          body: JSON.stringify(data)
+          body: JSON.stringify({
+            nombre,
+            fechaEntrenamiento,
+            subioFoto,
+            fechaCarga: new Date().toISOString()
+          })
         });
 
-        const result = await res.json();
+        const result = await resPost.json();
 
         if(result.status === "success"){
           mensaje.textContent = "¡Carga satisfactoria!";
-          mensaje.className = "success";
           setTimeout(()=>{ window.location='index.html'; }, 2000);
-        } else if(result.status === "error") {
-          mensaje.textContent = result.message;
-          mensaje.className = "error";
         }
       } catch(err){
         mensaje.textContent = "Error al cargar. Intente nuevamente.";
-        mensaje.className = "error";
         console.error(err);
       }
     });
   </script>
 </body>
 </html>
-
