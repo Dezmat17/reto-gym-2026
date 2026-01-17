@@ -45,7 +45,7 @@
 
     #toggleDark {
       margin-left: auto;
-      padding: 8px 16px;
+      padding: 10px 18px;
       font-size: 16px;
       cursor: pointer;
       border: none;
@@ -53,6 +53,7 @@
       background: #fbbf24;
       color: #1f2933;
       font-weight: bold;
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ===== SECCIONES ===== */
@@ -74,7 +75,7 @@
 
     h2, h3 {
       text-align: center;
-      color: #1f2933; /* diurno */
+      color: #fbbf24; /* nocturno por defecto */
       transition: color 0.3s;
     }
 
@@ -156,36 +157,37 @@
       text-align: center;
       box-shadow: 0 6px 14px rgba(0,0,0,0.3);
       border: 1px solid #333;
-      transition: all 0.25s ease;
+      transition: all 0.25s ease, background 0.3s, color 0.3s;
     }
     .mes:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,0.5); }
 
     /* ===== PREMIOS ===== */
-    .premios {
-      background-color: #1f2933; padding: 25px; border-radius: 12px;
-      text-align: center; margin: 20px auto; max-width: 600px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-    }
+    .premios { background-color: #1f2933; padding: 25px; border-radius: 12px; text-align: center; margin: 20px auto; max-width: 600px; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
     .premios ul li { font-size: 20px; margin: 12px 0; list-style: none; }
+    .premios .condicion { font-size: 14px; opacity: 0.7; display: block; margin-top: 4px; }
 
     /* ===== REGLAS FADE ===== */
     .reglas-fade { text-align: center; opacity: 0.7; margin-top: 25px; font-size: 14px; }
 
-    /* ===== MODO DIURNO/NOCTURNO ===== */
+    /* ===== MODO DIURNO ===== */
     body.dark-mode { background-color: #111827; color: #e5e7eb; }
     body.dark-mode section { background-color: #1f2933; color: #e5e7eb; }
     body.dark-mode nav { background-color: #1f2933; }
     body.dark-mode nav a { color: #fbbf24; }
-    body.dark-mode h1 { color: #fbbf24; }
-    body.dark-mode h2, body.dark-mode h3 { color: #fbbf24; }
+    body.dark-mode #toggleDark { background-color: #fbbf24; color: #1f2933; }
+    body.dark-mode .boton-cargar { background: #fbbf24; color: #1f2933; }
+    body.dark-mode .boton-seguimiento { background: #1f2933; color: #fff; }
+    body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #fbbf24; }
 
     body.light-mode { background-color: #f4f4f4; color: #1f2933; }
     body.light-mode section { background-color: #fff; color: #1f2933; }
     body.light-mode nav { background-color: #1f2933; }
     body.light-mode nav a { color: #1f2933; }
-    body.light-mode h1 { color: #1f2933; }
-    body.light-mode h2, body.light-mode h3 { color: #1f2933; }
+    body.light-mode #toggleDark { background-color: #1f2933; color: #fbbf24; }
+    body.light-mode .boton-cargar { background: #fff; color: #1f2933; }
+    body.light-mode .boton-seguimiento { background: #fff; color: #1f2933; }
     body.light-mode .premios { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
+    body.light-mode h1, body.light-mode h2, body.light-mode h3 { color: #1f2933; }
 
   </style>
 </head>
@@ -194,7 +196,7 @@
 
 <div class="splash">
   <h1>🏋️ Reto Masibros 2026</h1>
-  <p>Constancia · Disciplina · Asado</p>
+  <p>Constancia · Disciplina · Hábitos</p>
 </div>
 
 <!-- ===== MENÚ ===== -->
@@ -224,13 +226,9 @@
 <!-- ===== RANKING ===== -->
 <section id="ranking">
   <h2>📊 Ranking Anual</h2>
-  <table>
+  <table id="tablaRanking">
     <tr><th>Nombre</th><th>Días Totales</th><th>Semanas Cumplidas</th></tr>
-    <tr><td>Unyi</td><td>0</td><td>0</td></tr>
-    <tr><td>Luca</td><td>0</td><td>0</td></tr>
-    <tr><td>Mati</td><td>0</td><td>0</td></tr>
-    <tr><td>Litox</td><td>0</td><td>0</td></tr>
-    <tr><td>Fran</td><td>0</td><td>0</td></tr>
+    <!-- Datos se cargarán desde seguimiento.html -->
   </table>
 </section>
 
@@ -238,10 +236,10 @@
 <section class="premios" id="premios">
   <h2>🏆 Premios del Reto</h2>
   <ul>
-    <li>💪 <strong>Master Chad:</strong> Le invitan el Asado. Condición: quien más días asistió durante el año.</li>
-    <li>💻 <strong>Mucho LAG:</strong> Pagar la mitad del asado. Condición: asistencia intermedia, ni ganador ni último.</li>
-    <li>🦖 <strong>Trolazus Minimus:</strong> Pagar el resto del asado. Condición: quien menos días asistió durante el año.</li>
-    <li>🏅 <strong>AFK MASTER:</strong> 1/4 de Luccianos pagado por todos. Condición: mayor cantidad de semanas cumplidas; si coincide con el ganador total, pasa al siguiente participante.</li>
+    <li>💪 <strong>Master Chad:</strong> Le invitan el Asado. <span class="condicion">Condición: quien más días asistió durante el año.</span></li>
+    <li>💻 <strong>Mucho LAG:</strong> Pagar la mitad del asado. <span class="condicion">Condición: asistencia intermedia, ni ganador ni último.</span></li>
+    <li>🦖 <strong>Trolazus Minimus:</strong> Pagar el resto del asado. <span class="condicion">Condición: quien menos días asistió durante el año.</span></li>
+    <li>🏅 <strong>AFK MASTER:</strong> 1/4 de Luccianos pagado por todos. <span class="condicion">Condición: mayor cantidad de semanas cumplidas; si coincide con el ganador total, pasa al siguiente participante.</span></li>
   </ul>
 </section>
 
@@ -291,7 +289,22 @@
     } else {
       toggle.textContent = "🌙 Modo nocturno";
     }
+    actualizarBotonesModo();
   });
+
+  // Cambiar colores de botones según modo
+  function actualizarBotonesModo() {
+    const btnCargar = document.querySelector(".boton-cargar");
+    const btnMeses = document.querySelector(".boton-seguimiento");
+    if(document.body.classList.contains("dark-mode")) {
+      btnCargar.style.background = "#fbbf24"; btnCargar.style.color = "#1f2933";
+      btnMeses.style.background = "#1f2933"; btnMeses.style.color = "#fff";
+    } else {
+      btnCargar.style.background = "#fff"; btnCargar.style.color = "#1f2933";
+      btnMeses.style.background = "#fff"; btnMeses.style.color = "#1f2933";
+    }
+  }
+  actualizarBotonesModo();
 
   // ===== BOTÓN VER MESES =====
   const btnMeses = document.getElementById("toggleMeses");
@@ -299,7 +312,23 @@
   btnMeses.addEventListener("click", () => {
     contMeses.style.display = contMeses.style.display === "none" ? "flex" : "none";
   });
+
+  // ===== CARGAR RANKING DESDE seguimiento.html =====
+  fetch('seguimiento.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+      const filas = doc.querySelectorAll('tr');
+      const tabla = document.getElementById('tablaRanking');
+      filas.forEach((fila, i) => {
+        if(i>0) { // omitir header
+          tabla.appendChild(fila);
+        }
+      });
+    });
 </script>
 
 </body>
 </html>
+
