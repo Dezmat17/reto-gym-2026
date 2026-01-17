@@ -16,18 +16,16 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    /* ===== MENÚ ===== */
     nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      background: rgba(31, 41, 51, 0.95); /* semitransparente */
+      background: rgba(31, 41, 51, 0.95);
       padding: 12px 20px;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: background 0.3s, box-shadow 0.3s, padding 0.3s;
       backdrop-filter: blur(6px);
     }
 
@@ -40,7 +38,7 @@
     }
 
     nav a {
-      color: #fbbf24; /* nocturno por defecto */
+      color: #fbbf24;
       text-decoration: none;
       font-weight: bold;
       font-size: 16px;
@@ -48,7 +46,6 @@
     }
     nav a:hover { text-decoration: underline; }
 
-    /* Botón de modo integrado al menú */
     #toggleDark {
       padding: 8px 22px;
       font-size: 20px;
@@ -59,7 +56,6 @@
       transition: all 0.3s ease;
     }
 
-    /* ===== SECCIONES ===== */
     section {
       background-color: #1f2933;
       color: #e5e7eb;
@@ -69,18 +65,9 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 48px;
-      margin-bottom: 10px;
-      transition: color 0.3s;
-    }
-
-    h2, h3 {
-      text-align: center;
-      color: #fbbf24;
-      transition: color 0.3s;
-    }
+    h1, h2, h3 { text-align: center; }
+    h1 { font-size: 48px; margin-bottom: 10px; }
+    h2, h3 { color: #fbbf24; }
 
     ul { max-width: 600px; margin: auto; }
 
@@ -91,13 +78,11 @@
       border-collapse: collapse;
       background-color: #1f2933;
       color: #e5e7eb;
-      transition: background 0.3s, color 0.3s;
     }
 
     th, td { border: 1px solid #555; padding: 10px; text-align: center; }
     th { background-color: #111827; color: #fbbf24; }
 
-    /* ===== BOTONES ===== */
     .boton {
       display: inline-block;
       margin: 10px 8px;
@@ -112,11 +97,9 @@
     }
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
 
-    /* Botones específicos */
     .boton-cargar {}
     .boton-seguimiento {}
 
-    /* ===== SPLASH ===== */
     .splash {
       position: fixed;
       inset: 0;
@@ -145,112 +128,27 @@
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 0.85; } }
     @keyframes splashOut { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-    /* ===== MESES ===== */
-    .meses { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
-    .mes {
-      width: 160px;
-      padding: 18px 10px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 600;
-      color: #fbbf24;
-      background-color: #1f2933;
-      text-align: center;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
-      border: 1px solid #333;
-      transition: all 0.25s ease, background 0.3s, color 0.3s;
-    }
-    .mes:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,0.5); }
-
-    /* ===== PREMIOS ===== */
     .premios { background-color: #1f2933; padding: 25px; border-radius: 12px; text-align: center; margin: 20px auto; max-width: 600px; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
     .premios ul li { font-size: 20px; margin: 12px 0; list-style: none; }
     .premios .condicion { font-size: 14px; opacity: 0.7; display: block; margin-top: 4px; }
 
-    /* ===== REGLAS FADE ===== */
     .reglas-fade { text-align: center; opacity: 0.7; margin-top: 25px; font-size: 14px; }
 
-    /* ===== MODO DIURNO/NOCTURNO ===== */
-    body.dark-mode { background-color: #111827; color: #e5e7eb; }
-    body.dark-mode section { background-color: #1f2933; color: #e5e7eb; }
-    body.dark-mode nav { background-color: rgba(31, 41, 51, 0.95); }
-    body.dark-mode nav a { color: #fbbf24; }
-    body.dark-mode #toggleDark { background-color: #fbbf24; color: #111827; }
-    body.dark-mode .boton-cargar { background: #fbbf24; color: #111827; }
-    body.dark-mode .boton-seguimiento { background: #fbbf24; color: #111827; }
-    body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #fbbf24; }
-
-    body.light-mode { background-color: #f4f4f4; color: #1f2933; }
-    body.light-mode section { background-color: #fff; color: #1f2933; }
-    body.light-mode nav { background-color: #fff; }
-    body.light-mode nav a { color: #111827; }
-    body.light-mode #toggleDark { background-color: #111827; color: #111827; }
-    body.light-mode .boton-cargar { background: #111827; color: #fff; }
-    body.light-mode .boton-seguimiento { background: #111827; color: #fff; }
-    body.light-mode .premios { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
-    body.light-mode h1, body.light-mode h2, body.light-mode h3 { color: #1f2933; }
-
     /* ===== AJUSTE PARA MÓVIL ===== */
- @media (max-width: 600px) {
-
-  body {
-    font-size: 18px;
-  }
-
-  nav {
-    padding: 12px 8px;
-  }
-
-  nav a {
-    font-size: 18px;
-  }
-
-  #toggleDark {
-    font-size: 18px;
-    padding: 10px 14px;
-  }
-
-  section {
-    margin: 12px;
-    padding: 24px;
-  }
-
-  h1 {
-    font-size: 42px;
-  }
-
-  h2 {
-    font-size: 30px;
-  }
-
-  h3 {
-    font-size: 24px;
-  }
-
-  p, li {
-    font-size: 18px;
-  }
-
-  .boton {
-    font-size: 18px;
-    padding: 16px 26px;
-  }
-
-  .mes {
-    width: 95%;
-    font-size: 18px;
-    padding: 20px;
-  }
-
-  table {
-    font-size: 16px;
-  }
-
-  .premios ul li {
-    font-size: 20px;
-  }
-}
-
+    @media (max-width: 600px) {
+      body { font-size: 18px; }
+      nav { padding: 12px 8px; }
+      nav a { font-size: 18px; }
+      #toggleDark { font-size: 18px; padding: 10px 14px; }
+      section { margin: 12px; padding: 24px; }
+      h1 { font-size: 42px; }
+      h2 { font-size: 30px; }
+      h3 { font-size: 24px; }
+      p, li { font-size: 18px; }
+      .boton { font-size: 18px; padding: 16px 26px; }
+      table { font-size: 16px; }
+      .premios ul li { font-size: 20px; }
+    }
   </style>
 </head>
 
@@ -338,6 +236,9 @@
 </section>
 
 <script>
+  // ===== PARTICIPANTES PREDEFINIDOS =====
+  const PARTICIPANTES = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
+
   // ===== BOTÓN MODO DIURNO/NOCTURNO =====
   const toggle = document.getElementById("toggleDark");
   const btnCargar = document.querySelector(".boton-cargar");
@@ -347,11 +248,8 @@
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
-    if(document.body.classList.contains("dark-mode")){
-      toggle.textContent = "☀️";
-    } else {
-      toggle.textContent = "🌙";
-    }
+    if(document.body.classList.contains("dark-mode")) toggle.textContent = "☀️";
+    else toggle.textContent = "🌙";
     actualizarBotonesModo();
   });
 
@@ -378,23 +276,59 @@
   // ===== EFECTO SCROLL MENU =====
   const nav = document.querySelector('nav');
   window.addEventListener('scroll', () => {
-    if(window.scrollY > 20){
-      nav.style.padding = "8px 20px"; // se achica al bajar
-    } else {
-      nav.style.padding = "12px 20px";
-    }
+    nav.style.padding = window.scrollY > 20 ? "8px 20px" : "12px 20px";
   });
 
-  // ===== CARGAR RANKING DESDE seguimiento.html =====
-  fetch('seguimiento.html')
-    .then(response => response.text())
-    .then(data => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
-      const filas = doc.querySelectorAll('tr');
-      const tabla = document.getElementById('tablaRanking');
-      filas.forEach((fila, i) => { if(i>0) tabla.appendChild(fila); });
-    });
+  // ===== FUNCIONES DE RANKING =====
+  function getWeekNumber(d) {
+    const date = new Date(d);
+    date.setHours(0,0,0,0);
+    const day = date.getDay() || 7;
+    date.setDate(date.getDate() + 1 - day);
+    const firstJan = new Date(date.getFullYear(),0,1);
+    const weekNo = Math.ceil((((date - firstJan)/86400000)+firstJan.getDay()+1)/7);
+    return weekNo + "-" + date.getFullYear();
+  }
+
+  async function cargarRanking() {
+    try {
+      const urlWebApp = "https://script.google.com/macros/s/AKfycbwwvBIJvNrIhW3-v15365Z73miYU2wURoKLSH1AJnc8TdtfphVWKefDDJJ_uwwsRWI/exec"; // <-- Pega tu URL de Apps Script
+      const res = await fetch(urlWebApp);
+      const datos = await res.json();
+
+      // Inicializar participantes en 0
+      const resumen = {};
+      PARTICIPANTES.forEach(nombre => resumen[nombre] = {dias:0, semanas:{}});
+
+      datos.forEach(d => {
+        const nombre = d.nombre;
+        if(!resumen[nombre]) return;
+        resumen[nombre].dias += 1;
+        const week = getWeekNumber(d.fechaEntrenamiento);
+        if(!resumen[nombre].semanas[week]) resumen[nombre].semanas[week] = 0;
+        resumen[nombre].semanas[week] += 1;
+      });
+
+      // Renderizar tabla
+      const tbody = document.querySelector('#tablaRanking');
+      tbody.innerHTML = "<tr><th>Nombre</th><th>Días Totales</th><th>Semanas Cumplidas</th></tr>";
+      PARTICIPANTES.forEach(nombre => {
+        const diasTotales = resumen[nombre].dias;
+        let semanasCompletadas = 0;
+        Object.values(resumen[nombre].semanas).forEach(c => { if(c>=3) semanasCompletadas++; });
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${nombre}</td><td>${diasTotales}</td><td>${semanasCompletadas}</td>`;
+        tbody.appendChild(tr);
+      });
+
+    } catch(err) {
+      console.error("Error cargando ranking: ", err);
+    }
+  }
+
+  // ===== INICIALIZAR =====
+  cargarRanking();
 </script>
 
 </body>
