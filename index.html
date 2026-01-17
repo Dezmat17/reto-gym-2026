@@ -15,6 +15,111 @@
       transition: background 0.3s, color 0.3s;
     }
 
+    /* ===== MENÚ ===== */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #1f2933;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      color: #fbbf24;
+      text-decoration: none;
+      margin: 0 14px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    #toggleDark {
+      margin-left: auto;
+      padding: 8px 14px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #fbbf24;
+      color: #1f2933;
+      font-weight: bold;
+    }
+
+    /* ===== SECCIONES ===== */
+    section {
+      background-color: #1f2933;
+      color: #e5e7eb;
+      margin: 20px;
+      padding: 30px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 46px;
+      color: #fbbf24;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #1f2933; /* modo diurno */
+      transition: color 0.3s;
+    }
+
+    ul {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    table {
+      width: 100%;
+      max-width: 700px;
+      margin: auto;
+      border-collapse: collapse;
+      background-color: #1f2933;
+      color: #e5e7eb;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    th, td {
+      border: 1px solid #555;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #111827;
+      color: #fbbf24;
+    }
+
+    /* ===== BOTONES ===== */
+    .boton {
+      display: inline-block;
+      margin: 10px 8px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .boton-cargar { background: #fbbf24; color: #1f2933; }
+    .boton-seguimiento { background: #1f2933; color: #fff; }
+
+    .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
     /* ===== SPLASH ===== */
     .splash {
       position: fixed;
@@ -30,157 +135,23 @@
     }
 
     .splash h1 {
-      font-size: 50px;
+      font-size: 46px;
       margin-bottom: 10px;
       background: linear-gradient(90deg, #fbbf24, #f59e0b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: zoomIn 1.5s ease;
-      text-align: center;
     }
 
     .splash p {
-      font-size: 20px;
+      font-size: 18px;
       opacity: 0.85;
       animation: fadeIn 1.8s ease;
-      text-align: center;
     }
 
     @keyframes zoomIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 0.85; } }
     @keyframes splashOut { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-    
-/* Título negro en modo diurno */
-body:not(.dark-mode) h1 {
-  color: #111827; /* negro oscuro */
-}
-    /* ===== MENÚ ===== */
-    nav {
-      display: flex;
-      justify-content: flex-start;
-      padding-left: 40px;
-      align-items: center;
-      background: #1f2933;
-      padding: 15px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      flex-wrap: wrap;
-    }
-
-    nav .nav-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      flex: 1;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 6px 12px;
-      transition: color 0.3s, background 0.3s;
-      border-radius: 6px;
-    }
-
-    nav a:hover { background-color: #fbbf24; color: #1f2933; }
-
-    #toggleDark {
-      padding: 10px 16px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      background: #fbbf24;
-      color: #1f2933;
-      font-weight: bold;
-      margin-left: 15px;
-      margin-top: 5px;
-    }
-
-    /* ===== BOTONES ===== */
-    .boton {
-      display: inline-block;
-      margin: 10px 8px;
-      padding: 14px 28px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-
-    .boton-cargar { background: #fbbf24; color: #1f2933; }
-    .boton-seguimiento { background: #1f2933; color: #fff; border: 2px solid #fbbf24; }
-
-    .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-
-    /* ===== SECCIONES ===== */
-    section {
-      background-color: #1f2933;
-      color: #e5e7eb;
-      margin: 20px;
-      padding: 30px;
-      border-radius: 12px;
-      transition: background 0.3s, color 0.3s;
-      animation: aparecer 0.6s ease forwards;
-    }
-
-    h1, h2, h3 { text-align: center; color: #fbbf24; margin-bottom: 15px; }
-    ul { max-width: 700px; margin: auto; padding-left: 0; list-style: none; }
-    ul li { margin: 8px 0; }
-
-    /* ===== TABLAS ===== */
-    table {
-      width: 100%;
-      max-width: 700px;
-      margin: auto;
-      border-collapse: collapse;
-      background-color: #1f2933;
-      color: #e5e7eb;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      margin-bottom: 20px;
-    }
-
-    th, td {
-      border: 1px solid #555;
-      padding: 12px;
-      text-align: center;
-    }
-
-    th {
-      background-color: #111827;
-      color: #fbbf24;
-    }
-
-    /* ===== PREMIOS ===== */
-    .premios {
-      max-width: 650px;
-      margin: 20px auto;
-      background-color: #1f2933;
-      padding: 25px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-      animation: aparecer 0.8s ease forwards;
-    }
-
-    .premios li {
-      font-size: 20px;
-      margin: 12px 0;
-    }
-
-    /* ===== REGLAS FADE ===== */
-    .reglas-fade {
-      text-align: center;
-      opacity: 0.7;
-      margin-top: 25px;
-      font-size: 14px;
-    }
 
     /* ===== PARTICIPANTES ===== */
     .participantes-grid {
@@ -206,19 +177,10 @@ body:not(.dark-mode) h1 {
     }
 
     .participante:hover { transform: translateY(-6px); box-shadow: 0 18px 35px rgba(0,0,0,0.6); }
-
     @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
 
     /* ===== MESES ===== */
-    .meses {
-      display: none; /* Oculto por defecto */
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px;
-      max-width: 720px;
-      margin: 20px auto 0 auto;
-    }
-
+    .meses { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
     .mes {
       width: 160px;
       padding: 18px 10px;
@@ -232,41 +194,42 @@ body:not(.dark-mode) h1 {
       border: 1px solid #333;
       transition: all 0.25s ease;
     }
-
     .mes:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,0.5); }
 
-    .btn-ver-meses {
-      display: inline-block;
-      margin: 10px auto;
-      padding: 12px 28px;
+    /* ===== PREMIOS ===== */
+    .premios { 
+      background-color: #1f2933; 
+      padding: 25px; 
+      border-radius: 12px; 
+      text-align: center; 
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+
+    .premios ul li {
       font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      border: none;
-      background-color: #fbbf24;
-      color: #1f2933;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      margin: 8px 0;
     }
 
-    .btn-ver-meses:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-
-    footer { text-align: center; padding: 20px; color: #aaa; opacity: 0.6; }
-
-    /* ===== MODO CLARO ===== */
-    body.light-mode {
-      background-color: #f4f4f4;
-      color: #1f2933;
+    /* ===== REGLAS FADE ===== */
+    .reglas-fade {
+      text-align: center;
+      opacity: 0.7;
+      margin-top: 25px;
+      font-size: 14px;
     }
 
+    /* ===== MODO DIURNO ===== */
+    body.light-mode { background-color: #f4f4f4; color: #1f2933; }
     body.light-mode section { background-color: #fff; color: #1f2933; }
-    body.light-mode table { background-color: #fff; color: #1f2933; }
-    body.light-mode th { background-color: #e5e7eb; color: #1f2933; }
-    body.light-mode .premios { background-color: #fff; color: #1f2933; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-    body.light-mode .mes { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
     body.light-mode nav { background-color: #1f2933; }
     body.light-mode nav a { color: #fbbf24; }
-    body.light-mode #toggleDark { background-color: #fbbf24; color: #1f2933; }
+    body.light-mode table { background-color: #fff; color: #1f2933; }
+    body.light-mode th { background-color: #f3f4f6; color: #1f2933; }
+    body.light-mode h2, body.light-mode h3 { color: #1f2933; }
+    body.light-mode .premios { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
+
   </style>
 </head>
 
@@ -279,14 +242,11 @@ body:not(.dark-mode) h1 {
 
 <!-- ===== MENÚ ===== -->
 <nav>
-  <div class="nav-links">
-    <a href="#inicio">Inicio</a>
-    <a href="#cargar">Cargar entrenamiento</a>
-    <a href="#ranking">Ranking</a>
-    <a href="#premios">Premios</a>
-    <a href="#mensual">Meses</a>
-    <a href="#reglas">Reglas</a>
-  </div>
+  <a href="#inicio">Inicio</a>
+  <a href="#ranking">Ranking</a>
+  <a href="#premios">Premios</a>
+  <a href="#mensual">Meses</a>
+  <a href="#reglas">Reglas</a>
   <button id="toggleDark">☀️ Modo diurno</button>
 </nav>
 
@@ -323,20 +283,20 @@ body:not(.dark-mode) h1 {
 <section class="premios" id="premios">
   <h2>🏆 Premios del Reto</h2>
   <ul>
-    <li>💪 <strong>Master Chad:</strong> Le invitan el asado. Condición: quien más días asistió durante el año.</li>
-    <li>⚡ <strong>Mucho LAG:</strong> Pagar la mitad del asado. Condición: asistencia intermedia, ni ganador ni último.</li>
-    <li>🦖 <strong>Trolazus Minimus:</strong> Pagar el resto del asado. Condición: quien menos días asistió durante el año.</li>
-    <li>🏅 <strong>AFK MASTER:</strong> 1/4 kg de helado Lucciano’s pagado por todos. Condición: mayor cantidad de semanas cumplidas; si coincide con Master Chad, pasa al siguiente.</li>
+    <li>💪 <strong>Master Chad:</strong> Premio: Le invitan el Asado. Condición: quien más días asistió durante el año.</li>
+    <li>💻 <strong>Mucho LAG:</strong> Premio: Pagar la mitad del asado. Condición: asistencia intermedia, ni ganador ni último.</li>
+    <li>🦖 <strong>Trolazus Minimus:</strong> Premio: Pagar el resto del asado. Condición: quien menos días asistió durante el año.</li>
+    <li>🏅 <strong>AFK MASTER:</strong> Premio Extra: 174 de Luccianos pagado por todos. Condición: mayor cantidad de semanas cumplidas; si coincide con el ganador total, pasa al siguiente participante.</li>
   </ul>
 </section>
 
 <!-- ===== MENSUAL ===== -->
 <section id="mensual">
   <h2>📊 Seguimiento Mensual</h2>
-  <div style="text-align:center;">
-    <button class="btn-ver-meses" id="toggleMeses">👀 Ver meses</button>
+  <div style="text-align:center; margin-bottom:15px;">
+    <button id="toggleMeses" class="boton boton-seguimiento">Ver meses</button>
   </div>
-  <div class="meses" id="mesesLinks">
+  <div class="meses" id="mesesContainer" style="display:none;">
     <a href="meses/febrero.html" class="mes">Febrero</a>
     <a href="meses/marzo.html" class="mes">Marzo</a>
     <a href="meses/abril.html" class="mes">Abril</a>
@@ -366,7 +326,7 @@ body:not(.dark-mode) h1 {
 <footer></footer>
 
 <script>
-  // ===== BOTÓN MODO NOCTURNO / DIURNO =====
+  // ===== BOTÓN MODO DIURNO/NOCTURNO =====
   const toggle = document.getElementById("toggleDark");
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
@@ -380,15 +340,9 @@ body:not(.dark-mode) h1 {
 
   // ===== BOTÓN VER MESES =====
   const btnMeses = document.getElementById("toggleMeses");
-  const mesesDiv = document.getElementById("mesesLinks");
+  const contMeses = document.getElementById("mesesContainer");
   btnMeses.addEventListener("click", () => {
-    if(mesesDiv.style.display === "flex"){
-      mesesDiv.style.display = "none";
-      btnMeses.textContent = "👀 Ver meses";
-    } else {
-      mesesDiv.style.display = "flex";
-      btnMeses.textContent = "🙈 Ocultar meses";
-    }
+    contMeses.style.display = contMeses.style.display === "none" ? "flex" : "none";
   });
 </script>
 
