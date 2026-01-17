@@ -138,6 +138,31 @@
   <script>
     const hoy = new Date().toISOString().split("T")[0];
     document.getElementById("fecha").max = hoy;
+    <script>
+document.getElementById("formCarga").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      nombre: document.getElementById("nombre").value,
+      fechaEntreno: document.getElementById("fecha").value,
+      foto: document.getElementById("foto").value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.status === "ok") {
+      alert("✅ Entrenamiento cargado correctamente");
+      document.getElementById("formCarga").reset();
+    } else {
+      alert("❌ Error al cargar");
+    }
+  })
+  .catch(() => alert("❌ Error de conexión"));
+});
+</script>
+
   </script>
 
 </body>
