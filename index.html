@@ -45,8 +45,12 @@
       font-size: 16px;
       transition: color 0.3s;
     }
-    nav a:hover { text-decoration: underline; }
 
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Botón de modo integrado al menú */
     #toggleDark {
       padding: 6px 12px;
       font-size: 14px;
@@ -80,7 +84,10 @@
       transition: color 0.3s;
     }
 
-    ul { max-width: 600px; margin: auto; }
+    ul {
+      max-width: 600px;
+      margin: auto;
+    }
 
     table {
       width: 100%;
@@ -97,7 +104,11 @@
       padding: 10px;
       text-align: center;
     }
-    th { background-color: #111827; color: #fbbf24; }
+
+    th {
+      background-color: #111827;
+      color: #fbbf24;
+    }
 
     /* ===== BOTONES ===== */
     .boton {
@@ -112,6 +123,7 @@
       transition: all 0.3s ease;
       text-decoration: none;
     }
+
     .boton:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 12px rgba(0,0,0,0.15);
@@ -218,6 +230,7 @@
       margin-top: 4px;
     }
 
+    /* ===== REGLAS FADE ===== */
     .reglas-fade {
       text-align: center;
       opacity: 0.7;
@@ -225,95 +238,98 @@
       font-size: 14px;
     }
 
-    /* ===== MODO ===== */
-    body.dark-mode { background-color: #111827; color: #e5e7eb; }
-    body.dark-mode section { background-color: #1f2933; }
-    body.dark-mode nav { background-color: rgba(31, 41, 51, 0.95); }
-    body.dark-mode nav a { color: #fbbf24; }
-    body.dark-mode #toggleDark { background-color: #fbbf24; color: #111827; }
-    body.dark-mode .boton-cargar,
-    body.dark-mode .boton-seguimiento { background: #fbbf24; color: #111827; }
-
-    body.light-mode { background-color: #f4f4f4; color: #1f2933; }
-    body.light-mode section { background-color: #fff; }
-    body.light-mode nav { background-color: #fff; }
-    body.light-mode nav a { color: #111827; }
-    body.light-mode #toggleDark { background-color: #fff; color: #111827; }
-    body.light-mode .boton-cargar,
-    body.light-mode .boton-seguimiento { background: #111827; color: #fff; }
-
-    /* ===== AJUSTE PARA MÓVIL (REEMPLAZADO) ===== */
-    @media (max-width: 600px) {
-
-      body {
-        font-size: 18px;
-      }
-
-      nav {
-        padding: 16px 12px;
-      }
-
-      nav a {
-        font-size: 20px;
-      }
-
-      #toggleDark {
-        font-size: 18px;
-        padding: 10px 16px;
-      }
-
-      section {
-        margin: 14px;
-        padding: 26px 20px;
-      }
-
-      h1 {
-        font-size: 38px;
-      }
-
-      h2 {
-        font-size: 30px;
-      }
-
-      p, li {
-        font-size: 18px;
-      }
-
-      table th, table td {
-        padding: 14px 8px;
-        font-size: 16px;
-      }
-
-      .boton {
-        font-size: 20px;
-        padding: 16px 28px;
-      }
-
-      .meses {
-        gap: 16px;
-      }
-
-      .mes {
-        width: 45%;
-        font-size: 18px;
-        padding: 20px 10px;
-      }
-
-      .premios ul li {
-        font-size: 22px;
-      }
-
-      .reglas-fade {
-        font-size: 15px;
-      }
+    /* ===== MODO DIURNO/NOCTURNO ===== */
+    body.dark-mode {
+      background-color: #111827;
+      color: #e5e7eb;
     }
 
+    body.dark-mode section {
+      background-color: #1f2933;
+      color: #e5e7eb;
+    }
+
+    body.dark-mode nav {
+      background-color: rgba(31, 41, 51, 0.95);
+    }
+
+    body.dark-mode nav a {
+      color: #fbbf24;
+    }
+
+    body.dark-mode #toggleDark {
+      background-color: #fbbf24;
+      color: #111827;
+    }
+
+    body.dark-mode .boton-cargar,
+    body.dark-mode .boton-seguimiento {
+      background: #fbbf24;
+      color: #111827;
+    }
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3 {
+      color: #fbbf24;
+    }
+
+    body.light-mode {
+      background-color: #f4f4f4;
+      color: #1f2933;
+    }
+
+    body.light-mode section {
+      background-color: #fff;
+      color: #1f2933;
+    }
+
+    body.light-mode nav {
+      background-color: #fff;
+    }
+
+    body.light-mode nav a {
+      color: #111827;
+    }
+
+    body.light-mode #toggleDark {
+      background-color: #fff;
+      color: #111827;
+    }
+
+    body.light-mode .boton-cargar,
+    body.light-mode .boton-seguimiento {
+      background: #111827;
+      color: #fff;
+    }
+
+    body.light-mode .premios {
+      background-color: #fff;
+      color: #1f2933;
+      border: 1px solid #ccc;
+    }
+
+    body.light-mode h1,
+    body.light-mode h2,
+    body.light-mode h3 {
+      color: #1f2933;
+    }
+
+    /* ===== AJUSTE PARA MÓVIL ===== */
+    @media (max-width: 700px) {
+      nav a { font-size: 20px; }
+      #toggleDark { font-size: 18px; padding: 10px 16px; }
+      .boton { font-size: 20px; padding: 16px 28px; }
+      h1 { font-size: 38px; }
+      h2 { font-size: 30px; }
+      .premios ul li { font-size: 24px; }
+    }
   </style>
 </head>
 
 <body class="dark-mode">
 
-<!-- TODO TU HTML + SCRIPT SIGUE EXACTAMENTE IGUAL (sin cambios) -->
+<!-- CONTENIDO Y SCRIPT EXACTAMENTE IGUAL AL TUYO -->
 
 </body>
 </html>
