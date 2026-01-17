@@ -84,6 +84,15 @@
     const form = document.getElementById('form');
     const mensaje = document.getElementById('mensaje');
 
+    // Función para convertir cualquier fecha a YYYY-MM-DD
+    function formatearFecha(fecha){
+      const d = new Date(fecha);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const dd = String(d.getDate()).padStart(2,'0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -100,10 +109,10 @@
         const resGet = await fetch(webAppURL);
         const registros = await resGet.json(); // array de {nombre, fechaEntrenamiento, subioFoto, fechaCarga}
 
-        // 2️⃣ Verificar duplicado
-        const existe = registros.some(r => 
-          r.nombre === nombre && 
-          new Date(r.fechaEntrenamiento).toDateString() === new Date(fechaEntrenamiento).toDateString()
+        // 2️⃣ Verificar duplicado por nombre + día exacto
+        const existe = registros.some(r =>
+          r.nombre === nombre &&
+          formatearFecha(r.fechaEntrenamiento) === formatearFecha(fechaEntrenamiento)
         );
 
         if(existe){
