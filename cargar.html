@@ -124,37 +124,43 @@
     </div>
   </div>
 
-<script>
-  // Evitar fechas futuras
-  const hoy = new Date().toISOString().split("T")[0];
-  document.getElementById("fecha").max = hoy;
+  <script>
+    // Evitar fechas futuras
+    const hoy = new Date().toISOString().split("T")[0];
+    document.getElementById("fecha").max = hoy;
 
-  // Envío por fetch a Google Sheets
-  document.getElementById("formCarga").addEventListener("submit", function(e) {
-    e.preventDefault();
+    // Envío por fetch a Google Sheets
+    document.getElementById("formCarga").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-    const form = e.target;
-    const datos = new FormData();
+      const form = e.target;
+      const datos = new FormData();
 
-    // Tomar valores
-    datos.append("nombre", form.nombre.value);
-    datos.append("fecha", form.fecha.value); // fecha de entrenamiento correcta
-    datos.append("foto", form.foto.value);
+      // Tomar valores
+      datos.append("nombre", form.nombre.value);
+      datos.append("foto", form.foto.value);
 
-    // Llamada fetch
-    fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
-      method: "POST",
-      body: datos
-    })
-    .then(() => {
-      alert("✅ Entrenamiento cargado correctamente");
-      window.location.href = "index.html"; // vuelve al menú
-    })
-    .catch(() => {
-      alert("❌ Error al cargar. Intentá de nuevo.");
+      // Convertir fecha en day/month/year para evitar errores
+      const fechaStr = form.fecha.value; // YYYY-MM-DD
+      const [year, month, day] = fechaStr.split("-");
+      datos.append("day", day);
+      datos.append("month", month);
+      datos.append("year", year);
+
+      // Llamada fetch
+      fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
+        method: "POST",
+        body: datos
+      })
+      .then(() => {
+        alert("✅ Entrenamiento cargado correctamente");
+        window.location.href = "index.html"; // vuelve al menú
+      })
+      .catch(() => {
+        alert("❌ Error al cargar. Intentá de nuevo.");
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
