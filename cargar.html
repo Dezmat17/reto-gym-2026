@@ -125,7 +125,6 @@
     const hoy = new Date().toISOString().split("T")[0];
     document.getElementById("fecha").max = hoy;
 
-    // Manejo del submit
     document.getElementById("formCarga").addEventListener("submit", function(e) {
       e.preventDefault();
       const form = e.target;
@@ -139,19 +138,8 @@
       datos.append("nombre", form.nombre.value);
       datos.append("foto", form.foto.value);
 
-      // --- Fecha segura ---
-      const inputFecha = new Date(form.fecha.value);
-      if (isNaN(inputFecha)) {
-        alert("Fecha inválida, revisá el valor ingresado.");
-        return;
-      }
-
-      // Convertir a formato YYYY-MM-DD
-      const year = inputFecha.getFullYear();
-      const month = String(inputFecha.getMonth() + 1).padStart(2, "0");
-      const day = String(inputFecha.getDate()).padStart(2, "0");
-      const fechaISO = `${year}-${month}-${day}`;
-      datos.append("fecha", fechaISO);
+      // --- Guardar la fecha como TEXTO directamente ---
+      datos.append("fecha", form.fecha.value); // "YYYY-MM-DD" se guarda tal cual
 
       fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
         method: "POST",
