@@ -41,38 +41,72 @@
   </style>
 </head>
 <body>
-  <h2>Seguimiento de Entrenamientos</h2>
+  <h2>Resumen de Entrenamientos</h2>
   <button onclick="window.location='index.html'">Volver al Menú</button>
   <table id="tabla">
     <thead>
       <tr>
-        <th>Fecha Entrenamiento</th>
         <th>Nombre</th>
-        <th>Subió Foto</th>
-        <th>Fecha Carga</th>
+        <th>Días Totales Entrenados</th>
+        <th>Semanas Completadas</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 
   <script>
+    const PARTICIPANTES = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
+
+    // Función para calcular semana del año (lunes-domingo)
+    function getWeekNumber(d) {
+      const date = new Date(d);
+      date.setHours(0,0,0,0);
+      // Ajustar al lunes
+      const day = date.getDay() || 7;
+      date.setDate(date.getDate() + 1 - day);
+      const firstJan = new Date(date.getFullYear(),0,1);
+      const weekNo = Math.ceil((((date - firstJan) / 86400000) + firstJan.getDay() + 1)/7);
+      return weekNo + "-" + date.getFullYear(); // semana-año
+    }
+
     async function cargarDatos() {
       try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwwvBIJvNrIhW3-v15365Z73miYU2wURoKLSH1AJnc8TdtfphVWKefDDJJ_uwwsRWI/exec"); // <-- Pega la misma URL de Apps Script
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwwvBIJvNrIhW3-v15365Z73miYU2wURoKLSH1AJnc8TdtfphVWKefDDJJ_uwwsRWI/exec"); // <- tu URL del Web App
         const datos = await res.json();
+
+        // Inicializar resumen con participantes en 0
+        const resumen = {};
+        PARTICIPANTES.forEach(nombre => {
+          resumen[nombre] = {dias: 0, semanas: {}};
+        });
+
+        // Procesar datos del Sheet
+        datos.forEach(d => {
+          const nombre = d.nombre;
+          if(!resumen[nombre]) return; // ignorar si no está en lista
+
+          resumen[nombre].dias += 1;
+          const week = getWeekNumber(d.fechaEntrenamiento);
+          if(!resumen[nombre].semanas[week]) resumen[nombre].semanas[week] = 0;
+          resumen[nombre].semanas[week] += 1;
+        });
+
+        // Renderizar tabla
         const tbody = document.querySelector('#tabla tbody');
         tbody.innerHTML = "";
 
-        datos.forEach(row => {
+        PARTICIPANTES.forEach(nombre => {
+          const diasTotales = resumen[nombre].dias;
+          let semanasCompletadas = 0;
+          Object.values(resumen[nombre].semanas).forEach(c => { if(c >= 3) semanasCompletadas++; });
+
           const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.fechaEntrenamiento}</td>
-            <td>${row.nombre}</td>
-            <td>${row.subioFoto}</td>
-            <td>${row.fechaCarga}</td>
-          `;
+          tr.innerHTML = `<td>${nombre}</td>
+                          <td>${diasTotales}</td>
+                          <td>${semanasCompletadas}</td>`;
           tbody.appendChild(tr);
         });
+
       } catch(err){
         console.error("Error cargando datos: ", err);
       }
@@ -82,4 +116,3 @@
   </script>
 </body>
 </html>
-
