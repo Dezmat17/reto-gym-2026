@@ -39,6 +39,7 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 16px;
+      transition: color 0.3s;
     }
 
     nav a:hover { text-decoration: underline; }
@@ -50,10 +51,8 @@
       cursor: pointer;
       border: none;
       border-radius: 6px;
-      background: #fbbf24;
-      color: #1f2933;
       font-weight: bold;
-      transition: background 0.3s, color 0.3s;
+      transition: all 0.3s ease;
     }
 
     /* ===== SECCIONES ===== */
@@ -112,9 +111,11 @@
       text-decoration: none;
     }
 
-    .boton-cargar { background: #fbbf24; color: #1f2933; }
-    .boton-seguimiento { background: #1f2933; color: #fff; }
     .boton:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
+    /* ===== BOTONES ESPECÍFICOS ===== */
+    .boton-cargar {}
+    .boton-seguimiento {}
 
     /* ===== SPLASH ===== */
     .splash {
@@ -148,7 +149,8 @@
     /* ===== MESES ===== */
     .meses { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; max-width: 720px; margin: 0 auto; }
     .mes {
-      width: 160px; padding: 18px 10px;
+      width: 160px;
+      padding: 18px 10px;
       border-radius: 14px;
       text-decoration: none;
       font-weight: 600;
@@ -169,26 +171,31 @@
     /* ===== REGLAS FADE ===== */
     .reglas-fade { text-align: center; opacity: 0.7; margin-top: 25px; font-size: 14px; }
 
-    /* ===== MODO DIURNO ===== */
-    body.dark-mode { background-color: #111827; color: #e5e7eb; }
+    /* ===== MODO DIURNO/NOCTURNO ===== */
+    body.dark-mode {
+      background-color: #111827;
+      color: #e5e7eb;
+    }
     body.dark-mode section { background-color: #1f2933; color: #e5e7eb; }
     body.dark-mode nav { background-color: #1f2933; }
     body.dark-mode nav a { color: #fbbf24; }
     body.dark-mode #toggleDark { background-color: #fbbf24; color: #1f2933; }
-    body.dark-mode .boton-cargar { background: #fbbf24; color: #1f2933; }
-    body.dark-mode .boton-seguimiento { background: #1f2933; color: #fff; }
+    body.dark-mode .boton-cargar { background: #fff; color: #111827; }
+    body.dark-mode .boton-seguimiento { background: #fff; color: #111827; }
     body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #fbbf24; }
 
-    body.light-mode { background-color: #f4f4f4; color: #1f2933; }
+    body.light-mode {
+      background-color: #f4f4f4;
+      color: #1f2933;
+    }
     body.light-mode section { background-color: #fff; color: #1f2933; }
     body.light-mode nav { background-color: #1f2933; }
     body.light-mode nav a { color: #1f2933; }
     body.light-mode #toggleDark { background-color: #1f2933; color: #fbbf24; }
-    body.light-mode .boton-cargar { background: #fff; color: #1f2933; }
-    body.light-mode .boton-seguimiento { background: #fff; color: #1f2933; }
+    body.light-mode .boton-cargar { background: #111827; color: #fff; }
+    body.light-mode .boton-seguimiento { background: #111827; color: #fff; }
     body.light-mode .premios { background-color: #fff; color: #1f2933; border: 1px solid #ccc; }
     body.light-mode h1, body.light-mode h2, body.light-mode h3 { color: #1f2933; }
-
   </style>
 </head>
 
@@ -276,11 +283,12 @@
   <div class="reglas-fade">📌 El administrador del reto actualiza GitHub. El objetivo es sostener el hábito durante todo el año.</div>
 </section>
 
-<footer></footer>
-
 <script>
   // ===== BOTÓN MODO DIURNO/NOCTURNO =====
   const toggle = document.getElementById("toggleDark");
+  const btnCargar = document.querySelector(".boton-cargar");
+  const btnMeses = document.querySelector(".boton-seguimiento");
+
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
@@ -292,24 +300,21 @@
     actualizarBotonesModo();
   });
 
-  // Cambiar colores de botones según modo
   function actualizarBotonesModo() {
-    const btnCargar = document.querySelector(".boton-cargar");
-    const btnMeses = document.querySelector(".boton-seguimiento");
     if(document.body.classList.contains("dark-mode")) {
-      btnCargar.style.background = "#fbbf24"; btnCargar.style.color = "#1f2933";
-      btnMeses.style.background = "#1f2933"; btnMeses.style.color = "#fff";
+      btnCargar.style.background = "#fff"; btnCargar.style.color = "#111827";
+      btnMeses.style.background = "#fff"; btnMeses.style.color = "#111827";
     } else {
-      btnCargar.style.background = "#fff"; btnCargar.style.color = "#1f2933";
-      btnMeses.style.background = "#fff"; btnMeses.style.color = "#1f2933";
+      btnCargar.style.background = "#111827"; btnCargar.style.color = "#fff";
+      btnMeses.style.background = "#111827"; btnMeses.style.color = "#fff";
     }
   }
   actualizarBotonesModo();
 
   // ===== BOTÓN VER MESES =====
-  const btnMeses = document.getElementById("toggleMeses");
+  const btnMesesToggle = document.getElementById("toggleMeses");
   const contMeses = document.getElementById("mesesContainer");
-  btnMeses.addEventListener("click", () => {
+  btnMesesToggle.addEventListener("click", () => {
     contMeses.style.display = contMeses.style.display === "none" ? "flex" : "none";
   });
 
@@ -331,4 +336,3 @@
 
 </body>
 </html>
-
