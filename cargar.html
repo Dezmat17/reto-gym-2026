@@ -63,12 +63,6 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .boton:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0,0,0,.4);
     }
 
     .volver {
@@ -93,38 +87,29 @@
   <div class="card">
     <h1>Cargar entrenamiento</h1>
 
-    <form 
-      method="POST"
-      action="https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec">
+    <form id="formCarga">
 
-      <!-- NOMBRE -->
-      <label for="nombre">Nombre</label>
-      <select name="nombre" id="nombre" required>
+      <label>Nombre</label>
+      <select name="nombre" required>
         <option value="">Seleccionar</option>
-        <option value="Luca">Luca</option>
-        <option value="Mati">Mati</option>
-        <option value="Unyi">Unyi</option>
-        <option value="Fran">Fran</option>
-        <option value="Litox">Litox</option>
+        <option>Luca</option>
+        <option>Mati</option>
+        <option>Unyi</option>
+        <option>Fran</option>
+        <option>Litox</option>
       </select>
 
-      <!-- FECHA DE ENTRENAMIENTO -->
-      <label for="fecha">Día que entrenó</label>
-      <input
-        type="date"
-        name="fecha"
-        id="fecha"
-        required>
+      <label>Día que entrenó</label>
+      <input type="date" name="fecha" id="fecha" required>
 
-      <!-- FOTO -->
-      <label for="foto">¿Sacó foto?</label>
-      <select name="foto" id="foto" required>
+      <label>¿Sacó foto?</label>
+      <select name="foto" required>
         <option value="">Seleccionar</option>
-        <option value="SI">Sí</option>
-        <option value="NO">No</option>
+        <option>SI</option>
+        <option>NO</option>
       </select>
 
-      <button type="submit" class="boton">
+      <button class="boton" type="submit">
         Guardar entrenamiento
       </button>
     </form>
@@ -134,36 +119,30 @@
     </div>
   </div>
 
-  <!-- EVITAR FECHAS FUTURAS -->
-  <script>
-    const hoy = new Date().toISOString().split("T")[0];
-    document.getElementById("fecha").max = hoy;
-    <script>
-document.getElementById("formCarga").addEventListener("submit", function(e) {
-  e.preventDefault();
+<script>
+  // Evitar fechas futuras
+  const hoy = new Date().toISOString().split("T")[0];
+  document.getElementById("fecha").max = hoy;
 
-  fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
-    method: "POST",
-    body: JSON.stringify({
-      nombre: document.getElementById("nombre").value,
-      fechaEntreno: document.getElementById("fecha").value,
-      foto: document.getElementById("foto").value
+  // Envío por fetch
+  document.getElementById("formCarga").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const datos = new FormData(this);
+
+    fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
+      method: "POST",
+      body: datos
     })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if(data.status === "ok") {
+    .then(() => {
       alert("✅ Entrenamiento cargado correctamente");
-      document.getElementById("formCarga").reset();
-    } else {
-      alert("❌ Error al cargar");
-    }
-  })
-  .catch(() => alert("❌ Error de conexión"));
-});
+      window.location.href = "index.html";
+    })
+    .catch(() => {
+      alert("❌ Error al cargar. Intentá de nuevo.");
+    });
+  });
 </script>
-
-  </script>
 
 </body>
 </html>
