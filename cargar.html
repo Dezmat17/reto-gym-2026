@@ -1,161 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Cargar entrenamiento</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #111;
-      color: #f5f5f5;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<meta charset="UTF-8">
+<title>Cargar Entrenamiento</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #111;
+    color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .card {
-      background: #1b1b1b;
-      padding: 40px;
-      border-radius: 18px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,.6);
-    }
+  .card {
+    background: #1b1b1b;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 28px;
-      color: #ffd84d;
-    }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffd84d;
+  }
 
-    label {
-      display: block;
-      margin-top: 18px;
-      font-weight: bold;
-    }
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
 
-    input, select {
-      width: 100%;
-      padding: 14px;
-      margin-top: 8px;
-      border-radius: 10px;
-      border: none;
-      background: #2a2a2a;
-      color: #fff;
-      font-size: 16px;
-    }
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: none;
+    background: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+  }
 
-    input:focus, select:focus {
-      outline: 2px solid #ffd84d;
-    }
+  button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: #ffd84d;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #111;
+  }
 
-    .boton {
-      margin-top: 28px;
-      width: 100%;
-      padding: 16px;
-      font-size: 18px;
-      font-weight: bold;
-      background: #ffd84d;
-      color: #111;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .boton:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0,0,0,.4);
-    }
-
-    .volver {
-      margin-top: 24px;
-      text-align: center;
-    }
-
-    .volver a {
-      color: #aaa;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .volver a:hover {
-      color: #ffd84d;
-    }
-  </style>
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  }
+</style>
 </head>
 <body>
 
-  <div class="card">
-    <h1>Cargar entrenamiento</h1>
+<div class="card">
+  <h2>Cargar Entrenamiento</h2>
+  <form id="formCarga">
+    <label>Nombre</label>
+    <select name="nombre" required>
+      <option value="">Seleccionar</option>
+      <option>Luca</option>
+      <option>Mati</option>
+      <option>Unyi</option>
+      <option>Fran</option>
+      <option>Litox</option>
+    </select>
 
-    <form id="formCarga">
-      <label>Nombre</label>
-      <select name="nombre" required>
-        <option value="">Seleccionar</option>
-        <option>Luca</option>
-        <option>Mati</option>
-        <option>Unyi</option>
-        <option>Fran</option>
-        <option>Litox</option>
-      </select>
+    <label>Día que entrenó</label>
+    <input type="date" name="fecha" id="fecha" required>
 
-      <label>Día que entrenó</label>
-      <input type="date" name="fecha" id="fecha" required>
+    <label>¿Sacó foto?</label>
+    <select name="foto" required>
+      <option value="">Seleccionar</option>
+      <option>SI</option>
+      <option>NO</option>
+    </select>
 
-      <label>¿Sacó foto?</label>
-      <select name="foto" required>
-        <option value="">Seleccionar</option>
-        <option>SI</option>
-        <option>NO</option>
-      </select>
+    <button type="submit">Guardar</button>
+  </form>
+</div>
 
-      <button class="boton" type="submit">Guardar entrenamiento</button>
-    </form>
+<script>
+document.getElementById("fecha").max = new Date().toISOString().split("T")[0];
 
-    <div class="volver">
-      <a href="index.html">⬅️ Volver al menú</a>
-    </div>
-  </div>
+document.getElementById("formCarga").addEventListener("submit", function(e){
+  e.preventDefault();
+  const form = e.target;
 
-  <script>
-    // Evitar fechas futuras
-    const hoy = new Date().toISOString().split("T")[0];
-    document.getElementById("fecha").max = hoy;
+  // Validación básica
+  if(!form.nombre.value || !form.fecha.value || !form.foto.value){
+    alert("Por favor completá todos los campos.");
+    return;
+  }
 
-    document.getElementById("formCarga").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const form = e.target;
+  // Separar día/mes/año
+  const partes = form.fecha.value.split("-"); // ["YYYY","MM","DD"]
+  const year = Number(partes[0]);
+  const month = Number(partes[1]);
+  const day = Number(partes[2]);
 
-      if (!form.nombre.value || !form.fecha.value || !form.foto.value) {
-        alert("Por favor completá todos los campos.");
-        return;
-      }
+  const datos = new FormData();
+  datos.append("nombre", form.nombre.value);
+  datos.append("foto", form.foto.value);
+  datos.append("day", day);
+  datos.append("month", month);
+  datos.append("year", year);
 
-      const datos = new FormData();
-      datos.append("nombre", form.nombre.value);
-      datos.append("foto", form.foto.value);
-
-      // --- Fecha como texto DD/MM/YYYY ---
-      const partes = form.fecha.value.split("-"); // ["YYYY","MM","DD"]
-      const fechaTexto = `${partes[2]}/${partes[1]}/${partes[0]}`; // "DD/MM/YYYY"
-      datos.append("fecha", fechaTexto);
-
-      fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
-        method: "POST",
-        body: datos
-      })
-      .then(() => {
-        alert("✅ Entrenamiento cargado correctamente");
-        window.location.href = "index.html";
-      })
-      .catch(() => {
-        alert("❌ Error al cargar. Intentá de nuevo.");
-      });
-    });
-  </script>
+  // Llamada al Apps Script
+  fetch("https://script.google.com/macros/s/AKfycbx2Xf3gGZ2mnaVZlb3s7HNz08MSMBI_VQFashgfDdhMB5mkGUFI4Y3oZTmzUJG3QJ3whA/exec", {
+    method: "POST",
+    body: datos
+  })
+  .then(()=> alert("✅ Entrenamiento cargado correctamente"))
+  .catch(()=> alert("❌ Error al cargar. Intentá de nuevo."));
+});
+</script>
 
 </body>
 </html>
