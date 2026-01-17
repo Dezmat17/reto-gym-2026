@@ -65,6 +65,11 @@
       cursor: pointer;
     }
 
+    .boton:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,.4);
+    }
+
     .volver {
       margin-top: 24px;
       text-align: center;
@@ -124,19 +129,26 @@
   const hoy = new Date().toISOString().split("T")[0];
   document.getElementById("fecha").max = hoy;
 
-  // Envío por fetch
+  // Envío por fetch a Google Sheets
   document.getElementById("formCarga").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const datos = new FormData(this);
+    const form = e.target;
+    const datos = new FormData();
 
+    // Tomar valores
+    datos.append("nombre", form.nombre.value);
+    datos.append("fecha", form.fecha.value); // fecha de entrenamiento correcta
+    datos.append("foto", form.foto.value);
+
+    // Llamada fetch
     fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
       method: "POST",
       body: datos
     })
     .then(() => {
       alert("✅ Entrenamiento cargado correctamente");
-      window.location.href = "index.html";
+      window.location.href = "index.html"; // vuelve al menú
     })
     .catch(() => {
       alert("❌ Error al cargar. Intentá de nuevo.");
