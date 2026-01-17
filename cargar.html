@@ -1,134 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Cargar Entrenamiento</title>
-<style>
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: #111;
-    color: #f5f5f5;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .card {
-    background: #1b1b1b;
-    padding: 30px;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-  }
-
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ffd84d;
-  }
-
-  label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-  }
-
-  input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 8px;
-    border: none;
-    background: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
-  }
-
-  button {
-    margin-top: 20px;
-    width: 100%;
-    padding: 12px;
-    background: #ffd84d;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #111;
-  }
-
-  button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Cargar Entrenamiento</title>
+  <style>
+    body {
+      background: #121212;
+      color: #FFA500;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background: #1E1E1E;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #000;
+      width: 300px;
+    }
+    input, select, button {
+      margin: 10px 0;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background: #FFA500;
+      color: #121212;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #FFB732;
+    }
+    .success {
+      color: #00FF00;
+      margin-top: 10px;
+      text-align: center;
+    }
+    h2 {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+  <form id="form">
+    <h2>Cargar Entrenamiento</h2>
 
-<div class="card">
-  <h2>Cargar Entrenamiento</h2>
-  <form id="formCarga">
-    <label>Nombre</label>
-    <select name="nombre" required>
-      <option value="">Seleccionar</option>
-      <option>Luca</option>
-      <option>Mati</option>
-      <option>Unyi</option>
-      <option>Fran</option>
-      <option>Litox</option>
+    <label>Nombre:</label>
+    <select id="nombre" required>
+      <option value="">Seleccione</option>
+      <option value="Mati">Mati</option>
+      <option value="Luca">Luca</option>
+      <option value="Litox">Litox</option>
+      <option value="Fran">Fran</option>
+      <option value="Unyi">Unyi</option>
     </select>
 
-    <label>Día que entrenó</label>
-    <input type="date" name="fecha" id="fecha" required>
+    <label>Fecha de Entrenamiento:</label>
+    <input type="date" id="fecha" required max="">
 
-    <label>¿Sacó foto?</label>
-    <select name="foto" required>
-      <option value="">Seleccionar</option>
-      <option>SI</option>
-      <option>NO</option>
+    <label>Subió Foto:</label>
+    <select id="foto" required>
+      <option value="">Seleccione</option>
+      <option value="Sí">Sí</option>
+      <option value="No">No</option>
     </select>
 
-    <button type="submit">Guardar</button>
+    <button type="submit">Cargar</button>
+    <button type="button" onclick="window.location='index.html'">Volver al Menú</button>
+
+    <div id="mensaje" class="success"></div>
   </form>
-</div>
 
-<script>
-document.getElementById("fecha").max = new Date().toISOString().split("T")[0];
+  <script>
+    // Poner fecha máxima hoy
+    document.getElementById('fecha').max = new Date().toISOString().split('T')[0];
 
-document.getElementById("formCarga").addEventListener("submit", function(e){
-  e.preventDefault();
-  const form = e.target;
+    const form = document.getElementById('form');
+    const mensaje = document.getElementById('mensaje');
 
-  // Validación básica
-  if(!form.nombre.value || !form.fecha.value || !form.foto.value){
-    alert("Por favor completá todos los campos.");
-    return;
-  }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-  // Separar día/mes/año
-  const partes = form.fecha.value.split("-"); // ["YYYY","MM","DD"]
-  const year = Number(partes[0]);
-  const month = Number(partes[1]);
-  const day = Number(partes[2]);
+      const data = {
+        nombre: document.getElementById('nombre').value,
+        fechaEntrenamiento: document.getElementById('fecha').value,
+        subioFoto: document.getElementById('foto').value
+      };
 
-  const datos = new FormData();
-  datos.append("nombre", form.nombre.value);
-  datos.append("foto", form.foto.value);
-  datos.append("day", day);
-  datos.append("month", month);
-  datos.append("year", year);
+      try {
+        const res = await fetch("TU_URL_DEL_WEB_APP_AQUI", { // <-- Pega tu URL de Apps Script
+          method: "POST",
+          body: JSON.stringify(data)
+        });
 
-  // Llamada al Apps Script
-  fetch("https://script.google.com/macros/s/AKfycbx2Xf3gGZ2mnaVZlb3s7HNz08MSMBI_VQFashgfDdhMB5mkGUFI4Y3oZTmzUJG3QJ3whA/exec", {
-    method: "POST",
-    body: datos
-  })
-  .then(()=> alert("✅ Entrenamiento cargado correctamente"))
-  .catch(()=> alert("❌ Error al cargar. Intentá de nuevo."));
-});
-</script>
+        const result = await res.json();
 
+        if(result.status === "success"){
+          mensaje.textContent = "¡Carga satisfactoria!";
+          setTimeout(()=>{ window.location='index.html'; }, 2000);
+        }
+      } catch(err){
+        mensaje.textContent = "Error al cargar. Intente nuevamente.";
+        console.error(err);
+      }
+    });
+  </script>
 </body>
 </html>
