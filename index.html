@@ -385,16 +385,55 @@
     }
   });
 
-  // ===== CARGAR RANKING DESDE seguimiento.html =====
-  fetch('seguimiento.html')
-    .then(response => response.text())
-    .then(data => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
-      const filas = doc.querySelectorAll('tr');
-      const tabla = document.getElementById('tablaRanking');
-      filas.forEach((fila, i) => { if(i>0) tabla.appendChild(fila); });
+ // ===== CARGAR RANKING DIRECTO DESDE GOOGLE SHEETS =====
+const PARTICIPANTES = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
+const tablaRanking = document.getElementById('tablaRanking');
+
+async function cargarRanking() {
+  try {
+    const urlWebApp = "TU_URL_DEL_WEB_APP_AQUI"; // <-- reemplaza con tu Web App
+    const res = await fetch(urlWebApp);
+    const datos = await res.json(); // Espera un array de objetos {nombre, fechaEntrenamiento, subioFoto, fechaCarga}
+
+    // Inicializar participantes con 0
+    const resumen = {};
+    PARTICIPANTES.forEach(nombre => resumen[nombre] = {dias:0, semanas:{}});
+
+    datos.forEach(d => {
+      const nombre = d.nombre;
+      if(!resumen[nombre]) return;
+
+      resumen[nombre].dias += 1;
+
+      // Calcular semana (lunes-domingo)
+      const fecha = new Date(d.fechaEntrenamiento);
+      const day = fecha.getDay() || 7; // domingo=7
+      fecha.setDate(fecha.getDate() + 1 - day); // lunes de la semana
+      const weekKey = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
+      if(!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = 0;
+      resumen[nombre].semanas[weekKey] += 1;
     });
+
+    // Renderizar tabla
+    tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove()); // limpiar filas previas
+
+    PARTICIPANTES.forEach(nombre => {
+      const diasTotales = resumen[nombre].dias;
+      let semanasCumplidas = 0;
+      Object.values(resumen[nombre].semanas).forEach(c => { if(c >= 3) semanasCumplidas++; });
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${nombre}</td><td>${diasTotales}</td><td>${semanasCumplidas}</td>`;
+      tablaRanking.appendChild(tr);
+    });
+
+  } catch(err) {
+    console.error("Error cargando ranking: ", err);
+  }
+}
+
+// Ejecutar al cargar la página
+cargarRanking();
 </script>
 
 </body>
