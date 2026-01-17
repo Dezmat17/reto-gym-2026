@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cargar Entrenamiento</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111827;
+      color: #e5e7eb;
+      padding: 20px;
+    }
+
+    form {
+      max-width: 420px;
+      margin: auto;
+      background: #1f2933;
+      padding: 24px;
+      border-radius: 12px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fbbf24;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+
+    select, input, button {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      margin-top: 24px;
+      background: #fbbf24;
+      color: #111827;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+<form id="formCarga">
+  <h1>🏋️ Cargar entrenamiento</h1>
+
+  <label>Participante</label>
+  <select name="nombre" required>
+    <option value="">Seleccionar</option>
+    <option value="Luca">Luca</option>
+    <option value="Mati">Mati</option>
+    <option value="Unyi">Unyi</option>
+    <option value="Fran">Fran</option>
+    <option value="Litox">Litox</option>
+  </select>
+
+  <label>Día que entrenó</label>
+  <input type="date" name="fecha_entrenamiento" id="fechaEntrenamiento" required>
+
+  <label>¿Sacó foto?</label>
+  <select name="foto" required>
+    <option value="SI">Sí</option>
+    <option value="NO">No</option>
+  </select>
+
+  <button type="submit">Guardar</button>
+</form>
+
+<script>
+  // Limitar fecha al día de hoy
+  const hoy = new Date().toISOString().split('T')[0];
+  document.getElementById("fechaEntrenamiento").max = hoy;
+
+  const form = document.getElementById("formCarga");
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const data = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbztFKIjkk7-SNsQOFOJYkNkwg7bhyPzY0DFAUJL8RKuc6P1Ld6tw1zF_2hDurYP7fvWqQ/exec", {
+      method: "POST",
+      body: data
+    })
+    .then(() => {
+      alert("Entrenamiento cargado 💪");
+      form.reset();
+    })
+    .catch(() => {
+      alert("Error al cargar");
+    });
+  });
+</script>
+
+</body>
+</html>
