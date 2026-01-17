@@ -391,7 +391,7 @@ const tablaRanking = document.getElementById('tablaRanking');
 
 async function cargarRanking() {
   try {
-    const urlWebApp = "TU_URL_DEL_WEB_APP_AQUI"; // <-- reemplaza con tu Web App
+    const urlWebApp = "https://script.google.com/macros/s/AKfycbwwvBIJvNrIhW3-v15365Z73miYU2wURoKLSH1AJnc8TdtfphVWKefDDJJ_uwwsRWI/exec"; // <-- reemplaza con tu Web App
     const res = await fetch(urlWebApp);
     const datos = await res.json(); // Espera un array de objetos {nombre, fechaEntrenamiento, subioFoto, fechaCarga}
 
