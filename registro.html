@@ -327,14 +327,13 @@ function generarResumen(mes) {
 
     dias[r.nombre]++;
 
-    // Semana de domingo a sábado
-    const diaSemana = f.getDay(); // domingo=0, lunes=1, ..., sábado=6
-    const domingoSemana = new Date(f);
-    domingoSemana.setDate(f.getDate() - diaSemana); // retroceder hasta domingo
-    const claveSemana = `${domingoSemana.getFullYear()}-${domingoSemana.getMonth()}-${domingoSemana.getDate()}`;
+    const d = f.getDay() === 0 ? 7 : f.getDay();
+    const lunes = new Date(f);
+    lunes.setDate(f.getDate() - (d - 1));
+    const clave = lunes.toISOString().split("T")[0];
 
-    if (!semanas[r.nombre][claveSemana]) semanas[r.nombre][claveSemana] = new Set();
-    semanas[r.nombre][claveSemana].add(f.getDate());
+    if (!semanas[r.nombre][clave]) semanas[r.nombre][clave] = new Set();
+    semanas[r.nombre][clave].add(f.getDate());
   });
 
   nombresParticipantes.forEach(n => {
