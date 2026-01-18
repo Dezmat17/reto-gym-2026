@@ -37,6 +37,7 @@ select {
   border: none;
 }
 
+/* ===== Calendario ===== */
 .calendario {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -69,16 +70,27 @@ select {
 }
 
 .entrenamientos {
-  font-size: 13px;
   margin-top: 6px;
+  font-size: 13px;
   color: #00FF00;
 }
 
+/* Desktop: dos columnas si hay muchos nombres */
+@media (min-width: 900px) {
+  .entrenamientos {
+    font-size: 14px;
+    column-count: 2;
+    column-gap: 6px;
+  }
+}
+
+/* ===== Resumen ===== */
 .resumen {
   background: #1E1E1E;
   border-radius: 12px;
   padding: 16px;
-  margin-bottom: 20px;
+  margin: 0 auto 24px auto;
+  max-width: 480px;
 }
 
 table {
@@ -87,7 +99,7 @@ table {
 }
 
 th, td {
-  padding: 10px;
+  padding: 8px;
   border-bottom: 1px solid #333;
 }
 
@@ -95,6 +107,15 @@ th {
   color: #FFB732;
 }
 
+td.nombre {
+  text-align: left;
+}
+
+td.numero {
+  text-align: center;
+}
+
+/* ===== Botón ===== */
 .volver {
   display: block;
   margin: 0 auto;
@@ -102,19 +123,13 @@ th {
   background: #FFA500;
   color: #121212;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
 }
 
 .volver:hover {
   background: #FFB732;
-}
-
-@media (max-width: 768px) {
-  .dia {
-    min-height: 70px;
-  }
 }
 </style>
 </head>
@@ -125,19 +140,19 @@ th {
 <h1 id="tituloMes">🧪 Enero (prueba)</h1>
 
 <div class="mes-selector">
-  <select id="selectorMes">
-    <option value="0">🧪 Enero (prueba)</option>
-    <option value="1">Febrero</option>
-    <option value="2">Marzo</option>
-    <option value="3">Abril</option>
-    <option value="4">Mayo</option>
-    <option value="5">Junio</option>
-    <option value="6">Julio</option>
-    <option value="7">Agosto</option>
-    <option value="8">Septiembre</option>
-    <option value="9">Octubre</option>
-    <option value="10">Noviembre</option>
-  </select>
+<select id="selectorMes">
+  <option value="0">🧪 Enero (prueba)</option>
+  <option value="1">Febrero</option>
+  <option value="2">Marzo</option>
+  <option value="3">Abril</option>
+  <option value="4">Mayo</option>
+  <option value="5">Junio</option>
+  <option value="6">Julio</option>
+  <option value="7">Agosto</option>
+  <option value="8">Septiembre</option>
+  <option value="9">Octubre</option>
+  <option value="10">Noviembre</option>
+</select>
 </div>
 
 <div class="calendario" id="calendario">
@@ -151,21 +166,20 @@ th {
 </div>
 
 <div class="resumen">
-  <h2>Resumen del mes</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Días entrenados</th>
-      </tr>
-    </thead>
-    <tbody id="tablaResumen"></tbody>
-  </table>
+<h2>Resumen del mes</h2>
+<table>
+<thead>
+<tr>
+  <th>Nombre</th>
+  <th>Días</th>
+  <th>Semanas</th>
+</tr>
+</thead>
+<tbody id="tablaResumen"></tbody>
+</table>
 </div>
 
-<button class="volver" onclick="window.location='index.html'">
-  ⬅ Volver al menú
-</button>
+<button class="volver" onclick="window.location='index.html'">⬅ Volver al menú</button>
 
 </div>
 
@@ -178,18 +192,14 @@ const selectorMes = document.getElementById("selectorMes");
 const tituloMes = document.getElementById("tituloMes");
 const tablaResumen = document.getElementById("tablaResumen");
 
+const nombresParticipantes = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
+
 const nombresMeses = [
-  "🧪 Enero (prueba)", "Febrero", "Marzo", "Abril", "Mayo",
-  "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre"
+  "🧪 Enero (prueba)", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre"
 ];
 
-const participantes = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
 let datos = [];
-
-function parseFechaISO(str) {
-  const [y, m, d] = str.split("-");
-  return new Date(y, m - 1, d);
-}
 
 async function fetchDatos() {
   const res = await fetch(WEB_APP_URL);
@@ -197,9 +207,16 @@ async function fetchDatos() {
   actualizarVista();
 }
 
+function actualizarVista() {
+  const mes = Number(selectorMes.value);
+  tituloMes.textContent = nombresMeses[mes];
+  generarCalendario(mes);
+  pintarEntrenamientos(mes);
+  generarResumen(mes);
+}
+
 function generarCalendario(mes) {
   calendario.querySelectorAll(".dia").forEach(d => d.remove());
-  tituloMes.textContent = nombresMeses[mes];
 
   const primerDia = new Date(ANIO, mes, 1);
   let inicio = primerDia.getDay();
@@ -216,27 +233,22 @@ function generarCalendario(mes) {
 
   for (let d = 1; d <= diasMes; d++) {
     const fecha = new Date(ANIO, mes, d);
+    const diaSemana = fecha.getDay();
+
     const celda = document.createElement("div");
     celda.className = "dia";
+    if (diaSemana === 0 || diaSemana === 6) celda.classList.add("fin-semana");
 
-    if (fecha.getDay() === 0 || fecha.getDay() === 6) {
-      celda.classList.add("fin-semana");
-    }
-
-    celda.innerHTML = `
-      <div class="numero-dia">${d}</div>
-      <div class="entrenamientos"></div>
-    `;
+    celda.innerHTML = `<div class="numero-dia">${d}</div><div class="entrenamientos"></div>`;
     calendario.appendChild(celda);
   }
 }
 
 function pintarEntrenamientos(mes) {
   const mapa = {};
-
   datos.forEach(r => {
-    const f = parseFechaISO(r.fechaEntrenamiento);
-    if (f.getFullYear() === ANIO && f.getMonth() === mes) {
+    const f = new Date(r.fechaEntrenamiento);
+    if (f.getMonth() === mes && f.getFullYear() === ANIO) {
       const d = f.getDate();
       if (!mapa[d]) mapa[d] = [];
       mapa[d].push(r.nombre);
@@ -246,43 +258,57 @@ function pintarEntrenamientos(mes) {
   calendario.querySelectorAll(".dia").forEach(celda => {
     const n = celda.querySelector(".numero-dia");
     if (!n) return;
-    const d = Number(n.textContent);
-    if (mapa[d]) {
+    const dia = Number(n.textContent);
+    if (mapa[dia]) {
       celda.querySelector(".entrenamientos").innerHTML =
-        mapa[d].map(n => `● ${n}`).join("<br>");
+        mapa[dia].join("<br>");
     }
   });
 }
 
 function generarResumen(mes) {
   tablaResumen.innerHTML = "";
-  const resumen = {};
-  participantes.forEach(p => resumen[p] = 0);
+
+  const dias = {};
+  const semanas = {};
+  nombresParticipantes.forEach(n => {
+    dias[n] = 0;
+    semanas[n] = {};
+  });
 
   datos.forEach(r => {
-    const f = parseFechaISO(r.fechaEntrenamiento);
-    if (f.getFullYear() === ANIO && f.getMonth() === mes) {
-      if (resumen[r.nombre] !== undefined) resumen[r.nombre]++;
-    }
+    const f = new Date(r.fechaEntrenamiento);
+    if (f.getMonth() !== mes || f.getFullYear() !== ANIO) return;
+
+    dias[r.nombre]++;
+
+    const d = f.getDay() === 0 ? 7 : f.getDay();
+    const lunes = new Date(f);
+    lunes.setDate(f.getDate() - (d - 1));
+    const clave = lunes.toISOString().split("T")[0];
+
+    if (!semanas[r.nombre][clave]) semanas[r.nombre][clave] = new Set();
+    semanas[r.nombre][clave].add(f.getDate());
   });
 
-  participantes.forEach(p => {
+  nombresParticipantes.forEach(n => {
+    let completas = 0;
+    Object.values(semanas[n]).forEach(s => {
+      if (s.size >= 3) completas++;
+    });
+
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${p}</td><td>${resumen[p]}</td>`;
+    tr.innerHTML = `
+      <td class="nombre">${n}</td>
+      <td class="numero">${dias[n]}</td>
+      <td class="numero">${completas}</td>
+    `;
     tablaResumen.appendChild(tr);
   });
-}
-
-function actualizarVista() {
-  const mes = Number(selectorMes.value);
-  generarCalendario(mes);
-  pintarEntrenamientos(mes);
-  generarResumen(mes);
 }
 
 selectorMes.addEventListener("change", actualizarVista);
 fetchDatos();
 </script>
-
 </body>
 </html>
