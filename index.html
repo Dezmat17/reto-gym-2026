@@ -393,10 +393,10 @@ async function cargarRanking() {
 
       resumen[nombre].dias += 1;
 
-      // Calcular semana (lunes-domingo)
+     // Calcular semana (domingo-sábado)
       const fecha = new Date(d.fechaEntrenamiento);
-      const day = fecha.getDay() || 7; // domingo=7
-      fecha.setDate(fecha.getDate() + 1 - day); // lunes de la semana
+      const day = fecha.getDay(); // domingo=0, lunes=1, ..., sábado=6
+      fecha.setDate(fecha.getDate() - day); // retroceder al domingo de la semana
       const weekKey = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
       if(!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = 0;
       resumen[nombre].semanas[weekKey] += 1;
