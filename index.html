@@ -398,8 +398,8 @@ async function cargarRanking() {
       const day = fecha.getDay(); // domingo=0, lunes=1, ..., sábado=6
       fecha.setDate(fecha.getDate() - day); // retroceder al domingo de la semana
       const weekKey = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
-      if(!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = 0;
-      resumen[nombre].semanas[weekKey] += 1;
+      if (!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = new Set();
+      resumen[nombre].semanas[weekKey].add(new Date(d.fechaEntrenamiento).getDate());
     });
 
     // Renderizar tabla
@@ -408,7 +408,7 @@ async function cargarRanking() {
     PARTICIPANTES.forEach(nombre => {
       const diasTotales = resumen[nombre].dias;
       let semanasCumplidas = 0;
-      Object.values(resumen[nombre].semanas).forEach(c => { if(c >= 3) semanasCumplidas++; });
+      Object.values(resumen[nombre].semanas).forEach(s => { if(s.size >= 3) semanasCumplidas++; });
 
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>${nombre}</td><td>${diasTotales}</td><td>${semanasCumplidas}</td>`;
