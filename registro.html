@@ -78,9 +78,20 @@ select {
 /* Desktop: dos columnas si hay muchos nombres */
 @media (min-width: 900px) {
   .entrenamientos {
-    font-size: 14px;
+    font-size: 16.8px;           /* ~20% más grande */
     column-count: 2;
-    column-gap: 6px;
+    column-gap: 12px;
+    text-align: center;          /* centra 1 o 2 columnas */
+    margin-top: 8px;
+  }
+
+  /* Evita que el texto se pegue al borde izquierdo */
+  .entrenamientos br {
+    display: none;
+  }
+
+  .entrenamientos > * {
+    break-inside: avoid;
   }
 }
 
