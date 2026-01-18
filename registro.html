@@ -24,6 +24,7 @@ h1, h2 {
   margin-bottom: 12px;
 }
 
+/* ===== Selector ===== */
 .mes-selector {
   display: flex;
   justify-content: center;
@@ -69,28 +70,36 @@ select {
   opacity: 0.7;
 }
 
+/* ===== Entrenamientos ===== */
 .entrenamientos {
   margin-top: 6px;
   font-size: 13px;
   color: #00FF00;
+  display: flex;
+  justify-content: center;
 }
 
-/* Desktop: dos columnas si hay muchos nombres */
+.entrenamientos .lista-nombres {
+  width: 100%;
+  text-align: center;
+}
+
+.nombre-dia {
+  margin-bottom: 4px;
+}
+
+/* Desktop */
 @media (min-width: 900px) {
   .entrenamientos {
-    font-size: 16.8px;           /* ~20% más grande */
+    font-size: 16.8px; /* +20% */
+  }
+
+  .entrenamientos .lista-nombres {
     column-count: 2;
-    column-gap: 12px;
-    text-align: center;          /* centra 1 o 2 columnas */
-    margin-top: 8px;
+    column-gap: 16px;
   }
 
-  /* Evita que el texto se pegue al borde izquierdo */
-  .entrenamientos br {
-    display: none;
-  }
-
-  .entrenamientos > * {
+  .nombre-dia {
     break-inside: avoid;
   }
 }
@@ -101,7 +110,7 @@ select {
   border-radius: 12px;
   padding: 16px;
   margin: 0 auto 24px auto;
-  max-width: 480px;
+  max-width: 420px;
 }
 
 table {
@@ -190,7 +199,9 @@ td.numero {
 </table>
 </div>
 
-<button class="volver" onclick="window.location='index.html'">⬅ Volver al menú</button>
+<button class="volver" onclick="window.location='index.html'">
+⬅ Volver al menú
+</button>
 
 </div>
 
@@ -212,12 +223,14 @@ const nombresMeses = [
 
 let datos = [];
 
+/* ===== Fetch ===== */
 async function fetchDatos() {
   const res = await fetch(WEB_APP_URL);
   datos = await res.json();
   actualizarVista();
 }
 
+/* ===== Vista ===== */
 function actualizarVista() {
   const mes = Number(selectorMes.value);
   tituloMes.textContent = nombresMeses[mes];
@@ -226,6 +239,7 @@ function actualizarVista() {
   generarResumen(mes);
 }
 
+/* ===== Calendario ===== */
 function generarCalendario(mes) {
   calendario.querySelectorAll(".dia").forEach(d => d.remove());
 
@@ -250,13 +264,18 @@ function generarCalendario(mes) {
     celda.className = "dia";
     if (diaSemana === 0 || diaSemana === 6) celda.classList.add("fin-semana");
 
-    celda.innerHTML = `<div class="numero-dia">${d}</div><div class="entrenamientos"></div>`;
+    celda.innerHTML = `
+      <div class="numero-dia">${d}</div>
+      <div class="entrenamientos"></div>
+    `;
     calendario.appendChild(celda);
   }
 }
 
+/* ===== Pintar entrenamientos ===== */
 function pintarEntrenamientos(mes) {
   const mapa = {};
+
   datos.forEach(r => {
     const f = new Date(r.fechaEntrenamiento);
     if (f.getMonth() === mes && f.getFullYear() === ANIO) {
@@ -269,19 +288,34 @@ function pintarEntrenamientos(mes) {
   calendario.querySelectorAll(".dia").forEach(celda => {
     const n = celda.querySelector(".numero-dia");
     if (!n) return;
+
     const dia = Number(n.textContent);
+    const contenedor = celda.querySelector(".entrenamientos");
+    contenedor.innerHTML = "";
+
     if (mapa[dia]) {
-      celda.querySelector(".entrenamientos").innerHTML =
-        mapa[dia].join("<br>");
+      const lista = document.createElement("div");
+      lista.className = "lista-nombres";
+
+      mapa[dia].forEach(nombre => {
+        const div = document.createElement("div");
+        div.className = "nombre-dia";
+        div.textContent = nombre;
+        lista.appendChild(div);
+      });
+
+      contenedor.appendChild(lista);
     }
   });
 }
 
+/* ===== Resumen ===== */
 function generarResumen(mes) {
   tablaResumen.innerHTML = "";
 
   const dias = {};
   const semanas = {};
+
   nombresParticipantes.forEach(n => {
     dias[n] = 0;
     semanas[n] = {};
