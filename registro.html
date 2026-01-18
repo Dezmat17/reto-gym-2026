@@ -175,14 +175,15 @@ td.numero {
 </select>
 </div>
 
-<div class="calendario" id="calendario">
+  <div class="calendario" id="calendario">
+  <div class="dia-semana">Dom</div>
   <div class="dia-semana">Lun</div>
   <div class="dia-semana">Mar</div>
   <div class="dia-semana">Mié</div>
   <div class="dia-semana">Jue</div>
   <div class="dia-semana">Vie</div>
   <div class="dia-semana">Sáb</div>
-  <div class="dia-semana">Dom</div>
+  
 </div>
 
 <div class="resumen">
@@ -244,9 +245,7 @@ function generarCalendario(mes) {
   calendario.querySelectorAll(".dia").forEach(d => d.remove());
 
   const primerDia = new Date(ANIO, mes, 1);
-  let inicio = primerDia.getDay();
-  inicio = inicio === 0 ? 6 : inicio - 1;
-
+  let inicio = primerDia.getDay(); // 0=domingo, 1=lunes, ..., 6=sábado
   const diasMes = new Date(ANIO, mes + 1, 0).getDate();
 
   for (let i = 0; i < inicio; i++) {
