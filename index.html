@@ -292,6 +292,21 @@
     <tr><th>Nombre</th><th>Días Totales</th><th>Semanas Cumplidas</th></tr>
   </table>
 </section>
+  
+<!-- ===== REGISTRO MENSUAL ===== -->
+<section id="mensual">
+  <h2>📊 Registro Mensual</h2>
+
+  <p style="text-align:center; font-size:18px;">
+    Visualizá la asistencia mensual en formato calendario y resumen por persona.
+  </p>
+
+  <div style="text-align:center; margin-top:20px;">
+    <a href="registro.html" class="boton boton-seguimiento">
+      📅 Ver registro mensual
+    </a>
+  </div>
+</section>
 
 <!-- ===== PREMIOS ===== -->
 <section class="premios" id="premios">
@@ -302,26 +317,6 @@
     <li>🦖 <strong>Trolazus Minimus:</strong> Pagar el resto del asado. <span class="condicion">Condición: quien menos días asistió durante el año.</span></li>
     <li>🏅 <strong>AFK MASTER:</strong> 1/4 de Luccianos pagado por todos. <span class="condicion">Condición: mayor cantidad de semanas cumplidas; si coincide con el ganador total, pasa al siguiente participante.</span></li>
   </ul>
-</section>
-
-<!-- ===== MENSUAL ===== -->
-<section id="mensual">
-  <h2>📊 Seguimiento Mensual</h2>
-  <div style="text-align:center; margin-bottom:15px;">
-    <button id="toggleMeses" class="boton boton-seguimiento">Ver meses</button>
-  </div>
-  <div class="meses" id="mesesContainer" style="display:none;">
-    <a href="meses/febrero.html" class="mes">Febrero</a>
-    <a href="meses/marzo.html" class="mes">Marzo</a>
-    <a href="meses/abril.html" class="mes">Abril</a>
-    <a href="meses/mayo.html" class="mes">Mayo</a>
-    <a href="meses/junio.html" class="mes">Junio</a>
-    <a href="meses/julio.html" class="mes">Julio</a>
-    <a href="meses/agosto.html" class="mes">Agosto</a>
-    <a href="meses/septiembre.html" class="mes">Septiembre</a>
-    <a href="meses/octubre.html" class="mes">Octubre</a>
-    <a href="meses/noviembre.html" class="mes">Noviembre</a>
-  </div>
 </section>
 
 <!-- ===== REGLAS ===== -->
@@ -367,13 +362,6 @@
     }
   }
   actualizarBotonesModo();
-
-  // ===== BOTÓN VER MESES =====
-  const btnMesesToggle = document.getElementById("toggleMeses");
-  const contMeses = document.getElementById("mesesContainer");
-  btnMesesToggle.addEventListener("click", () => {
-    contMeses.style.display = contMeses.style.display === "none" ? "flex" : "none";
-  });
 
   // ===== EFECTO SCROLL MENU =====
   const nav = document.querySelector('nav');
