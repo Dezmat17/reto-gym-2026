@@ -142,7 +142,6 @@
     </select>
   </div>
 
-  <!-- Encabezado días -->
   <div class="calendario" id="calendario">
     <div class="dia-semana">Lun</div>
     <div class="dia-semana">Mar</div>
@@ -153,7 +152,6 @@
     <div class="dia-semana">Dom</div>
   </div>
 
-  <!-- Resumen -->
   <div class="resumen">
     <h2>Resumen del mes</h2>
     <table>
@@ -174,81 +172,7 @@
 </div>
 
 <script>
-  // ACÁ VAMOS A CONECTAR CON LA WEBAPP EN EL PRÓXIMO PASO<script>
-  const ANIO = 2026;
-  const calendario = document.getElementById("calendario");
-  const selectorMes = document.getElementById("selectorMes");
-  const tituloMes = document.getElementById("tituloMes");
-
-  const nombresMeses = [
-    "🧪 Enero (prueba)",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre"
-  ];
-
-  function generarCalendario(mes) {
-    // Limpiar días anteriores (dejamos los encabezados Lun-Dom)
-    calendario.querySelectorAll(".dia").forEach(d => d.remove());
-
-    // Título
-    tituloMes.textContent = nombresMeses[mes];
-
-    // Día 1 del mes
-    const primerDia = new Date(ANIO, mes, 1);
-
-    // Ajuste para que lunes sea 0
-    let inicioSemana = primerDia.getDay(); // 0=Dom, 1=Lun...
-    inicioSemana = inicioSemana === 0 ? 6 : inicioSemana - 1;
-
-    // Cantidad de días del mes
-    const diasMes = new Date(ANIO, mes + 1, 0).getDate();
-
-    // Celdas vacías antes del día 1
-    for (let i = 0; i < inicioSemana; i++) {
-      const vacio = document.createElement("div");
-      vacio.className = "dia";
-      vacio.style.opacity = "0.2";
-      calendario.appendChild(vacio);
-    }
-
-    // Días reales
-    for (let dia = 1; dia <= diasMes; dia++) {
-      const fecha = new Date(ANIO, mes, dia);
-      let diaSemana = fecha.getDay(); // 0=Dom
-
-      const celda = document.createElement("div");
-      celda.className = "dia";
-
-      // Sábado (6) o Domingo (0)
-      if (diaSemana === 0 || diaSemana === 6) {
-        celda.classList.add("fin-semana");
-      }
-
-      celda.innerHTML = `
-        <div class="numero-dia">${dia}</div>
-        <div class="entrenamientos"></div>
-      `;
-
-      calendario.appendChild(celda);
-    }
-  }
-
-  // Inicial: Enero (prueba)
-  generarCalendario(0);
-
-  // Cambio de mes
-  selectorMes.addEventListener("change", e => {
-    generarCalendario(Number(e.target.value));
-  });
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
   const ANIO = 2026;
 
   const calendario = document.getElementById("calendario");
@@ -256,7 +180,7 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfk
   const tituloMes = document.getElementById("tituloMes");
   const tablaResumen = document.getElementById("tablaResumen");
 
-  const nombresParticipantes = ["Mati", "Luca", "Litox", "Fran", "Unyi"]; // Fijos
+  const nombresParticipantes = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
 
   const nombresMeses = [
     "🧪 Enero (prueba)",
@@ -274,7 +198,6 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfk
 
   let todosLosDatos = [];
 
-  // Traer datos una vez
   async function fetchDatos() {
     try {
       const res = await fetch(WEB_APP_URL);
@@ -285,30 +208,23 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfk
     }
   }
 
-  // Genera calendario y pinta entrenamientos
   function actualizarVista() {
-    const mesSeleccionado = Number(selectorMes.value);
-    generarCalendario(mesSeleccionado);
-    pintarEntrenamientos(mesSeleccionado);
-    generarResumen(mesSeleccionado);
+    const mes = Number(selectorMes.value);
+    generarCalendario(mes);
+    pintarEntrenamientos(mes);
+    generarResumen(mes);
   }
 
   function generarCalendario(mes) {
-    // Limpiar días anteriores
     calendario.querySelectorAll(".dia").forEach(d => d.remove());
-
     tituloMes.textContent = nombresMeses[mes];
 
-    // Día 1 del mes
     const primerDia = new Date(ANIO, mes, 1);
-
-    // Ajustar para lunes→domingo
-    let inicioSemana = primerDia.getDay(); // 0=Dom,1=Lun...
+    let inicioSemana = primerDia.getDay();
     inicioSemana = inicioSemana === 0 ? 6 : inicioSemana - 1;
 
     const diasMes = new Date(ANIO, mes + 1, 0).getDate();
 
-    // Celdas vacías antes del 1
     for (let i = 0; i < inicioSemana; i++) {
       const vacio = document.createElement("div");
       vacio.className = "dia";
@@ -316,10 +232,9 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfk
       calendario.appendChild(vacio);
     }
 
-    // Celdas de días
     for (let d = 1; d <= diasMes; d++) {
       const fecha = new Date(ANIO, mes, d);
-      let diaSemana = fecha.getDay(); // 0=Dom
+      const diaSemana = fecha.getDay();
 
       const celda = document.createElement("div");
       celda.className = "dia";
@@ -338,67 +253,52 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfk
   }
 
   function pintarEntrenamientos(mes) {
-    const diasMes = new Date(ANIO, mes + 1, 0).getDate();
     const datosMes = todosLosDatos.filter(r => {
       const f = new Date(r.fechaEntrenamiento);
       return f.getMonth() === mes && f.getFullYear() === ANIO;
     });
 
-    // Crear mapa día→lista de nombres
-    const mapaDias = {};
+    const mapa = {};
     datosMes.forEach(r => {
-      const f = new Date(r.fechaEntrenamiento);
-      const dia = f.getDate();
-      if (!mapaDias[dia]) mapaDias[dia] = [];
-      mapaDias[dia].push(r.nombre);
+      const dia = new Date(r.fechaEntrenamiento).getDate();
+      if (!mapa[dia]) mapa[dia] = [];
+      mapa[dia].push(r.nombre);
     });
 
-    // Insertar ✔ y nombres
-    const celdas = calendario.querySelectorAll(".dia");
-    celdas.forEach(celda => {
-      const numero = celda.querySelector(".numero-dia");
-      if (!numero) return;
-      const d = parseInt(numero.textContent);
-      if (mapaDias[d]) {
-        const cont = celda.querySelector(".entrenamientos");
-        cont.innerHTML = mapaDias[d]
-          .map(n => `✔ ${n}`)
-          .join("<br>");
+    calendario.querySelectorAll(".dia").forEach(celda => {
+      const num = celda.querySelector(".numero-dia");
+      if (!num) return;
+      const d = parseInt(num.textContent);
+      if (mapa[d]) {
+        celda.querySelector(".entrenamientos").innerHTML =
+          mapa[d].map(n => `✔ ${n}`).join("<br>");
       }
     });
   }
 
   function generarResumen(mes) {
-    // Limpiar tabla
     tablaResumen.innerHTML = "";
-
-    // Cantidad por persona
     const resumen = {};
     nombresParticipantes.forEach(n => resumen[n] = 0);
 
     todosLosDatos.forEach(r => {
       const f = new Date(r.fechaEntrenamiento);
       if (f.getMonth() === mes && f.getFullYear() === ANIO) {
-        if (resumen[r.nombre] !== undefined) {
-          resumen[r.nombre]++;
-        }
+        if (resumen[r.nombre] !== undefined) resumen[r.nombre]++;
       }
     });
 
-    // Pintar filas
-    for (const nombre of nombresParticipantes) {
+    nombresParticipantes.forEach(nombre => {
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${nombre}</td><td>${resumen[nombre] || 0}</td>`;
+      tr.innerHTML = `<td>${nombre}</td><td>${resumen[nombre]}</td>`;
       tablaResumen.appendChild(tr);
-    }
+    });
   }
 
-  // Evento al cambiar mes
   selectorMes.addEventListener("change", actualizarVista);
-
-  // Inicial
   fetchDatos();
 </script>
 
 </body>
 </html>
+
