@@ -373,17 +373,16 @@
     }
   });
 
- // ===== CARGAR RANKING DIRECTO DESDE GOOGLE SHEETS =====
+// ===== CARGAR RANKING =====
 const PARTICIPANTES = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
 const tablaRanking = document.getElementById('tablaRanking');
 
 async function cargarRanking() {
   try {
-    const urlWebApp = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec"; // <-- reemplaza con tu Web App
+    const urlWebApp = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
     const res = await fetch(urlWebApp);
-    const datos = await res.json(); // Espera un array de objetos {nombre, fechaEntrenamiento, subioFoto, fechaCarga}
+    const datos = await res.json();
 
-    // Inicializar participantes con 0
     const resumen = {};
     PARTICIPANTES.forEach(nombre => resumen[nombre] = {dias:0, semanas:{}});
 
@@ -393,17 +392,19 @@ async function cargarRanking() {
 
       resumen[nombre].dias += 1;
 
-     // Calcular semana (domingo-sábado)
       const fechaOriginal = new Date(d.fechaEntrenamiento);
-      const fecha = new Date(fechaOriginal.getFullYear(), fechaOriginal.getMonth(), fechaOriginal.getDate()); // hora 00:00const day = fecha.getDay(); // domingo=0, lunes=1, ..., sábado=6
+      const fecha = new Date(fechaOriginal.getFullYear(), fechaOriginal.getMonth(), fechaOriginal.getDate());
+      const day = fecha.getDay(); // domingo=0, lunes=1, ...
       const domingo = new Date(fecha);
       domingo.setDate(fecha.getDate() - day); // retroceder al domingo
       const weekKey = domingo.toISOString().split("T")[0]; // YYYY-MM-DD
+
       if (!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = new Set();
       resumen[nombre].semanas[weekKey].add(fecha.getDate());
-      
-    // Renderizar tabla
-    tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove()); // limpiar filas previas
+    });
+
+    // ===== RENDERIZAR TABLA =====
+    tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove());
 
     PARTICIPANTES.forEach(nombre => {
       const diasTotales = resumen[nombre].dias;
@@ -422,6 +423,7 @@ async function cargarRanking() {
 
 // Ejecutar al cargar la página
 cargarRanking();
+
 </script>
 
 </body>
