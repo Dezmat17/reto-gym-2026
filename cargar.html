@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Cargar Entrenamiento</title>
   <style>
@@ -18,8 +19,10 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 10px #000;
-      width: 300px;
+      width: 100%;
+      max-width: 400px; /* antes 300px */
     }
+
     input, select, button {
       margin: 10px 0;
       padding: 8px;
@@ -49,6 +52,29 @@
     }
     h2 {
       text-align: center;
+      font-size: 1.8rem;
+    }
+    
+    label {
+      font-size: 1.1rem;
+    }
+    
+    input, select, button {
+      margin: 10px 0;
+      padding: 12px;      /* antes 8px */
+      border-radius: 8px; /* antes 5px */
+      border: none;
+      font-size: 18px;    /* antes 16px */
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 480px) {
+      form {
+        padding: 25px;
+      }
+      h2 { font-size: 2rem; }
+      label { font-size: 1.2rem; }
+      input, select, button { padding: 14px; font-size: 20px; }
     }
   </style>
 </head>
