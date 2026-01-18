@@ -389,29 +389,26 @@ async function cargarRanking() {
 
     datos.forEach(d => {
       const nombre = d.nombre;
-      if (!resumen[nombre]) return;
+      if(!resumen[nombre]) return;
 
       resumen[nombre].dias += 1;
 
-      // ===== NUEVO CÁLCULO DE SEMANA: domingo a sábado =====
-      const fechaOriginal = new Date(d.fechaEntrenamiento); // copia
-      const diaSemana = fechaOriginal.getDay(); // domingo=0, lunes=1, ... sábado=6
-      // calcular domingo de la semana
-      const domingo = new Date(fechaOriginal);
-      domingo.setDate(fechaOriginal.getDate() - diaSemana); 
-      const weekKey = `${domingo.getFullYear()}-${domingo.getMonth() + 1}-${domingo.getDate()}`;
-      
-      if (!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = new Set();
-      resumen[nombre].semanas[weekKey].add(fechaOriginal.getDate());
+      // Calcular semana (lunes-domingo)
+      const fecha = new Date(d.fechaEntrenamiento);
+      const day = fecha.getDay() || 7; // domingo=7
+      fecha.setDate(fecha.getDate() + 1 - day); // lunes de la semana
+      const weekKey = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
+      if(!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = 0;
+      resumen[nombre].semanas[weekKey] += 1;
+    });
+
     // Renderizar tabla
     tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove()); // limpiar filas previas
 
     PARTICIPANTES.forEach(nombre => {
       const diasTotales = resumen[nombre].dias;
       let semanasCumplidas = 0;
-      Object.values(resumen[nombre].semanas).forEach(diasSet => {
-        if(diasSet.size >= 3) semanasCumplidas++;
-      });
+      Object.values(resumen[nombre].semanas).forEach(c => { if(c >= 3) semanasCumplidas++; });
 
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>${nombre}</td><td>${diasTotales}</td><td>${semanasCumplidas}</td>`;
