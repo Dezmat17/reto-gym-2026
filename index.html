@@ -394,14 +394,14 @@ async function cargarRanking() {
       resumen[nombre].dias += 1;
 
      // Calcular semana (domingo-sábado)
-      const fecha = new Date(d.fechaEntrenamiento);
-      const day = fecha.getDay(); // domingo=0, lunes=1, ..., sábado=6
-      fecha.setDate(fecha.getDate() - day); // retroceder al domingo de la semana
-      const weekKey = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
+      const fechaOriginal = new Date(d.fechaEntrenamiento);
+      const fecha = new Date(fechaOriginal.getFullYear(), fechaOriginal.getMonth(), fechaOriginal.getDate()); // hora 00:00const day = fecha.getDay(); // domingo=0, lunes=1, ..., sábado=6
+      const domingo = new Date(fecha);
+      domingo.setDate(fecha.getDate() - day); // retroceder al domingo
+      const weekKey = domingo.toISOString().split("T")[0]; // YYYY-MM-DD
       if (!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = new Set();
-      resumen[nombre].semanas[weekKey].add(new Date(d.fechaEntrenamiento).getDate());
-    });
-
+      resumen[nombre].semanas[weekKey].add(fecha.getDate());
+      
     // Renderizar tabla
     tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove()); // limpiar filas previas
 
