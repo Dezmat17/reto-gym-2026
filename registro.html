@@ -24,7 +24,6 @@
       margin-bottom: 12px;
     }
 
-    /* ===== Selector de mes ===== */
     .mes-selector {
       display: flex;
       justify-content: center;
@@ -38,7 +37,6 @@
       border: none;
     }
 
-    /* ===== Calendario ===== */
     .calendario {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -77,7 +75,6 @@
       color: #00FF00;
     }
 
-    /* ===== Resumen ===== */
     .resumen {
       background: #1E1E1E;
       border-radius: 10px;
@@ -100,7 +97,6 @@
       color: #FFB732;
     }
 
-    /* ===== Botón ===== */
     .volver {
       display: block;
       margin: 0 auto;
@@ -117,12 +113,7 @@
       background: #FFB732;
     }
 
-    /* ===== Responsive ===== */
     @media (max-width: 768px) {
-      .calendario {
-        gap: 6px;
-      }
-
       .dia {
         min-height: 70px;
       }
@@ -131,95 +122,283 @@
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
 
-    <h1>Registro mensual de entrenamientos</h1>
+  <h1 id="tituloMes">🧪 Enero (prueba)</h1>
 
-    <!-- Selector de mes -->
-    <div class="mes-selector">
-      <select>
-        <option>🧪 Enero (prueba)</option>
-        <option>Febrero</option>
-        <option>Marzo</option>
-        <option>Abril</option>
-        <option>Mayo</option>
-        <option>Junio</option>
-        <option>Julio</option>
-        <option>Agosto</option>
-        <option>Septiembre</option>
-        <option>Octubre</option>
-        <option>Noviembre</option>
-      </select>
-    </div>
-
-    <!-- Calendario -->
-    <div class="calendario">
-      <div class="dia-semana">Lun</div>
-      <div class="dia-semana">Mar</div>
-      <div class="dia-semana">Mié</div>
-      <div class="dia-semana">Jue</div>
-      <div class="dia-semana">Vie</div>
-      <div class="dia-semana">Sáb</div>
-      <div class="dia-semana">Dom</div>
-
-      <!-- Ejemplo de días -->
-      <div class="dia">
-        <div class="numero-dia">1</div>
-        <div class="entrenamientos">✔ Mati</div>
-      </div>
-
-      <div class="dia">
-        <div class="numero-dia">2</div>
-      </div>
-
-      <div class="dia">
-        <div class="numero-dia">3</div>
-        <div class="entrenamientos">✔ Luca</div>
-        <div class="entrenamientos">✔ Fran</div>
-      </div>
-
-      <div class="dia">
-        <div class="numero-dia">4</div>
-      </div>
-
-      <div class="dia">
-        <div class="numero-dia">5</div>
-      </div>
-
-      <div class="dia fin-semana">
-        <div class="numero-dia">6</div>
-      </div>
-
-      <div class="dia fin-semana">
-        <div class="numero-dia">7</div>
-        <div class="entrenamientos">✔ Unyi</div>
-      </div>
-    </div>
-
-    <!-- Resumen -->
-    <div class="resumen">
-      <h2>Resumen del mes</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Días entrenados</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Mati</td><td>2</td></tr>
-          <tr><td>Luca</td><td>1</td></tr>
-          <tr><td>Litox</td><td>0</td></tr>
-          <tr><td>Fran</td><td>1</td></tr>
-          <tr><td>Unyi</td><td>1</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <button class="volver" onclick="window.location='index.html'">
-      ⬅ Volver al menú
-    </button>
-
+  <div class="mes-selector">
+    <select id="selectorMes">
+      <option value="0">🧪 Enero (prueba)</option>
+      <option value="1">Febrero</option>
+      <option value="2">Marzo</option>
+      <option value="3">Abril</option>
+      <option value="4">Mayo</option>
+      <option value="5">Junio</option>
+      <option value="6">Julio</option>
+      <option value="7">Agosto</option>
+      <option value="8">Septiembre</option>
+      <option value="9">Octubre</option>
+      <option value="10">Noviembre</option>
+    </select>
   </div>
+
+  <!-- Encabezado días -->
+  <div class="calendario" id="calendario">
+    <div class="dia-semana">Lun</div>
+    <div class="dia-semana">Mar</div>
+    <div class="dia-semana">Mié</div>
+    <div class="dia-semana">Jue</div>
+    <div class="dia-semana">Vie</div>
+    <div class="dia-semana">Sáb</div>
+    <div class="dia-semana">Dom</div>
+  </div>
+
+  <!-- Resumen -->
+  <div class="resumen">
+    <h2>Resumen del mes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Días entrenados</th>
+        </tr>
+      </thead>
+      <tbody id="tablaResumen"></tbody>
+    </table>
+  </div>
+
+  <button class="volver" onclick="window.location='index.html'">
+    ⬅ Volver al menú
+  </button>
+
+</div>
+
+<script>
+  // ACÁ VAMOS A CONECTAR CON LA WEBAPP EN EL PRÓXIMO PASO<script>
+  const ANIO = 2026;
+  const calendario = document.getElementById("calendario");
+  const selectorMes = document.getElementById("selectorMes");
+  const tituloMes = document.getElementById("tituloMes");
+
+  const nombresMeses = [
+    "🧪 Enero (prueba)",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre"
+  ];
+
+  function generarCalendario(mes) {
+    // Limpiar días anteriores (dejamos los encabezados Lun-Dom)
+    calendario.querySelectorAll(".dia").forEach(d => d.remove());
+
+    // Título
+    tituloMes.textContent = nombresMeses[mes];
+
+    // Día 1 del mes
+    const primerDia = new Date(ANIO, mes, 1);
+
+    // Ajuste para que lunes sea 0
+    let inicioSemana = primerDia.getDay(); // 0=Dom, 1=Lun...
+    inicioSemana = inicioSemana === 0 ? 6 : inicioSemana - 1;
+
+    // Cantidad de días del mes
+    const diasMes = new Date(ANIO, mes + 1, 0).getDate();
+
+    // Celdas vacías antes del día 1
+    for (let i = 0; i < inicioSemana; i++) {
+      const vacio = document.createElement("div");
+      vacio.className = "dia";
+      vacio.style.opacity = "0.2";
+      calendario.appendChild(vacio);
+    }
+
+    // Días reales
+    for (let dia = 1; dia <= diasMes; dia++) {
+      const fecha = new Date(ANIO, mes, dia);
+      let diaSemana = fecha.getDay(); // 0=Dom
+
+      const celda = document.createElement("div");
+      celda.className = "dia";
+
+      // Sábado (6) o Domingo (0)
+      if (diaSemana === 0 || diaSemana === 6) {
+        celda.classList.add("fin-semana");
+      }
+
+      celda.innerHTML = `
+        <div class="numero-dia">${dia}</div>
+        <div class="entrenamientos"></div>
+      `;
+
+      calendario.appendChild(celda);
+    }
+  }
+
+  // Inicial: Enero (prueba)
+  generarCalendario(0);
+
+  // Cambio de mes
+  selectorMes.addEventListener("change", e => {
+    generarCalendario(Number(e.target.value));
+  });
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
+  const ANIO = 2026;
+
+  const calendario = document.getElementById("calendario");
+  const selectorMes = document.getElementById("selectorMes");
+  const tituloMes = document.getElementById("tituloMes");
+  const tablaResumen = document.getElementById("tablaResumen");
+
+  const nombresParticipantes = ["Mati", "Luca", "Litox", "Fran", "Unyi"]; // Fijos
+
+  const nombresMeses = [
+    "🧪 Enero (prueba)",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre"
+  ];
+
+  let todosLosDatos = [];
+
+  // Traer datos una vez
+  async function fetchDatos() {
+    try {
+      const res = await fetch(WEB_APP_URL);
+      todosLosDatos = await res.json();
+      actualizarVista();
+    } catch (err) {
+      console.error("Error al cargar datos:", err);
+    }
+  }
+
+  // Genera calendario y pinta entrenamientos
+  function actualizarVista() {
+    const mesSeleccionado = Number(selectorMes.value);
+    generarCalendario(mesSeleccionado);
+    pintarEntrenamientos(mesSeleccionado);
+    generarResumen(mesSeleccionado);
+  }
+
+  function generarCalendario(mes) {
+    // Limpiar días anteriores
+    calendario.querySelectorAll(".dia").forEach(d => d.remove());
+
+    tituloMes.textContent = nombresMeses[mes];
+
+    // Día 1 del mes
+    const primerDia = new Date(ANIO, mes, 1);
+
+    // Ajustar para lunes→domingo
+    let inicioSemana = primerDia.getDay(); // 0=Dom,1=Lun...
+    inicioSemana = inicioSemana === 0 ? 6 : inicioSemana - 1;
+
+    const diasMes = new Date(ANIO, mes + 1, 0).getDate();
+
+    // Celdas vacías antes del 1
+    for (let i = 0; i < inicioSemana; i++) {
+      const vacio = document.createElement("div");
+      vacio.className = "dia";
+      vacio.style.opacity = "0.2";
+      calendario.appendChild(vacio);
+    }
+
+    // Celdas de días
+    for (let d = 1; d <= diasMes; d++) {
+      const fecha = new Date(ANIO, mes, d);
+      let diaSemana = fecha.getDay(); // 0=Dom
+
+      const celda = document.createElement("div");
+      celda.className = "dia";
+
+      if (diaSemana === 0 || diaSemana === 6) {
+        celda.classList.add("fin-semana");
+      }
+
+      celda.innerHTML = `
+        <div class="numero-dia">${d}</div>
+        <div class="entrenamientos"></div>
+      `;
+
+      calendario.appendChild(celda);
+    }
+  }
+
+  function pintarEntrenamientos(mes) {
+    const diasMes = new Date(ANIO, mes + 1, 0).getDate();
+    const datosMes = todosLosDatos.filter(r => {
+      const f = new Date(r.fechaEntrenamiento);
+      return f.getMonth() === mes && f.getFullYear() === ANIO;
+    });
+
+    // Crear mapa día→lista de nombres
+    const mapaDias = {};
+    datosMes.forEach(r => {
+      const f = new Date(r.fechaEntrenamiento);
+      const dia = f.getDate();
+      if (!mapaDias[dia]) mapaDias[dia] = [];
+      mapaDias[dia].push(r.nombre);
+    });
+
+    // Insertar ✔ y nombres
+    const celdas = calendario.querySelectorAll(".dia");
+    celdas.forEach(celda => {
+      const numero = celda.querySelector(".numero-dia");
+      if (!numero) return;
+      const d = parseInt(numero.textContent);
+      if (mapaDias[d]) {
+        const cont = celda.querySelector(".entrenamientos");
+        cont.innerHTML = mapaDias[d]
+          .map(n => `✔ ${n}`)
+          .join("<br>");
+      }
+    });
+  }
+
+  function generarResumen(mes) {
+    // Limpiar tabla
+    tablaResumen.innerHTML = "";
+
+    // Cantidad por persona
+    const resumen = {};
+    nombresParticipantes.forEach(n => resumen[n] = 0);
+
+    todosLosDatos.forEach(r => {
+      const f = new Date(r.fechaEntrenamiento);
+      if (f.getMonth() === mes && f.getFullYear() === ANIO) {
+        if (resumen[r.nombre] !== undefined) {
+          resumen[r.nombre]++;
+        }
+      }
+    });
+
+    // Pintar filas
+    for (const nombre of nombresParticipantes) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${nombre}</td><td>${resumen[nombre] || 0}</td>`;
+      tablaResumen.appendChild(tr);
+    }
+  }
+
+  // Evento al cambiar mes
+  selectorMes.addEventListener("change", actualizarVista);
+
+  // Inicial
+  fetchDatos();
+</script>
+
 </body>
 </html>
