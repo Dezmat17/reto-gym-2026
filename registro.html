@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro mensual</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #FFA500;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 16px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    /* ===== Selector de mes ===== */
+    .mes-selector {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    /* ===== Calendario ===== */
+    .calendario {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+
+    .dia-semana {
+      text-align: center;
+      font-weight: bold;
+      padding: 8px 0;
+    }
+
+    .dia {
+      background: #1E1E1E;
+      border-radius: 8px;
+      padding: 6px;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dia.fin-semana {
+      background: #2A2A2A;
+    }
+
+    .numero-dia {
+      font-size: 14px;
+      text-align: right;
+      opacity: 0.8;
+    }
+
+    .entrenamientos {
+      font-size: 13px;
+      margin-top: 6px;
+      color: #00FF00;
+    }
+
+    /* ===== Resumen ===== */
+    .resumen {
+      background: #1E1E1E;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+    }
+
+    th {
+      color: #FFB732;
+    }
+
+    /* ===== Botón ===== */
+    .volver {
+      display: block;
+      margin: 0 auto;
+      padding: 12px 20px;
+      background: #FFA500;
+      color: #121212;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .volver:hover {
+      background: #FFB732;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .calendario {
+        gap: 6px;
+      }
+
+      .dia {
+        min-height: 70px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>Registro mensual de entrenamientos</h1>
+
+    <!-- Selector de mes -->
+    <div class="mes-selector">
+      <select>
+        <option>🧪 Enero (prueba)</option>
+        <option>Febrero</option>
+        <option>Marzo</option>
+        <option>Abril</option>
+        <option>Mayo</option>
+        <option>Junio</option>
+        <option>Julio</option>
+        <option>Agosto</option>
+        <option>Septiembre</option>
+        <option>Octubre</option>
+        <option>Noviembre</option>
+      </select>
+    </div>
+
+    <!-- Calendario -->
+    <div class="calendario">
+      <div class="dia-semana">Lun</div>
+      <div class="dia-semana">Mar</div>
+      <div class="dia-semana">Mié</div>
+      <div class="dia-semana">Jue</div>
+      <div class="dia-semana">Vie</div>
+      <div class="dia-semana">Sáb</div>
+      <div class="dia-semana">Dom</div>
+
+      <!-- Ejemplo de días -->
+      <div class="dia">
+        <div class="numero-dia">1</div>
+        <div class="entrenamientos">✔ Mati</div>
+      </div>
+
+      <div class="dia">
+        <div class="numero-dia">2</div>
+      </div>
+
+      <div class="dia">
+        <div class="numero-dia">3</div>
+        <div class="entrenamientos">✔ Luca</div>
+        <div class="entrenamientos">✔ Fran</div>
+      </div>
+
+      <div class="dia">
+        <div class="numero-dia">4</div>
+      </div>
+
+      <div class="dia">
+        <div class="numero-dia">5</div>
+      </div>
+
+      <div class="dia fin-semana">
+        <div class="numero-dia">6</div>
+      </div>
+
+      <div class="dia fin-semana">
+        <div class="numero-dia">7</div>
+        <div class="entrenamientos">✔ Unyi</div>
+      </div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="resumen">
+      <h2>Resumen del mes</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Días entrenados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Mati</td><td>2</td></tr>
+          <tr><td>Luca</td><td>1</td></tr>
+          <tr><td>Litox</td><td>0</td></tr>
+          <tr><td>Fran</td><td>1</td></tr>
+          <tr><td>Unyi</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="volver" onclick="window.location='index.html'">
+      ⬅ Volver al menú
+    </button>
+
+  </div>
+</body>
+</html>
