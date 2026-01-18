@@ -277,7 +277,8 @@ function pintarEntrenamientos(mes) {
   const mapa = {};
 
   datos.forEach(r => {
-    const f = new Date(r.fechaEntrenamiento);
+    const [año, mesR, diaR] = r.fechaEntrenamiento.split("-").map(Number);
+    const f = new Date(año, mesR - 1, diaR);
     if (f.getMonth() === mes && f.getFullYear() === ANIO) {
       const d = f.getDate();
       if (!mapa[d]) mapa[d] = [];
@@ -322,7 +323,8 @@ function generarResumen(mes) {
   });
 
   datos.forEach(r => {
-    const f = new Date(r.fechaEntrenamiento);
+    const [año, mesR, diaR] = r.fechaEntrenamiento.split("-").map(Number);
+    const f = new Date(año, mesR - 1, diaR);
     if (f.getMonth() !== mes || f.getFullYear() !== ANIO) return;
 
     dias[r.nombre]++;
