@@ -389,16 +389,17 @@ async function cargarRanking() {
 
     datos.forEach(d => {
       const nombre = d.nombre;
-      if(!resumen[nombre]) return;
+      if (!resumen[nombre]) return;
 
       resumen[nombre].dias += 1;
 
-      // Calcular semana (lunes-domingo)
-      const fecha = new Date(d.fechaEntrenamiento);
-      const day = fecha.getDay() || 7; // domingo=7
-      fecha.setDate(fecha.getDate() + 1 - day); // lunes de la semana
-      const weekKey = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
-      if(!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = 0;
+      const fechaOriginal = new Date(d.fechaEntrenamiento); // copia para no modificar el original
+      const diaSemana = fechaOriginal.getDay() === 0 ? 7 : fechaOriginal.getDay(); // domingo=7
+      const lunes = new Date(fechaOriginal); // nueva copia para calcular la semana
+      lunes.setDate(fechaOriginal.getDate() - (diaSemana - 1)); // lunes de la semana
+      const weekKey = `${lunes.getFullYear()}-${lunes.getMonth() + 1}-${lunes.getDate()}`;
+
+      if (!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = 0;
       resumen[nombre].semanas[weekKey] += 1;
     });
 
