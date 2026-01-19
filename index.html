@@ -46,25 +46,33 @@ th { background-color:#111827; color:#fbbf24; }
   background: linear-gradient(135deg, #111827, #1f2933);
 }
 
-/* ===== FONDO DE ONDAS ===== */
+/* ===== FONDO ANIMADO CON RELIEVE ===== */
 .splash-waves {
   position: absolute;
   width: 200%;
   height: 200%;
   top: -50%;
   left: -50%;
-  background: radial-gradient(circle at 50% 50%, rgba(251,191,36,0.05), transparent 70%);
-  animation: wavesMove 15s linear infinite;
   z-index: 0;
-  border-radius: 50%;
 }
+.splash-waves span {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251,191,36,0.05), transparent 70%);
+  animation: waveMove 20s linear infinite;
+}
+.splash-waves span:nth-child(1) { animation-duration: 20s; opacity:0.06; }
+.splash-waves span:nth-child(2) { animation-duration: 25s; opacity:0.04; transform: scale(1.2); }
+.splash-waves span:nth-child(3) { animation-duration: 30s; opacity:0.03; transform: scale(1.5); }
 
-@keyframes wavesMove {
-  0% { transform: translateX(0) translateY(0) scale(1); }
-  25% { transform: translateX(10px) translateY(-10px) scale(1.02); }
-  50% { transform: translateX(0px) translateY(-20px) scale(1.01); }
-  75% { transform: translateX(-10px) translateY(-10px) scale(1.02); }
-  100% { transform: translateX(0) translateY(0) scale(1); }
+@keyframes waveMove {
+  0%   { transform: translate(0,0) scale(1); }
+  25%  { transform: translate(15px,-10px) scale(1.02); }
+  50%  { transform: translate(0px,-20px) scale(1.01); }
+  75%  { transform: translate(-15px,-10px) scale(1.02); }
+  100% { transform: translate(0,0) scale(1); }
 }
 
 /* ===== HALO CENTRADO ===== */
@@ -74,10 +82,9 @@ th { background-color:#111827; color:#fbbf24; }
   height: 300px;
   background: radial-gradient(circle, rgba(251,191,36,0.2) 0%, transparent 70%);
   border-radius: 50%;
-  z-index: 0;
+  z-index: 1;
   animation: haloPulse 6s ease-in-out infinite alternate;
 }
-
 @keyframes haloPulse {
   0% { transform: scale(0.9); opacity:0.2; }
   50% { transform: scale(1.05); opacity:0.15; }
@@ -87,7 +94,7 @@ th { background-color:#111827; color:#fbbf24; }
 /* ===== TÍTULO Y SUBTÍTULO ===== */
 .splash h1, .splash p {
   position: relative;
-  z-index: 1; /* por encima del halo y las ondas */
+  z-index: 2; /* por encima de halo y ondas */
   background: rgba(17,24,39,0.75);
   padding: 16px 28px;
   border-radius: 20px;
@@ -95,14 +102,11 @@ th { background-color:#111827; color:#fbbf24; }
   margin: 8px 0;
   animation: fadeZoom 1.2s ease-out forwards;
 }
-
 .splash p {
   font-size: 20px;
   opacity: 0.85;
   animation: fadeZoom 1.4s ease-out forwards;
 }
-
-/* ===== ANIMACIÓN DE ENTRADA SUAVE ===== */
 @keyframes fadeZoom {
   0% { transform: scale(0.8); opacity:0; }
   60% { transform: scale(1.05); opacity:1; }
@@ -167,10 +171,14 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 <body class="dark-mode">
 
 <div class="splash">
-  <!-- Fondo animado de ondas -->
-  <div class="splash-waves"></div>
+  <!-- Fondo animado con ondas -->
+  <div class="splash-waves">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-  <!-- Contenedor halo y textos -->
+  <!-- Contenedor de textos -->
   <div class="halo"></div>
   <h1>🏋️ Reto Masibros 2026</h1>
   <p>Constancia · Asado · Disciplina</p>
@@ -337,7 +345,6 @@ async function cargarRanking(){
     console.error("Error cargando ranking:", err);
   }
 }
-
 cargarRanking();
 
 // ===== EFECTO SCROLL SECCIONES =====
