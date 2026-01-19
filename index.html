@@ -389,7 +389,7 @@ async function cargarRanking() {
     PARTICIPANTES.forEach(nombre => {
       resumen[nombre] = {
         diasTotales: 0,
-        semanas: {} // key: semana (YYYY-MM-DD del domingo), value: Set de días completos
+        semanas: {} // key: semana (domingo) → Set de días locales
       };
     });
 
@@ -405,29 +405,31 @@ async function cargarRanking() {
       const day = fecha.getDay(); // domingo=0, lunes=1, ..., sábado=6
       const domingo = new Date(fecha);
       domingo.setDate(fecha.getDate() - day); // retroceder al domingo
-      const weekKey = domingo.toISOString().split("T")[0];
 
-      if (!resumen[nombre].semanas[weekKey]) {
-        resumen[nombre].semanas[weekKey] = new Set();
-      }
+      // weekKey en formato local YYYY-MM-DD
+      const weekKey = `${domingo.getFullYear()}-${String(domingo.getMonth()+1).padStart(2,'0')}-${String(domingo.getDate()).padStart(2,'0')}`;
 
-      // Guardamos la fecha completa para evitar mezclar días de otros meses
-      resumen[nombre].semanas[weekKey].add(fecha.toISOString().split("T")[0]);
+      // Inicializar Set si no existe
+      if (!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = new Set();
+
+      // Agregar día del mes (local) al Set de esa semana
+      resumen[nombre].semanas[weekKey].add(fecha.getDate());
     });
 
     // ===== Renderizar tabla =====
-    // Limpiar tabla
+    // Limpiar tabla excepto encabezado
     tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove());
 
     PARTICIPANTES.forEach(nombre => {
       const diasTotales = resumen[nombre].diasTotales;
 
-      // Contar semanas cumplidas
+      // Contar semanas cumplidas (≥3 entrenamientos en la semana)
       let semanasCumplidas = 0;
       Object.values(resumen[nombre].semanas).forEach(setDias => {
         if (setDias.size >= 3) semanasCumplidas += 1;
       });
 
+      // Crear fila de tabla
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>${nombre}</td><td>${diasTotales}</td><td>${semanasCumplidas}</td>`;
       tablaRanking.appendChild(tr);
