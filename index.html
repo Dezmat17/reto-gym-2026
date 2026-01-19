@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏋️ Reto Masibros 🏋️</title>
+<title>🏋️ Reto Masibros 2026 🏋️</title>
 <style>
 /* ===== BASE ===== */
 body { font-family: Arial, sans-serif; margin: 0; background: #111827; color: #e5e7eb; line-height: 1.6; transition: background 0.3s, color 0.3s; }
@@ -172,6 +172,25 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
   }}
 .leader { animation: pulse 1.2s infinite; }
 @keyframes pulse { 0%{ transform: scale(1);} 50%{ transform: scale(1.08);} 100%{ transform: scale(1);} }
+  h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+/* Splash título */
+.splash h1 {
+  justify-content: center;
+}
+/* Mobile: evitar corrimiento visual */
+@media (max-width: 600px) {
+  .splash h1,
+  #inicio h1 {
+    justify-content: center;
+    text-align: center;
+  }
+}
 </style>
 </head>
 <body class="dark-mode">
