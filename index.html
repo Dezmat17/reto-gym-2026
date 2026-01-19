@@ -209,56 +209,63 @@ sections.forEach(sec=>observer.observe(sec));
 const premiosItems = document.querySelectorAll('.premios ul li');
 premiosItems.forEach((li,i)=>{ setTimeout(()=>{ li.classList.add('visible'); }, i*200); });
 
-// ===== CARGAR RANKING =====
-const PARTICIPANTES=["Mati","Luca","Litox","Fran","Unyi"];
-const URL_WEB_APP="https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
-const tablaRanking=document.getElementById('tablaRanking');
+// ===== CARGAR RANKING SIMPLE =====
+const PARTICIPANTES = ["Mati","Luca","Litox","Fran","Unyi"];
+const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
+const tablaRanking = document.getElementById('tablaRanking');
 
 async function cargarRanking(){
   try{
     const res = await fetch(URL_WEB_APP);
     const datos = await res.json();
-    const resumen={};
-    PARTICIPANTES.forEach(nombre=>resumen[nombre]={diasTotales:0,semanas:{}});
-    
-    datos.forEach(d=>{
-      const nombre = d.nombre; if(!resumen[nombre]) return;
-      resumen[nombre].diasTotales+=1;
+
+    const resumen = {};
+    PARTICIPANTES.forEach(nombre => resumen[nombre] = { diasTotales: 0, semanas: {} });
+
+    datos.forEach(d => {
+      const nombre = d.nombre; 
+      if(!resumen[nombre]) return;
+
+      resumen[nombre].diasTotales += 1;
+
       const fecha = new Date(d.fechaEntrenamiento);
       const day = fecha.getDay();
-      const domingo = new Date(fecha); domingo.setDate(fecha.getDate()-day);
+      const domingo = new Date(fecha);
+      domingo.setDate(fecha.getDate() - day);
       const weekKey = `${domingo.getFullYear()}-${String(domingo.getMonth()+1).padStart(2,'0')}-${String(domingo.getDate()).padStart(2,'0')}`;
-      if(!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey]=new Set();
+
+      if(!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = new Set();
       resumen[nombre].semanas[weekKey].add(fecha.getDate());
     });
 
-    const rankingArray = PARTICIPANTES.map(nombre=>{
-      let semanasCumplidas=0;
-      Object.values(resumen[nombre].semanas).forEach(setDias=>{ if(setDias.size>=3) semanasCumplidas+=1; });
-      return {nombre, diasTotales:resumen[nombre].diasTotales, semanasCumplidas};
+    const rankingArray = PARTICIPANTES.map(nombre => {
+      let semanasCumplidas = 0;
+      Object.values(resumen[nombre].semanas).forEach(setDias => { if(setDias.size >= 3) semanasCumplidas += 1; });
+      return { nombre, diasTotales: resumen[nombre].diasTotales, semanasCumplidas };
     });
 
-    rankingArray.sort((a,b)=>{
-      if(b.semanasCumplidas!==a.semanasCumplidas) return b.semanasCumplidas-a.semanasCumplidas;
-      return b.diasTotales-a.diasTotales;
+    rankingArray.sort((a,b) => {
+      if(b.semanasCumplidas !== a.semanasCumplidas) return b.semanasCumplidas - a.semanasCumplidas;
+      return b.diasTotales - a.diasTotales;
     });
 
-    tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr=>tr.remove());
+    // Limpiar tabla
+    tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove());
 
-    const maxSemanas = Math.max(...rankingArray.map(p=>p.semanasCumplidas));
-
-    rankingArray.forEach((p,index)=>{
-      let nombreDisplay=p.nombre;
-      if(index===0) nombreDisplay+=" 🏆";
-      if(index===rankingArray.length-1) nombreDisplay+=" 💀";
+    // Renderizar simple con emojis
+    rankingArray.forEach((p, index) => {
+      let nombreDisplay = p.nombre;
+      if(index === 0) nombreDisplay += " 🏆"; // líder
+      if(index === rankingArray.length - 1) nombreDisplay += " 💀"; // último
 
       const tr = document.createElement('tr');
-      if(index===0) tr.classList.add("leader");
-      tr.innerHTML = `<td>${nombreDisplay}</td><td>${p.diasTotales}</td><td class="semanas-bar"><span style="width:${(p.semanasCumplidas/maxSemanas)*100}%"></span></td>`;
+      tr.innerHTML = `<td>${nombreDisplay}</td><td>${p.diasTotales}</td><td>${p.semanasCumplidas}</td>`;
       tablaRanking.appendChild(tr);
     });
 
-  }catch(err){ console.error("Error cargando ranking:",err); }
+  } catch(err){
+    console.error("Error cargando ranking:", err);
+  }
 }
 
 cargarRanking();
