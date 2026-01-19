@@ -373,7 +373,7 @@
     }
   });
 
-// ===== CARGAR RANKING =====//
+// ===== CARGAR RANKING =====//// ===== CONFIG =====
 const PARTICIPANTES = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
 const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
 
@@ -416,22 +416,37 @@ async function cargarRanking() {
       resumen[nombre].semanas[weekKey].add(fecha.getDate());
     });
 
-    // ===== Renderizar tabla =====
-    // Limpiar tabla excepto encabezado
-    tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove());
-
-    PARTICIPANTES.forEach(nombre => {
-      const diasTotales = resumen[nombre].diasTotales;
-
-      // Contar semanas cumplidas (≥3 entrenamientos en la semana)
+    // ===== Crear array de participantes con resumen para ordenar =====
+    const rankingArray = PARTICIPANTES.map(nombre => {
       let semanasCumplidas = 0;
       Object.values(resumen[nombre].semanas).forEach(setDias => {
         if (setDias.size >= 3) semanasCumplidas += 1;
       });
+      return {
+        nombre,
+        diasTotales: resumen[nombre].diasTotales,
+        semanasCumplidas
+      };
+    });
 
-      // Crear fila de tabla
+    // ===== Ordenar: primero semanasCumplidas desc, luego diasTotales desc =====
+    rankingArray.sort((a, b) => {
+      if (b.semanasCumplidas !== a.semanasCumplidas) return b.semanasCumplidas - a.semanasCumplidas;
+      return b.diasTotales - a.diasTotales;
+    });
+
+    // ===== Limpiar tabla =====
+    tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove());
+
+    // ===== Renderizar tabla con emojis =====
+    rankingArray.forEach((p, index) => {
+      let nombreDisplay = p.nombre;
+
+      if (index === 0) nombreDisplay += " 🏆"; // líder
+      if (index === rankingArray.length - 1) nombreDisplay += " 💀"; // último
+
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${nombre}</td><td>${diasTotales}</td><td>${semanasCumplidas}</td>`;
+      tr.innerHTML = `<td>${nombreDisplay}</td><td>${p.diasTotales}</td><td>${p.semanasCumplidas}</td>`;
       tablaRanking.appendChild(tr);
     });
 
