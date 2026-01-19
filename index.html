@@ -257,7 +257,72 @@
   }
 }
 }
+/* ===== ANIMACIONES SECCIONES FADE-IN ===== */
+section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
 
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== BARRAS DE PROGRESO PARA RANKING ===== */
+td.semanas-bar {
+  position: relative;
+  background: #333;
+  border-radius: 6px;
+  height: 16px;
+  overflow: hidden;
+}
+
+td.semanas-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+/* ===== PULSE PARA LÍDER ===== */
+.leader {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ===== LISTA DE PREMIOS ANIMADA ===== */
+.premios ul li {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.5s forwards;
+}
+
+.premios ul li:nth-child(1) { animation-delay: 0.1s; }
+.premios ul li:nth-child(2) { animation-delay: 0.25s; }
+.premios ul li:nth-child(3) { animation-delay: 0.4s; }
+.premios ul li:nth-child(4) { animation-delay: 0.55s; }
+
+@keyframes slideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== PARALLAX LIGERO EN PREMIOS ===== */
+.premios {
+  background-attachment: fixed; /* efecto ligero de profundidad */
+}
+
+/* ===== MICROTRANSICIONES BOTONES (ya estaban, reforzamos) ===== */
+.boton:hover, .boton:active {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
   </style>
 </head>
 
@@ -391,6 +456,16 @@ async function cargarRanking() {
     const res = await fetch(URL_WEB_APP);
     const datos = await res.json();
 
+    // ===== FADE-IN DE SECCIONES AL SCROLL =====
+const secciones = document.querySelectorAll("section");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) entry.target.classList.add("visible");
+  });
+}, { threshold: 0.1 });
+
+secciones.forEach(sec => observer.observe(sec));
+
     // Crear resumen inicial
     const resumen = {};
     PARTICIPANTES.forEach(nombre => {
@@ -445,21 +520,102 @@ async function cargarRanking() {
     // ===== Limpiar tabla =====
     tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove());
 
-    // ===== Renderizar tabla con emojis =====
-    rankingArray.forEach((p, index) => {
-      let nombreDisplay = p.nombre;
+  // ===== Renderizar tabla con emojis y barra =====
+rankingArray.forEach((p, index) => {
+  let nombreDisplay = p.nombre;
 
-      if (index === 0) nombreDisplay += " 🏆"; // líder
-      if (index === rankingArray.length - 1) nombreDisplay += " 💀"; // último
+  if (index === 0) {
+    nombreDisplay += " 🏆"; // líder
+  }
+  if (index === rankingArray.length - 1) {
+    nombreDisplay += " 💀"; // último
+  }
 
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${nombreDisplay}</td><td>${p.diasTotales}</td><td>${p.semanasCumplidas}</td>`;
-      tablaRanking.appendChild(tr);
-    });
+  const tr = document.createElement('tr');
+
+  // marcar líder para animación pulse
+  if(index === 0) tr.classList.add("leader");
+
+  // barra de progreso semanas
+  const maxSemanas = Math.max(...rankingArray.map(p => p.semanasCumplidas));
+  tr.innerHTML = `
+    <td>${nombreDisplay}</td>
+    <td>${p.diasTotales}</td>
+    <td class="semanas-bar"><span style="width:${(p.semanasCumplidas/maxSemanas)*100}%"></span></td>
+  `;
+
+  tablaRanking.appendChild(tr);
+});
 
   } catch (err) {
     console.error("Error cargando ranking:", err);
   }
+}
+/* ===== ANIMACIONES SECCIONES FADE-IN ===== */
+section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== BARRAS DE PROGRESO PARA RANKING ===== */
+td.semanas-bar {
+  position: relative;
+  background: #333;
+  border-radius: 6px;
+  height: 16px;
+  overflow: hidden;
+}
+
+td.semanas-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+/* ===== PULSE PARA LÍDER ===== */
+.leader {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ===== LISTA DE PREMIOS ANIMADA ===== */
+.premios ul li {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.5s forwards;
+}
+
+.premios ul li:nth-child(1) { animation-delay: 0.1s; }
+.premios ul li:nth-child(2) { animation-delay: 0.25s; }
+.premios ul li:nth-child(3) { animation-delay: 0.4s; }
+.premios ul li:nth-child(4) { animation-delay: 0.55s; }
+
+@keyframes slideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== PARALLAX LIGERO EN PREMIOS ===== */
+.premios {
+  background-attachment: fixed; /* efecto ligero de profundidad */
+}
+
+/* ===== MICROTRANSICIONES BOTONES (ya estaban, reforzamos) ===== */
+.boton:hover, .boton:active {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
 // Ejecutar al cargar la página
