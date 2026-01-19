@@ -89,6 +89,7 @@ th { background-color:#111827; color:#fbbf24; }
   60% { transform: scale(1.05); opacity:1; }
   100% { transform: scale(1); opacity:1; }
 }
+
 /* ===== MESES ===== */
 .meses { display:flex; flex-wrap:wrap; justify-content:center; gap:18px; max-width:720px; margin:0 auto;}
 .mes { width:160px; padding:18px 10px; border-radius:14px; text-decoration:none; font-weight:600; color:#fbbf24; background-color:#1f2933; text-align:center; box-shadow:0 6px 14px rgba(0,0,0,0.3); border:1px solid #333; transition: all 0.25s ease, background 0.3s, color 0.3s; }
@@ -146,16 +147,13 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 </head>
 <body class="dark-mode">
 
-<div class="splash">
-  <!-- Fondo elegante animado -->
-  <div class="splash-bg"></div>
-
-  <!-- Contenedor de textos -->
+<!-- ===== SPLASH CORREGIDO ===== -->
 <div class="splash">
   <div class="halo"></div> <!-- Halo centrado detrás del título -->
   <h1>🏋️ Reto Masibros 2026</h1>
   <p>Constancia · Asado · Disciplina</p>
 </div>
+
 <!-- ===== MENÚ ===== -->
 <nav>
   <div class="menu-items">
@@ -224,6 +222,7 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 setTimeout(() => { 
   document.querySelector('.splash').style.display='none'; 
 }, 3000);
+
 // ===== BOTÓN MODO DIURNO/NOCTURNO =====
 const toggle = document.getElementById("toggleDark");
 const btnCargar = document.querySelector(".boton-cargar");
@@ -318,7 +317,8 @@ async function cargarRanking(){
 }
 
 cargarRanking();
-  // ===== EFECTO SCROLL SECCIONES =====
+
+// ===== EFECTO SCROLL SECCIONES =====
 const sections = document.querySelectorAll('section');
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
