@@ -399,7 +399,7 @@ async function cargarRanking() {
       domingo.setDate(fecha.getDate() - day); // retroceder al domingo
       const weekKey = domingo.toISOString().split("T")[0]; // YYYY-MM-DD
       if (!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = new Set();
-      resumen[nombre].semanas[weekKey].add(fecha.getDate());
+      resumen[nombre].semanas[weekKey].add(fecha.toISOString().split("T")[0]);
     });
     
 
