@@ -46,32 +46,35 @@ th { background-color:#111827; color:#fbbf24; }
   background: linear-gradient(135deg, #111827, #1f2933);
 }
 
-/* ===== FONDO ANIMADO CON RELIEVE ===== */
+/* ===== FONDO ANIMADO DE ONDAS AMARILLO/NARANJA ===== */
 .splash-waves {
   position: absolute;
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   z-index: 0;
+  overflow: hidden;
 }
 .splash-waves span {
   position: absolute;
   width: 200%;
   height: 200%;
+  top: -50%;
+  left: -50%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(251,191,36,0.05), transparent 70%);
-  animation: waveMove 20s linear infinite;
+  background: radial-gradient(circle, rgba(251,191,36,0.15) 0%, rgba(249,115,22,0) 70%);
+  animation: waveMove linear infinite;
 }
-.splash-waves span:nth-child(1) { animation-duration: 20s; opacity:0.06; }
-.splash-waves span:nth-child(2) { animation-duration: 25s; opacity:0.04; transform: scale(1.2); }
-.splash-waves span:nth-child(3) { animation-duration: 30s; opacity:0.03; transform: scale(1.5); }
+.splash-waves span:nth-child(1) { animation-duration: 20s; opacity:0.15; }
+.splash-waves span:nth-child(2) { animation-duration: 25s; opacity:0.10; transform: scale(1.2); }
+.splash-waves span:nth-child(3) { animation-duration: 30s; opacity:0.07; transform: scale(1.5); }
 
 @keyframes waveMove {
   0%   { transform: translate(0,0) scale(1); }
-  25%  { transform: translate(15px,-10px) scale(1.02); }
-  50%  { transform: translate(0px,-20px) scale(1.01); }
-  75%  { transform: translate(-15px,-10px) scale(1.02); }
+  25%  { transform: translate(25px,-10px) scale(1.05); }
+  50%  { transform: translate(0px,-20px) scale(1.02); }
+  75%  { transform: translate(-25px,-10px) scale(1.05); }
   100% { transform: translate(0,0) scale(1); }
 }
 
@@ -82,9 +85,11 @@ th { background-color:#111827; color:#fbbf24; }
   height: 300px;
   background: radial-gradient(circle, rgba(251,191,36,0.2) 0%, transparent 70%);
   border-radius: 50%;
-  z-index: 1;
+  z-index: 0;
   animation: haloPulse 6s ease-in-out infinite alternate;
 }
+
+/* Animación suave del halo */
 @keyframes haloPulse {
   0% { transform: scale(0.9); opacity:0.2; }
   50% { transform: scale(1.05); opacity:0.15; }
@@ -94,7 +99,7 @@ th { background-color:#111827; color:#fbbf24; }
 /* ===== TÍTULO Y SUBTÍTULO ===== */
 .splash h1, .splash p {
   position: relative;
-  z-index: 2; /* por encima de halo y ondas */
+  z-index: 1; /* por encima del fondo y halo */
   background: rgba(17,24,39,0.75);
   padding: 16px 28px;
   border-radius: 20px;
@@ -102,11 +107,15 @@ th { background-color:#111827; color:#fbbf24; }
   margin: 8px 0;
   animation: fadeZoom 1.2s ease-out forwards;
 }
+
+/* Subtítulo ligeramente más pequeño */
 .splash p {
   font-size: 20px;
   opacity: 0.85;
   animation: fadeZoom 1.4s ease-out forwards;
 }
+
+/* ===== ANIMACIÓN DE ENTRADA SUAVE ===== */
 @keyframes fadeZoom {
   0% { transform: scale(0.8); opacity:0; }
   60% { transform: scale(1.05); opacity:1; }
@@ -170,15 +179,13 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 </head>
 <body class="dark-mode">
 
+<!-- ===== SPLASH ===== -->
 <div class="splash">
-  <!-- Fondo animado con ondas -->
   <div class="splash-waves">
     <span></span>
     <span></span>
     <span></span>
   </div>
-
-  <!-- Contenedor de textos -->
   <div class="halo"></div>
   <h1>🏋️ Reto Masibros 2026</h1>
   <p>Constancia · Asado · Disciplina</p>
@@ -252,7 +259,6 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 setTimeout(() => { 
   document.querySelector('.splash').style.display='none'; 
 }, 3000);
-
 // ===== BOTÓN MODO DIURNO/NOCTURNO =====
 const toggle = document.getElementById("toggleDark");
 const btnCargar = document.querySelector(".boton-cargar");
@@ -345,6 +351,7 @@ async function cargarRanking(){
     console.error("Error cargando ranking:", err);
   }
 }
+
 cargarRanking();
 
 // ===== EFECTO SCROLL SECCIONES =====
