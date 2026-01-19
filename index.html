@@ -373,51 +373,68 @@
     }
   });
 
-// ===== CARGAR RANKING =====
+// ===== CARGAR RANKING =====//
 const PARTICIPANTES = ["Mati", "Luca", "Litox", "Fran", "Unyi"];
+const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
+
 const tablaRanking = document.getElementById('tablaRanking');
 
 async function cargarRanking() {
   try {
-    const urlWebApp = "https://script.google.com/macros/s/AKfycbzFl9mIqMbcd6NbPIfkJwyqrKqPKVO1KtiEvyn0e5wRwJejY50f6boivwLlqPlq08lt/exec";
-    const res = await fetch(urlWebApp);
+    const res = await fetch(URL_WEB_APP);
     const datos = await res.json();
 
+    // Crear resumen inicial
     const resumen = {};
-    PARTICIPANTES.forEach(nombre => resumen[nombre] = {dias:0, semanas:{}});
+    PARTICIPANTES.forEach(nombre => {
+      resumen[nombre] = {
+        diasTotales: 0,
+        semanas: {} // key: semana (YYYY-MM-DD del domingo), value: Set de días completos
+      };
+    });
 
+    // Procesar cada entrenamiento
     datos.forEach(d => {
-  const nombre = d.nombre;
-  if (!resumen[nombre]) return;
+      const nombre = d.nombre;
+      if (!resumen[nombre]) return;
 
-  resumen[nombre].dias += 1;
+      resumen[nombre].diasTotales += 1;
 
-  // Calcular semana (domingo-sábado)
+      // Calcular semana (domingo → sábado)
       const fecha = new Date(d.fechaEntrenamiento);
       const day = fecha.getDay(); // domingo=0, lunes=1, ..., sábado=6
       const domingo = new Date(fecha);
       domingo.setDate(fecha.getDate() - day); // retroceder al domingo
-      const weekKey = domingo.toISOString().split("T")[0]; // YYYY-MM-DD
-      if (!resumen[nombre].semanas[weekKey]) resumen[nombre].semanas[weekKey] = new Set();
+      const weekKey = domingo.toISOString().split("T")[0];
+
+      if (!resumen[nombre].semanas[weekKey]) {
+        resumen[nombre].semanas[weekKey] = new Set();
+      }
+
+      // Guardamos la fecha completa para evitar mezclar días de otros meses
       resumen[nombre].semanas[weekKey].add(fecha.toISOString().split("T")[0]);
     });
-    
 
-    // ===== RENDERIZAR TABLA =====
+    // ===== Renderizar tabla =====
+    // Limpiar tabla
     tablaRanking.querySelectorAll("tr:not(:first-child)").forEach(tr => tr.remove());
 
     PARTICIPANTES.forEach(nombre => {
-      const diasTotales = resumen[nombre].dias;
+      const diasTotales = resumen[nombre].diasTotales;
+
+      // Contar semanas cumplidas
       let semanasCumplidas = 0;
-      Object.values(resumen[nombre].semanas).forEach(s => { if(s.size >= 3) semanasCumplidas++; });
+      Object.values(resumen[nombre].semanas).forEach(setDias => {
+        if (setDias.size >= 3) semanasCumplidas += 1;
+      });
 
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>${nombre}</td><td>${diasTotales}</td><td>${semanasCumplidas}</td>`;
       tablaRanking.appendChild(tr);
     });
 
-  } catch(err) {
-    console.error("Error cargando ranking: ", err);
+  } catch (err) {
+    console.error("Error cargando ranking:", err);
   }
 }
 
