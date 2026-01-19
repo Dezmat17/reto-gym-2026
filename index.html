@@ -33,13 +33,94 @@ th { background-color:#111827; color:#fbbf24; }
 .boton:hover { transform: translateY(-2px); box-shadow:0 6px 12px rgba(0,0,0,0.15); }
 
 /* ===== SPLASH ===== */
-.splash { position: fixed; inset:0; background: linear-gradient(135deg,#111827,#1f2933); color:#fbbf24; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999; animation:splashOut 3s ease forwards;}
-.splash h1 { font-size:48px; margin-bottom:10px; background: linear-gradient(90deg,#fbbf24,#f59e0b); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:zoomIn 1.5s ease;}
-.splash p { font-size:18px; opacity:0.85; animation:fadeIn 1.8s ease;}
-@keyframes zoomIn { from {opacity:0; transform:scale(0.85);} to {opacity:1; transform:scale(1);} }
-@keyframes fadeIn { from {opacity:0;} to {opacity:0.85;} }
-@keyframes splashOut { 0%{opacity:1;} 80%{opacity:1;} 100%{opacity:0; visibility:hidden;} }
+/* Fondo animado */
+.splash {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg,#111827,#1f2933,#111827,#1f2933);
+  background-size: 400% 400%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: gradientShift 6s ease infinite;
+  overflow: hidden;
+}
 
+/* Partículas flotantes */
+.splash::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(circle, #fbbf24 2px, transparent 2px);
+  background-size: 20px 20px;
+  animation: moveStars 4s linear infinite;
+  z-index:0;
+  opacity:0.4;
+}
+
+/* Título */
+.splash h1 {
+  font-size:48px;
+  margin-bottom:10px;
+  background: linear-gradient(90deg,#fbbf24,#f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bounceIn 1.2s ease forwards;
+  z-index:1;
+}
+
+/* Subtítulo animado */
+.splash p {
+  display:flex;
+  gap: 8px;
+  font-size:18px;
+  opacity:1;
+  z-index:1;
+}
+.splash p span {
+  opacity:0;
+  transform: translateY(10px);
+  display:inline-block;
+  animation: fadeUp 0.5s forwards;
+}
+.splash p span:nth-child(1){ animation-delay:0.3s; }
+.splash p span:nth-child(2){ animation-delay:0.6s; }
+.splash p span:nth-child(3){ animation-delay:0.9s; }
+
+/* Loader circular */
+.loader {
+  margin-top:20px;
+  width:36px; height:36px;
+  border:4px solid #fbbf24;
+  border-top:4px solid transparent;
+  border-radius:50%;
+  animation: spin 1s linear infinite;
+  z-index:1;
+}
+
+/* Animaciones */
+@keyframes bounceIn {
+  0% { transform: scale(0.5); opacity:0; }
+  60% { transform: scale(1.1); opacity:1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+@keyframes fadeUp {
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes gradientShift {
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+@keyframes moveStars {
+  0% { background-position:0 0; }
+  100% { background-position:40px 40px; }
+}
 /* ===== MESES ===== */
 .meses { display:flex; flex-wrap:wrap; justify-content:center; gap:18px; max-width:720px; margin:0 auto;}
 .mes { width:160px; padding:18px 10px; border-radius:14px; text-decoration:none; font-weight:600; color:#fbbf24; background-color:#1f2933; text-align:center; box-shadow:0 6px 14px rgba(0,0,0,0.3); border:1px solid #333; transition: all 0.25s ease, background 0.3s, color 0.3s; }
@@ -99,9 +180,11 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 
 <div class="splash">
   <h1>🏋️ Reto Masibros 2026</h1>
-  <p>Constancia · Asado · Disciplina</p>
+  <p>
+    <span>Constancia</span> · <span>Asado</span> · <span>Disciplina</span>
+  </p>
+  <div class="loader"></div>
 </div>
-
 <!-- ===== MENÚ ===== -->
 <nav>
   <div class="menu-items">
@@ -166,6 +249,10 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 </section>
 
 <script>
+// Desaparece el splash después de 3s
+setTimeout(()=>{ 
+  document.querySelector('.splash').style.display='none'; 
+}, 3000);
 // ===== BOTÓN MODO DIURNO/NOCTURNO =====
 const toggle = document.getElementById("toggleDark");
 const btnCargar = document.querySelector(".boton-cargar");
