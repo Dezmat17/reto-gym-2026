@@ -329,9 +329,17 @@ function generarResumen(mes) {
     dias[r.nombre]++;
 
     const day = f.getDay(); // domingo=0, lunes=1, ..., sábado=6
-    const domingo = new Date(f);
-    domingo.setDate(f.getDate() - day); // retroceder al domingo de la semana
-    const clave = domingo.toISOString().split("T")[0];
+const lunes = new Date(f);
+
+if(day === 0) {
+  // Domingo → retroceder 6 días
+  lunes.setDate(f.getDate() - 6);
+} else {
+  // Lunes a sábado → retroceder day-1 días
+  lunes.setDate(f.getDate() - (day - 1));
+}
+
+const clave = `${lunes.getFullYear()}-${String(lunes.getMonth()+1).padStart(2,'0')}-${String(lunes.getDate()).padStart(2,'0')}`;
 
     if (!semanas[r.nombre][clave]) semanas[r.nombre][clave] = new Set();
     semanas[r.nombre][clave].add(f.getDate());
