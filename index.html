@@ -32,93 +32,78 @@ th { background-color:#111827; color:#fbbf24; }
 .boton { display:inline-block; margin:10px 8px; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:10px; border:none; cursor:pointer; transition: all 0.3s ease; text-decoration:none; }
 .boton:hover { transform: translateY(-2px); box-shadow:0 6px 12px rgba(0,0,0,0.15); }
 
-/* SPLASH */
+/* ===== SPLASH NUEVO ===== */
 .splash {
   position: fixed;
   inset: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 9999;
   overflow: hidden;
 }
 
-/* Fondo degradado base */
-.splash .waves {
+/* Fondo animado elegante */
+.splash-bg {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, #111827, #1f2933);
-  animation: waveMove 12s linear infinite;
-  z-index: 0;
+  overflow: hidden;
 }
 
-/* Ondas suaves animadas */
-.splash .waves::before,
-.splash .waves::after {
-  content: '';
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
+/* Círculos flotantes sobrios */
+.splash-bg::before,
+.splash-bg::after {
+  content:'';
+  position:absolute;
+  width:300px; height:300px;
+  border-radius:50%;
   background: radial-gradient(circle, rgba(251,191,36,0.15) 0%, transparent 70%);
-  animation: wavePulse 6s ease-in-out infinite alternate;
+  animation: floatCircle 8s ease-in-out infinite alternate;
 }
 
-.splash .waves::after {
-  animation-delay: 3s;
+.splash-bg::after {
+  left: auto; right: 10%;
+  top: 20%;
+  animation-delay: 4s;
 }
 
-/* Animaciones */
-@keyframes waveMove {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(10deg) scale(1.05); }
-  100% { transform: rotate(0deg) scale(1); }
+/* Animación de flotación */
+@keyframes floatCircle {
+  0% { transform: translateY(0) scale(1); opacity:0.3; }
+  50% { transform: translateY(-20px) scale(1.05); opacity:0.15; }
+  100% { transform: translateY(0) scale(1); opacity:0.3; }
 }
 
-@keyframes wavePulse {
-  0% { transform: scale(1); opacity:0.3; }
-  50% { transform: scale(1.1); opacity:0.15; }
-  100% { transform: scale(1); opacity:0.3; }
-}
-
-/* Título y subtítulo */
-.splash h1, .splash p {
+/* Contenedor de texto */
+.splash-text {
   position: relative;
-  z-index: 1; /* Por encima del fondo */
-  background: rgba(17,24,39,0.8);
-  padding: 8px 16px;
-  border-radius: 8px;
-  display: inline-block;
-  margin-bottom: 12px;
+  z-index: 1;
+  text-align: center;
 }
 
-.splash p {
-  font-size: 18px;
-  opacity: 0.85;
+/* Recuadros de título y subtítulo */
+.splash-text h1,
+.splash-text p {
+  display: inline-block;
+  background: rgba(17,24,39,0.85);
+  padding: 12px 24px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  margin-bottom: 12px;
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeUpText 1s forwards;
 }
-/* Animaciones */
-@keyframes bounceIn {
-  0% { transform: scale(0.5); opacity:0; }
-  60% { transform: scale(1.1); opacity:1; }
-  80% { transform: scale(0.95); }
-  100% { transform: scale(1); }
+
+/* Animación escalonada para subtítulo */
+.splash-text p {
+  animation-delay: 0.4s;
 }
-@keyframes fadeUp {
-  to { opacity:1; transform:translateY(0); }
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes gradientShift {
-  0% { background-position:0% 50%; }
-  50% { background-position:100% 50%; }
-  100% { background-position:0% 50%; }
-}
-@keyframes moveStars {
-  0% { background-position:0 0; }
-  100% { background-position:40px 40px; }
+
+/* Animación fade + leve subida */
+@keyframes fadeUpText {
+  to { opacity:1; transform: translateY(0); }
 }
 /* ===== MESES ===== */
 .meses { display:flex; flex-wrap:wrap; justify-content:center; gap:18px; max-width:720px; margin:0 auto;}
@@ -178,10 +163,16 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 <body class="dark-mode">
 
 <div class="splash">
-  <div class="waves"></div> <!-- Fondo con ondas -->
-  <h1>🏋️ Reto Masibros 2026</h1>
-  <p>Constancia · Asado · Disciplina</p>
+  <!-- Fondo elegante animado -->
+  <div class="splash-bg"></div>
+
+  <!-- Contenedor de textos -->
+  <div class="splash-text">
+    <h1>🏋️ Reto Masibros 2026</h1>
+    <p>Constancia · Asado · Disciplina</p>
+  </div>
 </div>
+
 <!-- ===== MENÚ ===== -->
 <nav>
   <div class="menu-items">
@@ -247,9 +238,13 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 { color:#1f2933; }
 
 <script>
 // Desaparece el splash después de 3s
-setTimeout(()=>{ 
-  document.querySelector('.splash').style.display='none'; 
+setTimeout(()=>{
+  const splash = document.querySelector('.splash');
+  splash.style.transition = 'opacity 0.8s ease';
+  splash.style.opacity = '0';
+  setTimeout(()=>{ splash.style.display='none'; }, 800);
 }, 3000);
+
 // ===== BOTÓN MODO DIURNO/NOCTURNO =====
 const toggle = document.getElementById("toggleDark");
 const btnCargar = document.querySelector(".boton-cargar");
